@@ -1,1 +1,1 @@
-# Group_3
+# Project 2 Chess Game
