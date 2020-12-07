@@ -7,6 +7,8 @@
  */
 package com.revature.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -58,6 +60,10 @@ public class User implements Serializable{
 
     public User(){}
 
+    /** 
+     * Does NOT validate any of the data.
+     * 
+    */
     public User(int id, UserType type, String username, String email){
         this.id = id;
         this.type = type;
@@ -65,6 +71,10 @@ public class User implements Serializable{
         this.email = email;
     }
 
+    /** 
+     * Does NOT validate any of the data.
+     * 
+    */
     public User(UserType type, String username, String email){
         this.type = type;
         this.username = username;
