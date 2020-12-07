@@ -30,9 +30,10 @@ public class User implements Serializable{
     // ---------------------
 
     public enum UserType {
-        NONE,
+        NONE, // should never be used - indicates problem
         PLAYER,
         ADMIN, // necessary?
+        ALL, // should never be used by an actual User
     }
 
     // ---------------------
