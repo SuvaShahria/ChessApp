@@ -16,7 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-@Table(
+@Entity
+@Table(name="USER_PASSWORD")
 public class UserPassword implements Serializable{
     
     // for serializable
