@@ -18,7 +18,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="USER")
-public class User{
+public class User implements Serializable{
+
+    // for serializable
+    private static final long serialVersionUID = 0L; // makes compiler happy
 
     // ---------------------
     // ENUMS
