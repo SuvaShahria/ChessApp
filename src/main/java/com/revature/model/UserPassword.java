@@ -40,8 +40,43 @@ public class UserPassword implements Serializable{
 
     public UserPassword() {}
 
+    /**
+     * Does NOT validate any of the given data.
+     * 
+     */
     public UserPassword(User user, String encryptedPass){
         this.user = user;
         this.encryptedPass = encryptedPass;
     }
+
+    // ---------------------
+    // SETTERS AND GETTERS
+    // ---------------------
+
+    public User getUser() {
+		return this.user;
+	}
+
+    /**
+     * Does not validate anything on the user account.
+     * 
+     * @param user
+     */
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+    public String getEncryptedPass() {
+		return this.encryptedPass;
+	}
+
+    /**
+     * Does not validate anything on the password.
+     * Encryption should be handled by the DAO.
+     * 
+     * @param user
+     */
+	public void setEncryptedPass(String encryptedPass) {
+		this.encryptedPass = encryptedPass;
+	}
 }
