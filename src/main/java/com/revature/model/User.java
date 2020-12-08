@@ -29,6 +29,11 @@ public class User implements Serializable{
     // ENUMS
     // ---------------------
 
+    /**
+     * This enum describes what kind of user this is - a customer/player vs an admin.
+     * It is also used by the UserRepository interface to control the results of 
+     * findByType.
+     */
     public enum UserType {
         NONE, // should never be used - indicates problem
         PLAYER,
