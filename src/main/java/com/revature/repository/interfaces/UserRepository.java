@@ -14,6 +14,19 @@ import com.revature.repository.RepositoryException;
 public interface UserRepository {
 
     // ---------------------
+    // ENUM(S)
+    // ---------------------
+
+    /**
+     * This enum is used as a parameter in findByType.
+     */
+    public enum UserTypeFilter{
+        ALL,
+        USER,
+        ADMIN
+    }
+
+    // ---------------------
     // METHODS
     // ---------------------
 
@@ -74,6 +87,16 @@ public interface UserRepository {
      * @throws RepositoryException : if there is a problem with the database
      */
     public List<User> findByType(UserType type) throws RepositoryException;
+
+    /**
+     * Returns a list containing all of the registered users matching the given filter.
+     * If no such users exists, returns an empty list.
+     * 
+     * @param filter
+     * @return
+     * @throws RepositoryException : if there is a problem with the database
+     */
+    public List<User> findByType(UserTypeFilter filter) throws RepositoryException;
 
     /**
      * Determines if the given password corresponds to the given user.
