@@ -39,6 +39,9 @@ public class UserPassword implements Serializable{
     // CONSTRUCTOR(S)
     // ---------------------
 
+    /**
+     * Does NOT intialize any fields.
+     */
     public UserPassword() {}
 
     /**

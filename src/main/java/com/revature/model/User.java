@@ -46,7 +46,7 @@ public class User implements Serializable{
     // ---------------------
 
     @Id
-    @Column(name="id")
+    @Column(name="ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -64,6 +64,9 @@ public class User implements Serializable{
     // CONSTRUCTOR(S)
     // ---------------------
 
+    /**
+     * Does NOT intialize any fields.
+     */
     public User(){}
 
     /** 
