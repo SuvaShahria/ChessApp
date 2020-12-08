@@ -7,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
   
-    title = 'Super Hero Portal';
-    image = 'assets/images/superhero.jpg'
+    title = 'Chess!';
 
   constructor() { }
 

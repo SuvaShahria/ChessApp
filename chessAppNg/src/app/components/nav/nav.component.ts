@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
+  crown = "./assets/images/Crown.png"
   constructor() { }
 
   ngOnInit(): void {
