@@ -37,6 +37,7 @@
               "node_modules/jquery/dist/jquery.js"
               ,"node_modules/chessboardjs/www/js/chessboard.js"
               ,"node_modules/chessboardjs/www/js/chess.js"
+              ,"node_modules/chess.js/chess.js"
             ]
           },
           "configurations": {
