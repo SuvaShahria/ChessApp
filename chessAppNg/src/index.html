@@ -6,15 +6,21 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/chessboard-1.0.0.css">
 </head>
+<style>
+  #board{
+    visibility: hidden;
+  }
+  </style>
+
 <body>
     
     
 
-  <div id="board" style="width: 400px"></div>
+  
   <label>Status:</label>
   <div id="status"></div>
  
-  
+  <app-root><div id="board" style="width: 400px"></div></app-root>
 
 
     <script
@@ -29,6 +35,7 @@
 
 
     <script>
+      
        var board = null;
       var game = new Chess()
       var $status = $('#status')
