@@ -1,10 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
+import * as ChessBoard from 'chessboardjs/www/js/chessboard';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'chessAppNg';
+export class AppComponent implements AfterViewInit {
+
+  title = 'frontend';
+  board1: ChessBoard;
+  ngOnInit(){
+    this.board1 = ChessBoard('board1', 'start')
+  }
+  ngAfterViewInit() {
+    
+    
+
+}
 }
