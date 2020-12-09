@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import * as ChessBoard from 'chessboardjs/www/js/chessboard';
-
+import * as Chess from 'chessboardjs/www/js/chess'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,7 +11,11 @@ export class AppComponent implements AfterViewInit {
   title = 'frontend';
   board1: ChessBoard;
   ngOnInit(){
-    this.board1 = ChessBoard('board1', 'start')
+    this.board1 = ChessBoard('board1', {
+      draggable: true,
+      dropOffBoard: 'trash',
+      sparePieces: true
+    })
   }
   ngAfterViewInit() {
     

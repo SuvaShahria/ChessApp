@@ -21,7 +21,12 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "../node_modules/chessboardjs/www/img",
+                "output": "./img"
+              }
               
             ],
             "styles": [
@@ -31,6 +36,7 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.js"
               ,"node_modules/chessboardjs/www/js/chessboard.js"
+              ,"node_modules/chessboardjs/www/js/chess.js"
             ]
           },
           "configurations": {
