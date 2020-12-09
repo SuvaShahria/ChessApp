@@ -10,6 +10,12 @@
   #board{
     visibility: hidden;
   }
+  #st{
+    visibility: hidden;
+  }
+  #status{
+    visibility: hidden;
+  }
   </style>
 
 <body>
@@ -17,10 +23,14 @@
     
 
   
-  <label>Status:</label>
-  <div id="status"></div>
  
-  <app-root><div id="board" style="width: 400px"></div></app-root>
+  <app-root>
+    <div id="board" style="width: 400px"></div>
+    <label id = st>Status:</label>
+    <div id="status"></div>
+   
+  
+  </app-root>
 
 
     <script
@@ -35,7 +45,7 @@
 
 
     <script>
-      
+     // document.getElementById('board').style.visibility = 'visible';
        var board = null;
       var game = new Chess()
       var $status = $('#status')
