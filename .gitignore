@@ -5,3 +5,6 @@ log.txt
 /.vscode
 /.vscode/*
 .vscode
+.settings
+.classpath
+.project
