@@ -12,12 +12,12 @@ import  Chess from 'chess.js';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public chess: any ;
+  public chess: Chess = new Chess() ;
  
   board: ChessBoard;
    //chess = new Chess();
   ngOnInit(){
-    this.chess = new Chess();
+    
     //this.game = new Chess.Chess();
     this.board = ChessBoard('board', {
       draggable: true,
@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
 
      // console.log(this.chess.game_over())
     // only pick up pieces for the side to move
-   // console.log(this.chess.turn())
+    //console.log(this.chess.turn())
     
 
     return true;
