@@ -1,7 +1,5 @@
 /**
- * This interface describes the methods needed to service requests to access and/or modify
- * User data in the database.
- * 
+ * This interface describes the methods needed to service requests related to Users.
  * @author Andrew Curry
  */
 package com.revature.service.interfaces;
@@ -89,7 +87,7 @@ public interface UserService {
      * @return
      * @throws ServiceException
      */
-    public List<User> getAllUsers() throws ServiceException;
+    public List<User> findAllUsers() throws ServiceException;
 
     /**
      * Returns a list of all the player-level users in the database.
@@ -99,7 +97,7 @@ public interface UserService {
      * @return
      * @throws ServiceException
      */
-    public List<User> getAllPlayers() throws ServiceException;
+    public List<User> findAllPlayers() throws ServiceException;
 
     /**
      * Returns a list of all the admin-level users in the database.
@@ -109,5 +107,5 @@ public interface UserService {
      * @return
      * @throws ServiceException
      */
-    public List<User> getAllAdmins() throws ServiceException;
+    public List<User> findAllAdmins() throws ServiceException;
 }

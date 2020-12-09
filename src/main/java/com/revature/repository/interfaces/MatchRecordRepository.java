@@ -52,6 +52,8 @@ public interface MatchRecordRepository {
      * Returns the match record corresponding to the given id.
      * If no such match record exists, returns null.
      * 
+     * Throws RepositoryException if there is a problem with the database.
+     * 
      * @param id
      * @return
      * @throws RepositoryException
@@ -62,10 +64,13 @@ public interface MatchRecordRepository {
      * Finds all match records where the given user is one of the players.
      * If no such match records exist, returns an empty list.
      * 
+     * Throws RepositoryException if there is a problem with the database, such as if
+     * the user does not exist.
+     * 
      * @param user
      * @return
      */
-    public List<MatchRecord> findMatchRecordsBy(User user) throws RepositoryException;
+    public List<MatchRecord> findMatchRecordsBy(User player) throws RepositoryException;
 
     /**
      * Finds all match records matching the given status filter.
@@ -87,7 +92,7 @@ public interface MatchRecordRepository {
      * @return
      * @throws RepositoryException
      */
-    public List<MatchRecord> findMatchRecordsBy(User user, MatchStatusFilter filter) 
+    public List<MatchRecord> findMatchRecordsBy(User player, MatchStatusFilter filter) 
             throws RepositoryException;
     
 }
