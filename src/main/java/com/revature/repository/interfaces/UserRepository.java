@@ -41,7 +41,7 @@ public interface UserRepository {
      * @param user : a user that already exists
      * @throws RepositoryException : if there is a problem with the database
      */
-    public void save(User user) throws RepositoryException;
+    public void update(User user) throws RepositoryException;
 
     /**
      * Persists the given user to the database.
