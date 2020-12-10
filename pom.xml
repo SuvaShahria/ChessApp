@@ -60,5 +60,12 @@
       <version>42.2.9</version>
     </dependency>
 
+    <!-- Spring 4 MVC -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>4.3.9.RELEASE</version>
+		</dependency>
+
   </dependencies>
 </project>
