@@ -27,6 +27,11 @@ public class UserControllerImpl implements UserController{
     // REQUEST-HANDLING METHODS
     // ---------------------
 
+    /**
+     * very simple get request handler for testing
+     * 
+     * @return
+     */
     @GetMapping("/hello")
     public @ResponseBody String helloWorld(){
         return "Hello world!"; 
