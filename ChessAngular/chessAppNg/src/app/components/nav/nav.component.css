@@ -8,12 +8,10 @@
     height: 100%;
     width: auto;
 }
-<<<<<<< HEAD:chessAppNg/src/app/components/nav/nav.component.css
-/*  Makes the navbar append to the top of the page always.   
-    .navbar-default {
-=======
+
+/*Makes the navbar append to the top of the page always. */
+
 /* .navbar-default {
->>>>>>> main:ChessAngular/chessAppNg/src/app/components/nav/nav.component.css
     position: fixed;
     top: 0px;
     left: 0px;
