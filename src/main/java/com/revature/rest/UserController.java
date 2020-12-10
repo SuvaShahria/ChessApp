@@ -1,14 +1,43 @@
 /**
- * This is taken from the SpringMVCAngular demo from class.
+ * This interface describes the methods needed for the UserController, which bridges the
+ * gap between the dispatcher servlet and UserService.
  * 
- * @author Andrew Curry (well, really it's Sophia Gavrila)
+ * NOTE: it is not complete. There are many methods not yet specified.
+ * 
+ * @author Andrew Curry
  */
 package com.revature.rest;
 
-
-import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletRequest;
 import com.revature.ajax.ClientMessage;
+import com.revature.model.User;
 
-public class UserController {
-    
+public interface UserController {
+
+    // ---------------------
+    // REQUEST-HANDLING METHODS
+    // ---------------------
+
+    /**
+     * Handles registering a new user to the system. Must be a new user, not already in
+     * the database.
+     * 
+     * Intended for POST
+     * 
+     * @param user
+     * @param barePassword
+     * @return
+     */
+    ClientMessage registerUser(User user, String barePassword);
+
+    /**
+     * Handles a user logging in to the system.
+     * 
+     * Intended for POST
+     * 
+     * @param username
+     * @param barePassword
+     * @return
+     */
+    User logIn(String username, String barePassword);
 }
