@@ -14,6 +14,7 @@ import com.revature.util.ClientMessageUtil;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,6 +26,11 @@ public class UserControllerImpl implements UserController{
     // ---------------------
     // REQUEST-HANDLING METHODS
     // ---------------------
+
+    @GetMapping("/hello")
+    public @ResponseBody String helloWorld(){
+        return "Hello world!"; 
+    }
 
     /**
      * Handles registering a new user to the system. Must be a new user, not already in
