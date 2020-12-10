@@ -16,8 +16,8 @@ public class DemoDriver {
 
     public static void main(String[] args){
         System.out.println("-----DemoDriver Start-----");
-        ConfigurableApplicationContext appContext 
-                = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ConfigurableApplicationContext appContext = new ClassPathXmlApplicationContext(
+                "applicationContext.xml");
         DemoService ds = appContext.getBean("demoService", DemoService.class);
         List<User> userList = ds.getAllUsers();
         System.out.println("Number of users found in database: " + userList.size());
