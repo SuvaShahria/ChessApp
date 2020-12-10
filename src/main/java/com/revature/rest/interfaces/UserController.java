@@ -6,7 +6,7 @@
  * 
  * @author Andrew Curry
  */
-package com.revature.rest;
+package com.revature.rest.interfaces;
 
 //import javax.servlet.http.HttpServletRequest;
 import com.revature.ajax.ClientMessage;
@@ -28,7 +28,7 @@ public interface UserController {
      * @param barePassword
      * @return
      */
-    ClientMessage registerUser(User user, String barePassword);
+    public ClientMessage registerUser(User user, String barePassword);
 
     /**
      * Handles a user logging in to the system.
@@ -39,5 +39,5 @@ public interface UserController {
      * @param barePassword
      * @return
      */
-    User logIn(String username, String barePassword);
+    public ClientMessage logIn(String username, String barePassword);
 }
