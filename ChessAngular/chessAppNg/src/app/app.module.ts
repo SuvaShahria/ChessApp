@@ -10,6 +10,8 @@ import { LoginComponent } from './components/login/login.component';
 import { TipsComponent } from './components/tips/tips.component';
 import { HistoryComponent } from './components/history/history.component';
 import { FindMatchComponent } from './components/find-match/find-match.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { FindMatchComponent } from './components/find-match/find-match.component
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
