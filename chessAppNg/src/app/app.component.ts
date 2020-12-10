@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
   
     // illegal move
     // if (move === null) return 'snapback'
-    return ''
+    return 'snapback'
     //to revert return 'snapback'
   }
 
