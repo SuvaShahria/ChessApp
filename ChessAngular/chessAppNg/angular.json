@@ -27,7 +27,9 @@
               "src/styles.css"
               
             ],
-            "scripts": []
+            "scripts": [
+              "src/main2.js"
+            ]
           },
           "configurations": {
             "production": {
