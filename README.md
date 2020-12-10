@@ -17,11 +17,6 @@ When you're presenting, you're welcome to provide a brief slideshow demonstratin
 - Register
 - Anything else
 
-## What's Due Tuesday Dec. 8th by 10am?
-- Project Proposal - you're welcome to use the word document provided in this directory or make a copy of [this google slide](https://docs.google.com/document/d/1F2UKzwIcsxWdGlY5bIsM6XfOyx2NAPiL0VXWOLcLTkk/edit?usp=sharing)
-  > Slack this document to Sophia.  The proposal is a brief description of your application, team members, and Scrum Master.
-- You will have you your first Stand-Up at 10:00am that morning, and then report any major updates in front of the batch.
-
 ## Agile Scrum Guidelines
 For software teams, the stand-up is like the team’s huddle. It’s even commonly known as the daily scrum, and reinforces “we” to keep everyone aware of the team’s landscape and progress.
 - Every morning, at 10:00am you will have a Daily Standup of about 7-10 minutes.
@@ -38,4 +33,3 @@ For software teams, the stand-up is like the team’s huddle. It’s even common
 - Use a [Kanban Board](https://www.atlassian.com/agile/kanban/boards) like [Trello](https://trello.com/?&aceid=&adposition=&adgroup=105703214328&campaign=9843285532&creative=437184392320&device=c&keyword=trello&matchtype=e&network=g&placement=&ds_kids=p53016490704&ds_e=GOOGLE&ds_eid=700000001557344&ds_e1=GOOGLE&gclid=Cj0KCQiA2af-BRDzARIsAIVQUOfgZifIwr-ClvNLXs4m9zn7VFhTU4bXoVdq1iBVe7SNfiXGeVVNKlgaAsHAEALw_wcB&gclsrc=aw.ds)
 - Use a [Burndown Chart](http://www.agilenutshell.com/burndown)
 - Present your app with a slide show and talk us through any extra technologies you implemented either within your application or to track the progress of your sprint.
-
