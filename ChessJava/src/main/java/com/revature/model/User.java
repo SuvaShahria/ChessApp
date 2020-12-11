@@ -66,6 +66,14 @@ public class User implements Serializable{
         this.email = email;
     }
 
+    /** 
+     * Does NOT validate any of the data.
+     * 
+    */
+    public User(String username){
+        this.username = username;
+    }
+
     // ---------------------
     // SETTERS AND GETTERS
     // ---------------------

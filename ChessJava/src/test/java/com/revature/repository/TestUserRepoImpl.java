@@ -16,6 +16,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import com.revature.model.User;
+import com.revature.model.UserPassword;
 import com.revature.repository.impl.UserRepositoryImpl;
 import com.revature.repository.interfaces.UserRepository;
 
@@ -27,6 +28,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 import org.junit.Before;
 import org.junit.Test;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class TestUserRepoImpl {
 
@@ -48,7 +50,7 @@ public class TestUserRepoImpl {
     }
 
     // ---------------------
-    // checkExists() METHODS
+    // checkExists() TESTS
     // ---------------------
 
     @Test
@@ -70,7 +72,7 @@ public class TestUserRepoImpl {
     }
 
     // ---------------------
-    // register() METHODS
+    // register() TESTS
     // ---------------------
     
     @Test
@@ -103,7 +105,7 @@ public class TestUserRepoImpl {
     }
 
     // ---------------------
-    // findUser() METHODS
+    // findUser() TESTS
     // ---------------------
 
     /**
@@ -135,5 +137,48 @@ public class TestUserRepoImpl {
         assertNotNull(found);
         found = urepo.findUser(target.getUsername());
         assertNotNull(found);
+    }
+
+    // ---------------------
+    // checkPassword() TESTS
+    // ---------------------
+
+    @Test
+    public void testCheckPassword() throws RepositoryException {
+        // look for a user that doesn't exist
+        User notFound = new User("notFound");
+        boolean wasCaught;
+        wasCaught = false;
+        try{
+            urepo.checkPassword(notFound, "n/a");
+        } catch(RepositoryException e){
+            if (!e.getMessage().startsWith("Hibernate")) wasCaught = true;
+        }
+        assertTrue(wasCaught);
+        // put in a user without a password
+        User userNoPass = new User("noPass");
+        Session session = sfactory.openSession();
+        Transaction tx = session.beginTransaction();
+        session.save(userNoPass);
+        tx.commit();
+        wasCaught = false;
+        try{
+            urepo.checkPassword(userNoPass, "noPassFound");
+        } catch(RepositoryException e){
+            if (!e.getMessage().startsWith("Hibernate")) wasCaught = true;
+        }
+        assertTrue(wasCaught);
+        // put in a user WITH a password
+        User good = new User("user");
+        session = sfactory.openSession();
+        tx = session.beginTransaction();
+        session.save(good);
+        String encryptedPassword = BCrypt.hashpw("password", BCrypt.gensalt());
+        UserPassword goodPass = new UserPassword(good, encryptedPassword);
+        session.save(goodPass);
+        tx.commit();
+        // now check it
+        assertTrue(urepo.checkPassword(good, "password"));
+        assertFalse(urepo.checkPassword(good, "wrong"));
     }
 }

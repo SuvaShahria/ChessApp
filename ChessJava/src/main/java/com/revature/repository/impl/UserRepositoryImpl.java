@@ -164,7 +164,7 @@ public class UserRepositoryImpl implements UserRepository {
             Session session = sessionFactory.getCurrentSession();
             Transaction tx = session.beginTransaction();
             Criteria crit = session.createCriteria(UserPassword.class);
-            crit.add(Restrictions.eq("user.ID", user.getId()));
+            crit.add(Restrictions.eq("user.id", user.getId()));
             List<UserPassword> passList = crit.list();
             tx.commit();
             if (passList.isEmpty()) 
