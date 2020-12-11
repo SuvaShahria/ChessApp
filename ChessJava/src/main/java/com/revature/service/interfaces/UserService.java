@@ -44,7 +44,7 @@ public interface UserService {
      * 
      * Will encrypt, but not validate, the given password.
      * 
-     * Throws ServiceException if the user is already in the DB - use update() for
+     * Returns null if the user is already in the DB - use update() for
      * existing users
      * 
      * @param user : a new user

@@ -55,11 +55,7 @@ public class UserControllerImpl implements UserController{
             @RequestBody User user, 
             @RequestBody String barePassword){
         String username = user.getUsername();
-        // trying to register a user that already exists?
-        if (username.equals("user") || username.equals("admin")){
-            return ClientMessageUtil.SOMETHING_WRONG;
-        }
-        else return ClientMessageUtil.REGISTRATION_SUCCESSFUL;
+        return null;
     }
 
     /**

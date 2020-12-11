@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
      * 
      * Will encrypt, but not validate, the given password.
      * 
-     * Throws ServiceException if the user is already in the DB - use update() for
+     * Returns null if the user is already in the DB - use update() for
      * existing users
      * 
      * 
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User register(User user, String barePassword) throws ServiceException {
         try{
-            return uRepo.register(user, barePassword);
+            return (uRepo.checkExists(user)) ? uRepo.register(user, barePassword) : null;
         } catch(RepositoryException e){
             throw new ServiceException("RepositoryException: " + e.getMessage());
         }

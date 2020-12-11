@@ -67,6 +67,7 @@ public class TestUserServiceImpl {
         User uIn = new User("user", "email");
         String bp = "password";
         User uOut = new User(1, "user", "email");
+        when(uRepo.checkExists(uIn)).thenReturn(true);
         when(uRepo.register(uIn, bp)).thenReturn(uOut);
         User result = uService.register(uIn, bp);
         assertNotNull(result);
@@ -75,17 +76,34 @@ public class TestUserServiceImpl {
     }
 
     /**
-     * Expects a failed registration
+     * Expects a failed registration due to the user already existing
      * 
      * @throws ServiceException
      * @throws RepositoryException
      */
     @Test
-    public void testRegisterFail() throws RepositoryException{
+    public void testRegisterAlreadyExists() throws ServiceException, RepositoryException{
+        User uIn = new User("user", "email");
+        String bp = "password";
+        User uOut = new User(1, "user", "email");
+        when(uRepo.checkExists(uIn)).thenReturn(false);
+        User result = uService.register(uIn, bp);
+        assertNull(result);
+    }
+
+    /**
+     * Expects a failed registration due to RepoExcept
+     * 
+     * @throws ServiceException
+     * @throws RepositoryException
+     */
+    @Test
+    public void testRegisterRepoExcept() throws RepositoryException{
         boolean caught = false;
         try{
             User uIn = new User("user", "email");
             String bp = "password";
+            when(uRepo.checkExists(uIn)).thenReturn(true);
             when(uRepo.register(uIn, bp)).thenThrow(new RepositoryException());
             uService.register(uIn, bp);
         } catch (ServiceException e){
