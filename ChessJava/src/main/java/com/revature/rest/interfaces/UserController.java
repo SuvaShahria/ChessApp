@@ -11,8 +11,21 @@ package com.revature.rest.interfaces;
 //import javax.servlet.http.HttpServletRequest;
 import com.revature.ajax.ClientMessage;
 import com.revature.model.User;
+import com.revature.model.UserWithPassword;
+import com.revature.service.interfaces.UserService;
 
 public interface UserController {
+
+    // ---------------------
+    // UTILITY / TESTING METHODS
+    // ---------------------
+
+    /**
+     * Used to replace the automatically-injected spring bean. Used for testing.
+     * 
+     * @param uService
+     */
+    public void useOutsideService(UserService uService);
 
     // ---------------------
     // REQUEST-HANDLING METHODS
@@ -28,7 +41,7 @@ public interface UserController {
      * @param barePassword
      * @return
      */
-    public User registerUser(User user, String barePassword);
+    public User registerUser(UserWithPassword uwp);
 
     /**
      * Handles a user logging in to the system.

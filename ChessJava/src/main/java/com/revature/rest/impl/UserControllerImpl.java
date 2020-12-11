@@ -7,10 +7,11 @@
  */
 package com.revature.rest.impl;
 
-import com.revature.ajax.ClientMessage;
 import com.revature.model.User;
+import com.revature.model.UserWithPassword;
 import com.revature.rest.interfaces.UserController;
-import com.revature.util.ClientMessageUtil;
+import com.revature.service.ServiceException;
+import com.revature.service.interfaces.UserService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,6 +23,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller("userController")
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserControllerImpl implements UserController{
+
+    // ---------------------
+    // INSTANCE VARIABLES
+    // ---------------------
+
+    private UserService uService;
+
+    // ---------------------
+    // UTILITY / TESTING METHODS
+    // ---------------------
+
+    /**
+     * Used to replace the automatically-injected spring bean. Used for testing.
+     * 
+     * @param uService
+     */
+    public void useOutsideService(UserService uService){
+        this.uService = uService;
+    }
     
     // ---------------------
     // REQUEST-HANDLING METHODS
@@ -48,11 +68,13 @@ public class UserControllerImpl implements UserController{
      * @return the user after being registered, or null if registration was not successful.
      */
     @PostMapping("/registerUser")
-    public @ResponseBody User registerUser(
-            @RequestBody User user, 
-            @RequestBody String barePassword){
-        String username = user.getUsername();
-        return null;
+    @Override
+    public @ResponseBody User registerUser(@RequestBody UserWithPassword uwp){
+        try{
+            return uService.register(uwp.makeUser(), uwp.getBarePassword());
+        } catch (ServiceException e){
+            return null;
+        }
     }
 
     /**
@@ -68,12 +90,10 @@ public class UserControllerImpl implements UserController{
      * @return
      */
     @PostMapping("/logIn")
-    public @ResponseBody ClientMessage logIn(
+    @Override
+    public @ResponseBody User logIn(
             @RequestBody String username, 
             @RequestBody String barePassword){
-        boolean isUser = username.equals("user") && barePassword.equals("password");
-        boolean isAdmin = username.equals("admin") && barePassword.equals("admin");
-        if (isUser || isAdmin) return ClientMessageUtil.LOG_IN_SUCCESSFUL;
-        else return ClientMessageUtil.SOMETHING_WRONG;
+        return null;
     }
 }
