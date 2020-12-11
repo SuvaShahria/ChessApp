@@ -12,6 +12,7 @@ import { HistoryComponent } from './components/history/history.component';
 import { FindMatchComponent } from './components/find-match/find-match.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { PlayComponent } from './components/play/play.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     TipsComponent,
     HistoryComponent,
-    FindMatchComponent
+    FindMatchComponent,
+    PlayComponent
   ],
   imports: [
     BrowserModule,

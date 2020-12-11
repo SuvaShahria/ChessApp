@@ -1,4 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+#st, #mv,#mvDiv, #status{
+
+  display: block;
+    text-align: center;
+}
+
+#playDiv{
+  background: #efeee7;
+}
+body{
+  background: #efeee7;
+
+}
+#board{
+  width: 400px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  
+  
+}
+
 .panel-body  {
     word-break: break-all;
 }
