@@ -144,11 +144,36 @@ public class UserRepositoryImpl implements UserRepository {
         return null;
     }
 
+    /**
+     * Determines if the given password corresponds to the given user.
+     * 
+     * Throws RepositoryException if there is a problem with the database, including if
+     * the given user does not exist.
+     * 
+     * @param user
+     * @param attemptedPassword : bare text, unencrypted
+     * @return true if the given password unlocks the given user account, false otherwise.
+     * @throws RepositoryException
+     */
     @Override
+    @SuppressWarnings(value="unchecked")
     public boolean checkPassword(User user, String attemptedPassword) 
             throws RepositoryException {
-        // TODO Auto-generated method stub
-        return false;
+        try{
+            if (!checkExists(user)) throw new RepositoryException("User not found");
+            Session session = sessionFactory.getCurrentSession();
+            Transaction tx = session.beginTransaction();
+            Criteria crit = session.createCriteria(UserPassword.class);
+            crit.add(Restrictions.eq("user.ID", user.getId()));
+            List<UserPassword> passList = crit.list();
+            tx.commit();
+            if (passList.isEmpty()) 
+                throw new RepositoryException("User does not have a matching password");
+            UserPassword upass = passList.get(0);
+            return checkPasswordHelp(attemptedPassword, upass.getEncryptedPass());
+        } catch(HibernateException e){
+            throw new RepositoryException("HibernateException: " + e.getMessage());
+        }
     }
 
     /**
@@ -260,7 +285,7 @@ public class UserRepositoryImpl implements UserRepository {
      * @param barePassword
      * @return
      */
-    private boolean checkPassword(String bare, String secure){
+    private boolean checkPasswordHelp(String bare, String secure){
         return BCrypt.checkpw(bare, secure);
     }
 }
