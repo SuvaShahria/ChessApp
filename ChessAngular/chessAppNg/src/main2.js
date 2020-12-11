@@ -5,6 +5,7 @@ var myExtObject = (function() {
   var piece = '';
   var w = ''
   var b = ''
+  var h = 2
   // var pieces = './assets/img/chesspieces/wikipedia/{piece}.png'
   return {
     create: function(s) {
@@ -24,14 +25,17 @@ var myExtObject = (function() {
       $('#board .black-3c85d').css('background', b)
     }
     function greySquare (square) {
-      var $square = $('#board .square-' + square)
+      if(h%2){
+        var $square = $('#board .square-' + square)
     
-      var background = whiteSquareGrey
-      if ($square.hasClass('black-3c85d')) {
-        background = blackSquareGrey
+        var background = whiteSquareGrey
+        if ($square.hasClass('black-3c85d')) {
+          background = blackSquareGrey
+        }
+      
+        $square.css('background', background)
       }
-    
-      $square.css('background', background)
+      
     }
     function onMouseoverSquare (square, piece) {
       // get list of possible moves for this square
@@ -231,6 +235,9 @@ var myExtObject = (function() {
       
       
     },
+    toggle: function(){
+      h = h+1
+    }
     
   }
 

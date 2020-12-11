@@ -46,4 +46,8 @@ export class PlayComponent implements OnInit, OnDestroy{
     myExtObject.color(x);
   }
 
+  toggle(){
+    myExtObject.toggle();
+  }
+
 }
