@@ -130,4 +130,17 @@ public interface UserRepository {
      * @throws RepositoryException
      */
     public boolean checkExists(String username) throws RepositoryException;
+
+    /**
+     * Changes the password of the given user to the given string.
+     * 
+     * Throws RepositoryException if there is a problem with the database, such as if
+     * the user does not exist.
+     * 
+     * @param id
+     * @return
+     * @throws RepositoryException
+     */
+    public void resetPassword(User user, String newBarePassword) 
+            throws RepositoryException;
 }

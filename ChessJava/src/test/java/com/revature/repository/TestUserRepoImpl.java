@@ -17,6 +17,7 @@ import com.revature.repository.interfaces.UserRepository;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import org.junit.Before;
@@ -52,6 +53,15 @@ public class TestUserRepoImpl {
         assertFalse(urepo.checkExists("notAUser"));
         User notAUser = new User(12345, "notAUser", "not@email.com");
         assertFalse(urepo.checkExists(notAUser));
+        // now put one in there and see if we can find it
+        User realUser = new User("user", "real@email.com");
+        Session session = sfactory.openSession();
+        Transaction tx = session.beginTransaction();
+        session.saveOrUpdate(realUser);
+        tx.commit();
+        assertTrue(urepo.checkExists(realUser));
+        assertTrue(urepo.checkExists(realUser.getId()));
+        assertTrue(urepo.checkExists(realUser.getUsername()));
     }
 
 

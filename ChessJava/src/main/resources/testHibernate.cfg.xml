@@ -19,6 +19,7 @@
         </property>
 		<property name="hibernate.default_schema">chess_test</property>
 		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+		<property name="hibernate.current_session_context_class">thread</property>
 
 		<!-- New Hibernate stuff -->
 		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>

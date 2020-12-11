@@ -16,6 +16,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -118,8 +119,9 @@ public class UserRepositoryImpl implements UserRepository {
     public boolean checkExists(int id) throws RepositoryException {
         try{
             Session session = sessionFactory.getCurrentSession();
+            Transaction tx = session.beginTransaction();
             User u = (User)session.get(User.class, id);
-            session.close();
+            tx.commit();
             return u != null;
         } catch(HibernateException e){
             throw new RepositoryException("HibernateException: " + e.getMessage());
@@ -140,10 +142,11 @@ public class UserRepositoryImpl implements UserRepository {
     public boolean checkExists(String username) throws RepositoryException {
         try{
             Session session = sessionFactory.getCurrentSession();
+            Transaction tx = session.beginTransaction();
             Criteria crit = session.createCriteria(User.class);
             crit.add(Restrictions.eq("username", username));
             List<User> userList = crit.list();
-            session.close();
+            tx.commit();
             return !userList.isEmpty();
         } catch(HibernateException e){
             throw new RepositoryException("HibernateException: " + e.getMessage());
