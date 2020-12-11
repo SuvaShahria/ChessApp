@@ -21,8 +21,9 @@ export class RegisterComponent {
   // Message to the user
   public clientMessage: ClientMessage = new ClientMessage('');
 
-  public registerHero(): void {
-    this.userService.registerHero(this.user)
+  public registerUser(): void {
+    console.log(this.user);
+    this.userService.registerUser(this.user)
       .subscribe(
         data => this.clientMessage = data,
         error => this.clientMessage.message = 'SOMETHING WENT WRONG'

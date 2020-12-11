@@ -7,7 +7,6 @@
             <div class="list-group-item list-group-item-demo">
                 <fieldset class="form-group">
                     <legend>
-                    <input [(ngModel)]="user.name" placeholder="Name" class="form-control" />
                     <input [(ngModel)]="user.username" placeholder="Username" class="form-control" />
                     <input [(ngModel)]="user.password" placeholder="Password" class="form-control" />
                     <input [(ngModel)]="user.firstName" placeholder="First Name" class="form-control" />
@@ -15,7 +14,7 @@
                 </legend>
                 </fieldset>
                     <div>
-                        <button class="btn btn-primary btn-center" (click)="registerHero()">REGISTER!</button>
+                        <button class="btn btn-primary btn-center" (click)="registerUser()">REGISTER!</button>
                     </div>
                     <div>
                         {{ clientMessage.message }}
