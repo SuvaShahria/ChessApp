@@ -70,7 +70,7 @@ public interface MatchRecordRepository {
      * @param user
      * @return
      */
-    public List<MatchRecord> findMatchRecordsBy(User player) throws RepositoryException;
+    public List<MatchRecord> findMatchRecordsBy(User user) throws RepositoryException;
 
     /**
      * Finds all match records matching the given status filter.
@@ -92,7 +92,7 @@ public interface MatchRecordRepository {
      * @return
      * @throws RepositoryException
      */
-    public List<MatchRecord> findMatchRecordsBy(User player, MatchStatusFilter filter) 
+    public List<MatchRecord> findMatchRecordsBy(User user, MatchStatusFilter filter) 
             throws RepositoryException;
     
 }

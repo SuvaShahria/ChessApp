@@ -88,24 +88,4 @@ public interface UserService {
      * @throws ServiceException
      */
     public List<User> findAllUsers() throws ServiceException;
-
-    /**
-     * Returns a list of all the player-level users in the database.
-     * 
-     * Throws ServiceException if there is a problem with the database
-     * 
-     * @return
-     * @throws ServiceException
-     */
-    public List<User> findAllPlayers() throws ServiceException;
-
-    /**
-     * Returns a list of all the admin-level users in the database.
-     * 
-     * Throws ServiceException if there is a problem with the database
-     * 
-     * @return
-     * @throws ServiceException
-     */
-    public List<User> findAllAdmins() throws ServiceException;
 }
