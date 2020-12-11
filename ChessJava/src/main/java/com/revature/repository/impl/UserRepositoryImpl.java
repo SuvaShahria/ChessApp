@@ -37,6 +37,11 @@ public class UserRepositoryImpl implements UserRepository {
     // ---------------------
 
     @Override
+    public void useOutsideSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    @Override
     public void update(User user) throws RepositoryException {
         // TODO Auto-generated method stub
 
@@ -155,5 +160,4 @@ public class UserRepositoryImpl implements UserRepository {
             throw new RepositoryException("HibernateException: " + e.getMessage());
         }
     }
-    
 }

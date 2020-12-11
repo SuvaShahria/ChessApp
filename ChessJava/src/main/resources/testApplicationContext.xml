@@ -25,6 +25,7 @@
     <context:component-scan base-package="com.revature.view" />
 	<context:component-scan base-package="com.revature.rest.impl" />
     <context:component-scan base-package="com.revature.experiment" />
+    <context:component-scan base-package="com.revature.repo_test" />
 
     <!--  Hibernate Integration with Contextual Sessions -->
 

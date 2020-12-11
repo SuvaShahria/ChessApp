@@ -10,11 +10,21 @@ import java.util.List;
 import com.revature.model.User;
 import com.revature.repository.RepositoryException;
 
+import org.hibernate.SessionFactory;
+
 public interface UserRepository {
 
     // ---------------------
     // METHODS
     // ---------------------
+
+    /**
+     * Forces the UserRepository to use the given SessionFactory instead of the one
+     * automatically injected by spring. This will likely only be used for testing.
+     * 
+     * @param sessionFactory
+     */
+    public void useOutsideSessionFactory(SessionFactory sessionFactory);
 
     /**
      * Persists the given user to the database.
