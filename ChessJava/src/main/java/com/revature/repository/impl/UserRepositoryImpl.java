@@ -73,10 +73,10 @@ public class UserRepositoryImpl implements UserRepository {
             UserPassword upass = new UserPassword(user, encryptPassword(barePassword));
             session.save(upass);
             tx.commit();
+            return user;
         } catch(HibernateException e){
             throw new RepositoryException("HibernateException: " + e.getMessage());
         }
-        return null;
     }
 
     @Override

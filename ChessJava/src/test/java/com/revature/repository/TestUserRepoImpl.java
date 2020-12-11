@@ -7,19 +7,23 @@
  */
 package com.revature.repository;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import com.revature.model.User;
 import com.revature.repository.impl.UserRepositoryImpl;
 import com.revature.repository.interfaces.UserRepository;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-
+import org.hibernate.criterion.Restrictions;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -68,4 +72,32 @@ public class TestUserRepoImpl {
     // register() METHODS
     // ---------------------
     
+    @Test
+    @SuppressWarnings(value="unchecked")
+    public void testRegister() throws RepositoryException {
+        // register a new user
+        User  addMe = new User("addMe", "add@email.com");
+        String addPassword = "password";
+        User added = urepo.register(addMe, addPassword);
+        assertNotNull(added);
+        assertEquals(addMe.getUsername(), added.getUsername());
+        assertEquals(addMe.getEmail(), added.getEmail());
+        // lets manually verify that it exists
+        Session session = sfactory.getCurrentSession();
+        Transaction tx = session.beginTransaction();
+        Criteria crit = session.createCriteria(User.class);
+        crit.add(Restrictions.eq("username", "addMe"));
+        List<User> userList = crit.list();
+        tx.commit();
+        assertEquals(1, userList.size());
+        // now what happens when we try to register a user that already exists?
+        boolean wasCaught = false;
+        try{
+            urepo.register(addMe, "password");
+        }
+        catch(RepositoryException e){
+            wasCaught = true;
+        }
+        assertTrue(wasCaught);
+    }
 }
