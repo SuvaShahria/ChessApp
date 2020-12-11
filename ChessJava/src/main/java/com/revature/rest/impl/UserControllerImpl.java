@@ -43,15 +43,12 @@ public class UserControllerImpl implements UserController{
      * 
      * Intended for POST
      * 
-     * NOTE: This is only a dummy implementation for development purposes
-     * TODO actual impl
-     * 
      * @param user
      * @param barePassword
-     * @return
+     * @return the user after being registered, or null if registration was not successful.
      */
     @PostMapping("/registerUser")
-    public @ResponseBody ClientMessage registerUser(
+    public @ResponseBody User registerUser(
             @RequestBody User user, 
             @RequestBody String barePassword){
         String username = user.getUsername();

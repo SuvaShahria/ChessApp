@@ -28,7 +28,7 @@ public interface UserController {
      * @param barePassword
      * @return
      */
-    public ClientMessage registerUser(User user, String barePassword);
+    public User registerUser(User user, String barePassword);
 
     /**
      * Handles a user logging in to the system.
@@ -39,5 +39,5 @@ public interface UserController {
      * @param barePassword
      * @return
      */
-    public ClientMessage logIn(String username, String barePassword);
+    public User logIn(String username, String barePassword);
 }
