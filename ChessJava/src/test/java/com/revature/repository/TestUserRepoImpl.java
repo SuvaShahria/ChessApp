@@ -10,6 +10,7 @@ package com.revature.repository;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -99,5 +100,40 @@ public class TestUserRepoImpl {
             wasCaught = true;
         }
         assertTrue(wasCaught);
+    }
+
+    // ---------------------
+    // findUser() METHODS
+    // ---------------------
+
+    /**
+     * Tests by id, by username, and by user
+     * 
+     * @throws RepositoryException
+     */
+    @Test
+    public void testFindUser() throws RepositoryException {
+        // try finding one that doesn't exist
+        User target = new User("notFound", "not@email.com");
+        User notFound;
+        notFound = urepo.findUser("notFound");
+        assertNull(notFound);
+        notFound = urepo.findUser(12345);
+        assertNull(notFound);
+        notFound = urepo.findUser(target);
+        assertNull(notFound);
+        // put one in there to be found
+        target.setUsername("found");
+        Session session = sfactory.openSession();
+        Transaction tx = session.beginTransaction();
+        session.save(target);
+        tx.commit();
+        User found;
+        found = urepo.findUser(target);
+        assertNotNull(found);
+        found = urepo.findUser(target.getId());
+        assertNotNull(found);
+        found = urepo.findUser(target.getUsername());
+        assertNotNull(found);
     }
 }

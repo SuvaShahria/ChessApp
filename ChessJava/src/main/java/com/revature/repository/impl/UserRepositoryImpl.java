@@ -79,16 +79,63 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
-    @Override
-    public User findUser(int id) throws RepositoryException {
-        // TODO Auto-generated method stub
-        return null;
+    /**
+     * Returns a user from the database corresponding to info in the given user.
+     * NOTE: currently only checks by id and/or username
+     * If no such user exists, returns null.
+     * 
+     * @param id
+     * @return
+     * @throws RepositoryException : if there is a problem with the database
+     */
+    public User findUser(User user) throws RepositoryException{
+        User found = findUser(user.getId());
+        if (found != null) return found;
+        else return findUser(user.getUsername());
     }
 
+    /**
+     * Returns the user corresponding to the given id.
+     * If no such user exists, returns null.
+     * 
+     * @param id
+     * @return
+     * @throws RepositoryException : if there is a problem with the database
+     */
+    @Override
+    public User findUser(int id) throws RepositoryException {
+        try{
+            Session session = sessionFactory.getCurrentSession();
+            Transaction tx = session.beginTransaction();
+            User u = (User)session.get(User.class, id);
+            tx.commit();
+            return u;
+        } catch(HibernateException e){
+            throw new RepositoryException("HibernateException: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Returns the user corresponding to the given username.
+     * If no such user exists, returns null.
+     * 
+     * @param username
+     * @return
+     * @throws RepositoryException : if there is a problem with the database
+     */
     @Override
     public User findUser(String username) throws RepositoryException {
-        // TODO Auto-generated method stub
-        return null;
+        try{
+            Session session = sessionFactory.getCurrentSession();
+            Transaction tx = session.beginTransaction();
+            Criteria crit = session.createCriteria(User.class);
+            crit.add(Restrictions.eq("username", username));
+            List<User> userList = crit.list();
+            tx.commit();
+            return (userList.isEmpty()) ? null : userList.get(0);
+        } catch(HibernateException e){
+            throw new RepositoryException("HibernateException: " + e.getMessage());
+        }
     }
 
     @Override

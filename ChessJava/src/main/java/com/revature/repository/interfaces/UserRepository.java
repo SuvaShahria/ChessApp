@@ -54,6 +54,16 @@ public interface UserRepository {
     public User register(User user, String barePassword) throws RepositoryException;
 
     /**
+     * Returns a user from the database corresponding to info in the given user.
+     * If no such user exists, returns null.
+     * 
+     * @param id
+     * @return
+     * @throws RepositoryException : if there is a problem with the database
+     */
+    public User findUser(User user) throws RepositoryException;
+
+    /**
      * Returns the user corresponding to the given id.
      * If no such user exists, returns null.
      * 
