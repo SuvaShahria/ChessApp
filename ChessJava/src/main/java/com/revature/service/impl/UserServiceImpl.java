@@ -26,20 +26,20 @@ public class UserServiceImpl implements UserService {
     // ---------------------
 
     @Autowired
-    private UserRepository urepo;
+    private UserRepository uRepo;
 
     // ---------------------
     // SERVICE METHODS
     // ---------------------
 
     /**
-     * Uses the given urepo instead of the spring-injected bean.
+     * Uses the given uRepo instead of the spring-injected bean.
      * Should be used for testing.
      * 
-     * @param urepo
+     * @param uRepo
      */
-    public void useOutsideRepository(UserRepository urepo){
-        this.urepo = urepo;
+    public void useOutsideRepository(UserRepository uRepo){
+        this.uRepo = uRepo;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User register(User user, String barePassword) throws ServiceException {
         try{
-            return urepo.register(user, barePassword);
+            return uRepo.register(user, barePassword);
         } catch(RepositoryException e){
             throw new ServiceException("RepositoryException: " + e.getMessage());
         }
@@ -84,10 +84,26 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    /**
+     * Determines if the given password corresponds to the given user. Returns the user
+     * if login is successful, null otherwise.
+     * 
+     * Throws ServiceException if there is a problem with the database.
+     * 
+     * @param user
+     * @param attemptedPassword : bare text, unencrypted
+     * @return true if the given password unlocks the given user account, false otherwise.
+     * @throws ServiceException
+     */
     @Override
-    public boolean checkPassword(User user, String attemptedPassword) throws ServiceException {
-        // TODO Auto-generated method stub
-        return false;
+    public User logIn(User user, String attemptedPassword) throws ServiceException {
+        try{
+            User found = uRepo.findUser(user);
+            if (found == null) return null; // can't log in to a user that doesnt exist
+            else return (uRepo.checkPassword(found, attemptedPassword)) ? found : null;
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
     }
 
     @Override

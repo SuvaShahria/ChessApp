@@ -9,6 +9,7 @@ package com.revature.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -91,5 +92,66 @@ public class TestUserServiceImpl {
             caught = true;
         }
         assertTrue(caught);
+    }
+
+    // ---------------------
+    // logIn() TESTS
+    // ---------------------
+
+    /**
+     * Expects a successful log in.
+     */
+    @Test
+    public void testLogIn() throws RepositoryException, ServiceException {
+        User sent = new User("user");
+        String ap = "password";
+        User expected = new User(1, "user", "user@email.com");
+        when(uRepo.findUser(sent)).thenReturn(expected);
+        when(uRepo.checkPassword(expected, ap)).thenReturn(true);
+        User actual = uService.logIn(sent, ap);
+        assertNotNull(actual);
+        assertEquals(expected.getId(), actual.getId());
+        assertEquals(expected.getUsername(), actual.getUsername());
+    }
+
+    /**
+     * Expects a failed log in, due to no user found
+     */
+    @Test
+    public void testLogInNotFound() throws RepositoryException, ServiceException {
+        User sent = new User("user");
+        String ap = "password";
+        User actual = uService.logIn(sent, ap);
+        assertNull(actual);
+    }
+
+    /**
+     * Expects a failed log in, due to wrong password
+     */
+    @Test
+    public void testLogInBadPass() throws RepositoryException, ServiceException {
+        User sent = new User("user");
+        String ap = "password";
+        User expected = new User(1, "user", "user@email.com");
+        when(uRepo.findUser(sent)).thenReturn(expected);
+        when(uRepo.checkPassword(expected, ap)).thenReturn(false);
+        User actual = uService.logIn(sent, ap);
+        assertNull(actual);
+    }
+
+    /**
+     * Expects a failed log in, due to repository exception
+     */
+    @Test
+    public void testLogInRepoException() throws RepositoryException {
+        boolean caught = false;
+        try {
+            User sent = new User("user");
+            String ap = "password";
+            when(uRepo.findUser(sent)).thenThrow(new RepositoryException());
+            uService.logIn(sent, ap);
+        } catch (ServiceException e){
+            caught = e.getMessage().startsWith("RepositoryException");
+        }
     }
 }

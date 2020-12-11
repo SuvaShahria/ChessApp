@@ -75,7 +75,8 @@ public interface UserService {
     public User findUser(String username) throws ServiceException;
 
     /**
-     * Determines if the given password corresponds to the given user.
+     * Determines if the given password corresponds to the given user. Returns the user
+     * if login is successful, null otherwise.
      * 
      * Throws ServiceException if there is a problem with the database, including if
      * the given user does not exist.
@@ -85,7 +86,7 @@ public interface UserService {
      * @return true if the given password unlocks the given user account, false otherwise.
      * @throws ServiceException
      */
-    public boolean checkPassword(User user, String attemptedPassword) 
+    public User logIn(User user, String attemptedPassword) 
             throws ServiceException;
 
     /**
