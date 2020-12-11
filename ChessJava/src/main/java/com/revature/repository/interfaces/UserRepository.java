@@ -86,4 +86,38 @@ public interface UserRepository {
      */
     public boolean checkPassword(User user, String attemptedPassword) 
             throws RepositoryException;
+
+    /**
+     * Returns true if either the id or username of the given user is found in the db, and
+     * false otherwise.
+     * 
+     * Throws RepositoryException if there is a problem with the database
+     * 
+     * @param user
+     * @return
+     * @throws RepositoryException
+     */
+    public boolean checkExists(User user) throws RepositoryException;
+
+    /**
+     * Returns true if the id is found in the db, and false otherwise.
+     * 
+     * Throws RepositoryException if there is a problem with the database
+     * 
+     * @param id
+     * @return
+     * @throws RepositoryException
+     */
+    public boolean checkExists(int id) throws RepositoryException;
+
+    /**
+     * Returns true if the username is found in the db, and false otherwise.
+     * 
+     * Throws RepositoryException if there is a problem with the database
+     * 
+     * @param id
+     * @return
+     * @throws RepositoryException
+     */
+    public boolean checkExists(String username) throws RepositoryException;
 }
