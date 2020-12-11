@@ -64,6 +64,8 @@ public class TestUserRepoImpl {
         assertTrue(urepo.checkExists(realUser.getUsername()));
     }
 
-
+    // ---------------------
+    // register() METHODS
+    // ---------------------
     
 }

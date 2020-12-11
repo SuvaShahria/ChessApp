@@ -48,10 +48,10 @@ public interface UserRepository {
      * 
      * @param user : a new user
      * @param securePassword : encrypted
-     * @return the id of the user after being persisted.
+     * @return the user after being persisted.
      * @throws RepositoryException
      */
-    public int register(User user, String securePassword) throws RepositoryException;
+    public User register(User user, String barePassword) throws RepositoryException;
 
     /**
      * Returns the user corresponding to the given id.
