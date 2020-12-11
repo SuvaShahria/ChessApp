@@ -3,6 +3,8 @@
  * 
  * It currently has a clusmy way of getting around my problems with Spring.
  * 
+ * NOTE: currently, UserRepoImpl only implements limited functionality.
+ * 
  * @author Andrew Curry
  */
 package com.revature.repository;

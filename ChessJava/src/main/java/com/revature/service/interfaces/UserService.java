@@ -40,10 +40,10 @@ public interface UserService {
      * 
      * @param user : a new user
      * @param barePassword : NOT encrypted yet
-     * @return the id of the user after being persisted.
+     * @return the user after being persisted.
      * @throws ServiceException
      */
-    public int register(User user, String barePassword) throws ServiceException;
+    public User register(User user, String barePassword) throws ServiceException;
 
     /**
      * Returns the user corresponding to the given id.
