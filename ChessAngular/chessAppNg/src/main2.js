@@ -1,15 +1,19 @@
 var myExtObject = (function() {
   var t = 0;
-
+  var moves = "";
+  var loc = "wikipedia"
+  var piece = '';
+  // var pieces = './assets/img/chesspieces/wikipedia/{piece}.png'
   return {
-    create: function() {
+    create: function(s) {
       // ---------------------------------------------------------------------------------------------------
       
     // document.getElementById('board').style.visibility = 'visible';
+    pieces =s;
     var board = null;
     var game = new Chess()
     var $status = $('#status')
-
+    var $mvDiv = $('#mvDiv')  
     function onDragStart (source, piece, position, orientation) {
       //game end
       if (game.game_over()) return false
@@ -31,7 +35,17 @@ var myExtObject = (function() {
       })
     
       // illegal move
-      if(move != null) t = t+1
+      if(move != null){
+        var b = ''
+        b= source +' '+ target
+        //var b = Source + " " + target;
+        $mvDiv.html(b)
+
+        moves += source
+        moves += target
+        moves+= " "
+        //console.log(moves)
+      }
       if (move === null) return 'snapback'
     
       updateStatus()
@@ -52,11 +66,13 @@ var myExtObject = (function() {
     
       // checkmate
       if (game.in_checkmate()) {
+        //console.log(s)
         status = 'Game over, ' + moveColor + ' is in checkmate.'
       }
     
       // draw?
       else if (game.in_draw()) {
+        //console.log(s)
         status = 'Game over, drawn position'
       }
     
@@ -76,7 +92,7 @@ var myExtObject = (function() {
     board = ChessBoard('board', {
     draggable: true,
       position: 'start',
-      pieceTheme: './assets/img/chesspieces/wikipedia/{piece}.png',
+      pieceTheme: pieces,
       onDragStart: onDragStart,
       onDrop: onDrop,
       onSnapEnd: onSnapEnd
@@ -101,6 +117,10 @@ var myExtObject = (function() {
       b1.remove()
       var b2 = document.getElementById("status");
       b2.remove()
+      var b3 = document.getElementById("mv");
+      b3.remove()
+      var b4 = document.getElementById("mvDiv");
+      b4.remove()
     },
     add: function(){
       c = document.createElement('div');
@@ -113,7 +133,61 @@ var myExtObject = (function() {
       c = document.createElement('div');
       c.setAttribute("id", "status");
       document.body.appendChild(c);
-    }
+
+      c = document.createElement('Label');
+      c.setAttribute("id", "mv");
+      c.innerHTML= "LAST MOVE:"
+      document.body.appendChild(c);
+      c = document.createElement('div');
+      c.setAttribute("id", "mvDiv");
+      document.body.appendChild(c);
+    },
+    getMoves: function(){
+      return moves;
+    },
+    color: function( y){
+      var w = ''
+      var b = ''
+      if(y==1){
+        w ='#ffffff';
+        b = '#524b4b';
+      }
+      if(y==2){
+        w ='#f64c72';
+        b = '#2f2fa2';
+      }
+      if(y==3){
+        w ='#f0d9b5';
+        b = '#b58863';
+      }
+      if(y==4){
+        w ='#fccd04';
+        b = '#a64ac9';
+      }
+      if(y==5){
+        w ='#a8d0e6';
+        b = '#f76c6c';
+      }
+
+      var x = document.getElementsByClassName("white-1e1d7");
+        
+        for(var i =0; i<32;i++){
+          x[i].style["background-color"] =  w;
+        }
+
+        var x = document.getElementsByClassName("black-3c85d");
+      
+        for(var i =0; i<32;i++){
+          x[i].style["background-color"] =  b;
+        }
+
+      
+
+      
+      
+      
+    },
+    
   }
 
 })(myExtObject||{})
