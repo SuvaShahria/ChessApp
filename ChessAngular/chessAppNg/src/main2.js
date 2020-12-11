@@ -3,6 +3,8 @@ var myExtObject = (function() {
   var moves = "";
   var loc = "wikipedia"
   var piece = '';
+  var w = ''
+  var b = ''
   // var pieces = './assets/img/chesspieces/wikipedia/{piece}.png'
   return {
     create: function(s) {
@@ -16,8 +18,10 @@ var myExtObject = (function() {
     var game = new Chess()
     var $status = $('#status')
     var $mvDiv = $('#mvDiv')  
+    
     function removeGreySquares () {
-      $('#board .square-55d63').css('background', '')
+      $('#board .white-1e1d7').css('background', w)
+      $('#board .black-3c85d').css('background', b)
     }
     function greySquare (square) {
       var $square = $('#board .square-' + square)
@@ -187,8 +191,7 @@ var myExtObject = (function() {
       return moves;
     },
     color: function( y){
-      var w = ''
-      var b = ''
+     
       if(y==1){
         w ='#ffffff';
         b = '#524b4b';
