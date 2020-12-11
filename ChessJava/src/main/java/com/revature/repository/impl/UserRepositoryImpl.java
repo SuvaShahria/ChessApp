@@ -124,6 +124,7 @@ public class UserRepositoryImpl implements UserRepository {
      * @throws RepositoryException : if there is a problem with the database
      */
     @Override
+    @SuppressWarnings(value="unchecked")
     public User findUser(String username) throws RepositoryException {
         try{
             Session session = sessionFactory.getCurrentSession();
@@ -252,16 +253,6 @@ public class UserRepositoryImpl implements UserRepository {
     public void resetPassword(User user, String newBarePassword) throws RepositoryException {
         // TODO Auto-generated method stub
 
-    }
-
-    // TODO delete this
-    @SuppressWarnings(value="all")
-    private void template() throws RepositoryException{
-        try{
-            Session session = sessionFactory.getCurrentSession();
-        } catch(HibernateException e){
-            throw new RepositoryException("HibernateException: " + e.getMessage());
-        }
     }
 
     // ---------------------

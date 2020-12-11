@@ -7,6 +7,7 @@ package com.revature.service.interfaces;
 import java.util.List;
 
 import com.revature.model.User;
+import com.revature.repository.interfaces.UserRepository;
 import com.revature.service.ServiceException;
 
 public interface UserService {
@@ -14,6 +15,14 @@ public interface UserService {
     // ---------------------
     // SERVICE METHODS
     // ---------------------
+
+    /**
+     * Uses the given urepo instead of the spring-injected bean.
+     * Should be used for testing.
+     * 
+     * @param urepo
+     */
+    public void useOutsideRepository(UserRepository urepo);
 
     /**
      * Persists the given user to the database.
