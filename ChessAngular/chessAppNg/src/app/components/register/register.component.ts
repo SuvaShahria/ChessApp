@@ -1,7 +1,7 @@
-import { UserService } from './../../services/user.service';
-import { ClientMessage } from './../../models/client-message.model';
+import { UserService } from '@services/user.service';
+import { ClientMessage } from '@models/client-message.model';
 import { Component, OnInit } from '@angular/core';
-import { User } from './../../models/user.model';
+import { User } from '@models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +16,7 @@ export class RegisterComponent {
   constructor(private userService: UserService) { }
 
   //For databinding
-  public user: User = new User('', '', '', '', '');
+  public user: User = new User(0, '', '', '','','');
 
   // Message to the user
   public clientMessage: ClientMessage = new ClientMessage('');
