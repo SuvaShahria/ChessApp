@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
+
 export class NavComponent {
   user: User;
   crown = "./assets/images/Crown.png"
