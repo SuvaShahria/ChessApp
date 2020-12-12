@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     returnUrl: string;
     error = '';
   
-    title = 'Hello';
+    title = 'Welcome to the Chess API';
 
   constructor(
     private formBuilder: FormBuilder,
