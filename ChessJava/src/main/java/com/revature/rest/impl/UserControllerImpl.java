@@ -78,12 +78,10 @@ public class UserControllerImpl implements UserController{
     }
 
     /**
-     * Handles a user logging in to the system.
+     * Handles a user logging in to the system. Returns the user object if successful,
+     * false otherwise.
      * 
      * Intended for POST
-     * 
-     * NOTE: This is only a dummy implementation for development purposes
-     * TODO actual impl
      * 
      * @param username
      * @param barePassword
@@ -94,6 +92,11 @@ public class UserControllerImpl implements UserController{
     public @ResponseBody User logIn(
             @RequestBody String username, 
             @RequestBody String barePassword){
-        return null;
+        try{
+            User user = new User(username); // clumsy/lazy
+            return uService.logIn(user, barePassword);
+        } catch (ServiceException e){
+            return null;
+        }
     }
 }

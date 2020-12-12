@@ -103,4 +103,51 @@ public class TestUserControllerImpl {
         User actual = uCon.registerUser(uwp);
         assertNull(actual);
     }
+
+    // ---------------------
+    // logIn() TESTS
+    // ---------------------
+
+    /**
+     * Expects a successful log in.
+     * 
+     * @throws ServiceException
+     */
+    @Test
+    public void testLogIn() throws ServiceException {
+        User expected = new User(1, "expected", "email@email.com");
+        when(uService.logIn(Mockito.any(User.class), Mockito.anyString())).thenReturn(
+                expected);
+        User actual = uCon.logIn("username", "barePassword");
+        assertNotNull(actual);
+        assertEquals(expected.getId(), actual.getId());
+        assertEquals(expected.getUsername(), actual.getUsername());
+    }
+
+    /**
+     * Expects a failed log in.
+     * 
+     * @throws ServiceException
+     */
+    @Test
+    public void testLogInFail() throws ServiceException {
+        User expected = new User(1, "expected", "email@email.com");
+        when(uService.logIn(Mockito.any(User.class), Mockito.anyString())).thenReturn(
+                null);
+        User actual = uCon.logIn("username", "barePassword");
+        assertNull(actual);
+    }
+
+    /**
+     * Expects a failed log in due to a service exception
+     * 
+     * @throws ServiceException
+     */
+    @Test
+    public void testLogInServExcept() throws ServiceException {
+        when(uService.logIn(Mockito.any(User.class), Mockito.anyString())).thenThrow(
+                new ServiceException());
+        User actual = uCon.logIn("username", "barePassword");
+        assertNull(actual);
+    }
 }

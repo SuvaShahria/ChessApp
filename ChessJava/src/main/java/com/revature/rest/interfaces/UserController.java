@@ -44,7 +44,8 @@ public interface UserController {
     public User registerUser(UserWithPassword uwp);
 
     /**
-     * Handles a user logging in to the system.
+     * Handles a user logging in to the system. Returns the user object if successful,
+     * false otherwise.
      * 
      * Intended for POST
      * 
