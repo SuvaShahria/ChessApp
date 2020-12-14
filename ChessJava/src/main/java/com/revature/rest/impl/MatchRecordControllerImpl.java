@@ -27,7 +27,7 @@ public class MatchRecordControllerImpl implements MatchRecordController {
     // INSTANCE VARIABLES
     // ---------------------
 
-    @Autowired
+    //@Autowired
     private MatchRecordService mrService;
 
     // ---------------------
@@ -42,16 +42,6 @@ public class MatchRecordControllerImpl implements MatchRecordController {
     // ---------------------
     // REQUEST-HANDLING METHODS
     // ---------------------
-
-    /**
-     * very simple get request handler for testing
-     * 
-     * @return
-     */
-    @GetMapping("/hello")
-    public @ResponseBody String helloWorld(){
-        return "Hello world!"; 
-    }
 
     @PostMapping("/checkMatchRecord")
     @Override
