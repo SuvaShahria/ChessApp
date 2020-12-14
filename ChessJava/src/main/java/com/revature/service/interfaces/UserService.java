@@ -7,6 +7,7 @@ package com.revature.service.interfaces;
 import java.util.List;
 
 import com.revature.model.User;
+import com.revature.repository.interfaces.UserRepository;
 import com.revature.service.ServiceException;
 
 public interface UserService {
@@ -14,6 +15,14 @@ public interface UserService {
     // ---------------------
     // SERVICE METHODS
     // ---------------------
+
+    /**
+     * Uses the given urepo instead of the spring-injected bean.
+     * Should be used for testing.
+     * 
+     * @param urepo
+     */
+    public void useOutsideRepository(UserRepository urepo);
 
     /**
      * Persists the given user to the database.
@@ -35,15 +44,15 @@ public interface UserService {
      * 
      * Will encrypt, but not validate, the given password.
      * 
-     * Throws ServiceException if the user is already in the DB - use update() for
+     * Returns null if the user is already in the DB - use update() for
      * existing users
      * 
      * @param user : a new user
      * @param barePassword : NOT encrypted yet
-     * @return the id of the user after being persisted.
+     * @return the user after being persisted.
      * @throws ServiceException
      */
-    public int register(User user, String barePassword) throws ServiceException;
+    public User register(User user, String barePassword) throws ServiceException;
 
     /**
      * Returns the user corresponding to the given id.
@@ -66,7 +75,8 @@ public interface UserService {
     public User findUser(String username) throws ServiceException;
 
     /**
-     * Determines if the given password corresponds to the given user.
+     * Determines if the given password corresponds to the given user. Returns the user
+     * if login is successful, null otherwise.
      * 
      * Throws ServiceException if there is a problem with the database, including if
      * the given user does not exist.
@@ -76,7 +86,7 @@ public interface UserService {
      * @return true if the given password unlocks the given user account, false otherwise.
      * @throws ServiceException
      */
-    public boolean checkPassword(User user, String attemptedPassword) 
+    public User logIn(User user, String attemptedPassword) 
             throws ServiceException;
 
     /**
@@ -88,24 +98,4 @@ public interface UserService {
      * @throws ServiceException
      */
     public List<User> findAllUsers() throws ServiceException;
-
-    /**
-     * Returns a list of all the player-level users in the database.
-     * 
-     * Throws ServiceException if there is a problem with the database
-     * 
-     * @return
-     * @throws ServiceException
-     */
-    public List<User> findAllPlayers() throws ServiceException;
-
-    /**
-     * Returns a list of all the admin-level users in the database.
-     * 
-     * Throws ServiceException if there is a problem with the database
-     * 
-     * @return
-     * @throws ServiceException
-     */
-    public List<User> findAllAdmins() throws ServiceException;
 }

@@ -11,8 +11,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,19 +24,6 @@ public class User implements Serializable{
     private static final long serialVersionUID = 0L; // makes compiler happy
 
     // ---------------------
-    // ENUMS
-    // ---------------------
-
-    /**
-     * This enum describes what kind of user this is - a customer/player vs an admin.
-     */
-    public enum UserType {
-        NONE, // should never be used - indicates problem
-        PLAYER,
-        ADMIN, // necessary?
-    }
-
-    // ---------------------
     // INSTANCE VARIABLES
     // ---------------------
 
@@ -46,10 +31,6 @@ public class User implements Serializable{
     @Column(name="ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @Column(name="USER_TYPE")
-    @Enumerated(EnumType.ORDINAL)
-    private UserType type;
 
     @Column(name="USERNAME")
     private String username;
@@ -70,9 +51,8 @@ public class User implements Serializable{
      * Does NOT validate any of the data.
      * 
     */
-    public User(int id, UserType type, String username, String email){
+    public User(int id, String username, String email){
         this.id = id;
-        this.type = type;
         this.username = username;
         this.email = email;
     }
@@ -81,10 +61,17 @@ public class User implements Serializable{
      * Does NOT validate any of the data.
      * 
     */
-    public User(UserType type, String username, String email){
-        this.type = type;
+    public User(String username, String email){
         this.username = username;
         this.email = email;
+    }
+
+    /** 
+     * Does NOT validate any of the data.
+     * 
+    */
+    public User(String username){
+        this.username = username;
     }
 
     // ---------------------
@@ -101,14 +88,6 @@ public class User implements Serializable{
      */
     public void setId(int id) {
         this.id = id;
-    }
-
-    public UserType getType() {
-        return this.type;
-    }
-
-    public void setType(UserType type) {
-        this.type = type;
     }
 
     public String getUsername() {

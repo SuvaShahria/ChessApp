@@ -10,24 +10,21 @@ import java.util.List;
 import com.revature.model.User;
 import com.revature.repository.RepositoryException;
 
+import org.hibernate.SessionFactory;
+
 public interface UserRepository {
-
-    // ---------------------
-    // ENUM(S)
-    // ---------------------
-
-    /**
-     * This enum is used as a parameter in findByType.
-     */
-    public enum UserTypeFilter{
-        ALL,
-        USER,
-        ADMIN
-    }
 
     // ---------------------
     // METHODS
     // ---------------------
+
+    /**
+     * Forces the UserRepository to use the given SessionFactory instead of the one
+     * automatically injected by spring. This will likely only be used for testing.
+     * 
+     * @param sessionFactory
+     */
+    public void useOutsideSessionFactory(SessionFactory sessionFactory);
 
     /**
      * Persists the given user to the database.
@@ -51,10 +48,20 @@ public interface UserRepository {
      * 
      * @param user : a new user
      * @param securePassword : encrypted
-     * @return the id of the user after being persisted.
+     * @return the user after being persisted.
      * @throws RepositoryException
      */
-    public int register(User user, String securePassword) throws RepositoryException;
+    public User register(User user, String barePassword) throws RepositoryException;
+
+    /**
+     * Returns a user from the database corresponding to info in the given user.
+     * If no such user exists, returns null.
+     * 
+     * @param id
+     * @return
+     * @throws RepositoryException : if there is a problem with the database
+     */
+    public User findUser(User user) throws RepositoryException;
 
     /**
      * Returns the user corresponding to the given id.
@@ -77,14 +84,14 @@ public interface UserRepository {
     public User findUser(String username) throws RepositoryException;
 
     /**
-     * Returns a list containing all of the registered users matching the given filter.
+     * Returns a list containing all of the registered users.
      * If no such users exists, returns an empty list.
      * 
      * @param filter
      * @return
      * @throws RepositoryException : if there is a problem with the database
      */
-    public List<User> findByTypeFilter(UserTypeFilter filter) throws RepositoryException;
+    public List<User> findAllUsers() throws RepositoryException;
 
     /**
      * Determines if the given password corresponds to the given user.
@@ -98,5 +105,52 @@ public interface UserRepository {
      * @throws RepositoryException
      */
     public boolean checkPassword(User user, String attemptedPassword) 
+            throws RepositoryException;
+
+    /**
+     * Returns true if either the id or username of the given user is found in the db, and
+     * false otherwise.
+     * 
+     * Throws RepositoryException if there is a problem with the database
+     * 
+     * @param user
+     * @return
+     * @throws RepositoryException
+     */
+    public boolean checkExists(User user) throws RepositoryException;
+
+    /**
+     * Returns true if the id is found in the db, and false otherwise.
+     * 
+     * Throws RepositoryException if there is a problem with the database
+     * 
+     * @param id
+     * @return
+     * @throws RepositoryException
+     */
+    public boolean checkExists(int id) throws RepositoryException;
+
+    /**
+     * Returns true if the username is found in the db, and false otherwise.
+     * 
+     * Throws RepositoryException if there is a problem with the database
+     * 
+     * @param id
+     * @return
+     * @throws RepositoryException
+     */
+    public boolean checkExists(String username) throws RepositoryException;
+
+    /**
+     * Changes the password of the given user to the given string.
+     * 
+     * Throws RepositoryException if there is a problem with the database, such as if
+     * the user does not exist.
+     * 
+     * @param id
+     * @return
+     * @throws RepositoryException
+     */
+    public void resetPassword(User user, String newBarePassword) 
             throws RepositoryException;
 }
