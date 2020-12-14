@@ -95,10 +95,10 @@ public class UserControllerImpl implements UserController{
      */
     @PostMapping("/logIn")
     @Override
-    public @ResponseBody User logIn(
-            @RequestBody String username, 
-            @RequestBody String barePassword){
+    public @ResponseBody User logIn(@RequestBody String[] args){
         try{
+            String username = args[0];
+            String barePassword = args[1];
             User user = new User(username); // clumsy/lazy
             return uService.logIn(user, barePassword);
         } catch (ServiceException e){
