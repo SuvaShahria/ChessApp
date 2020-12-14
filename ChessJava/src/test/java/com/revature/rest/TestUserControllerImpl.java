@@ -27,8 +27,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import static org.mockito.Mockito.verify;
-
 public class TestUserControllerImpl {
     
     // ---------------------
@@ -131,7 +129,6 @@ public class TestUserControllerImpl {
      */
     @Test
     public void testLogInFail() throws ServiceException {
-        User expected = new User(1, "expected", "email@email.com");
         when(uService.logIn(Mockito.any(User.class), Mockito.anyString())).thenReturn(
                 null);
         User actual = uCon.logIn("username", "barePassword");
