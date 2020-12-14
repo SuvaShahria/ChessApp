@@ -27,7 +27,7 @@ export class UserService {
 
   public registerUser(user: User): Observable<ClientMessage> {
     return this.http
-      .post(`${USER_URL}register`, user, this.httpOptions)
+      .post(`${USER_URL}registerUser`, user, this.httpOptions)
       .pipe(
         catchError(this.handleError<any>('cannot register user'))
       )
