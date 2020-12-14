@@ -75,7 +75,7 @@ public class UserControllerImpl implements UserController{
         try{
             //System.out.println("-----" + uwp.getUsername() + "-----");
             User u = uService.register(uwp.makeUser(), uwp.getBarePassword());
-            //System.out.println("DEBUG: returned user's username is " + u.getUsername());
+            System.out.println("DEBUG: is user null? " + (u == null));
             return u;
         } catch (ServiceException e){
             System.out.println(e.getMessage());
