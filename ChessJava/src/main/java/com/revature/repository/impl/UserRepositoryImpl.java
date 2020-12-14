@@ -45,10 +45,32 @@ public class UserRepositoryImpl implements UserRepository {
         this.sessionFactory = sessionFactory;
     }
 
+    /**
+     * Persists the given user to the database.
+     * Use this method to update a user that already exists.
+     * 
+     * Assumes the fields of the user are valid.
+     * 
+     * Throws RepositoryException if the user is not already in the DB - use register()
+     * 
+     * @param user : a user that already exists
+     * @throws RepositoryException : if there is a problem with the database
+     */
     @Override
     public void update(User user) throws RepositoryException {
-        // TODO Auto-generated method stub
-
+        try{
+            if(!checkExists(user)) 
+                throw new RepositoryException(
+                    "In update: User <" 
+                    + user.getUsername() 
+                    + "> + not found; use register for new users.");
+            Session session = sessionFactory.getCurrentSession();
+            Transaction tx = session.beginTransaction();
+            session.update(user);
+            tx.commit();
+        }catch(HibernateException e){
+            throw new RepositoryException("HibernateException: " + e.getMessage());
+        }
     }
 
     /**
