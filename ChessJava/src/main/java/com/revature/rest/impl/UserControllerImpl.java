@@ -73,8 +73,12 @@ public class UserControllerImpl implements UserController{
     @Override
     public @ResponseBody User registerUser(@RequestBody UserWithPassword uwp){
         try{
-            return uService.register(uwp.makeUser(), uwp.getBarePassword());
+            //System.out.println("-----" + uwp.getUsername() + "-----");
+            User u = uService.register(uwp.makeUser(), uwp.getBarePassword());
+            //System.out.println("DEBUG: returned user's username is " + u.getUsername());
+            return u;
         } catch (ServiceException e){
+            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -100,5 +104,10 @@ public class UserControllerImpl implements UserController{
         } catch (ServiceException e){
             return null;
         }
+    }
+
+    @PostMapping("/testRegisterUser")
+    public @ResponseBody UserWithPassword postRegisterTest(@RequestBody UserWithPassword uwp){
+        return uwp;
     }
 }
