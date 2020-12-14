@@ -15,6 +15,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.rmi.ServerException;
 import java.util.List;
 
 import com.revature.model.User;
@@ -182,5 +183,24 @@ public class TestUserRepoImpl {
         // now check it
         assertTrue(urepo.checkPassword(good, "password"));
         assertFalse(urepo.checkPassword(good, "wrong"));
+    }
+
+    // ---------------------
+    // update() TESTS
+    // ---------------------
+
+    @Test
+    public void testUpdate() throws RepositoryException{
+        // if we try to update a user that isn't persisted, it should fail
+        boolean caught = false;
+        User u;
+        try{
+            u = new User(4, "user", "email@email.com");
+            urepo.update(u);
+        } catch (RepositoryException e){
+            if (!e.getMessage().startsWith("HibernateException"))
+                caught = true;  
+        }
+        assertTrue(caught);
     }
 }

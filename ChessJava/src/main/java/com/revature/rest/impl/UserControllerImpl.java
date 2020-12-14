@@ -13,6 +13,7 @@ import com.revature.rest.interfaces.UserController;
 import com.revature.service.ServiceException;
 import com.revature.service.interfaces.UserService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class UserControllerImpl implements UserController{
     // INSTANCE VARIABLES
     // ---------------------
 
+    @Autowired
     private UserService uService;
 
     // ---------------------
