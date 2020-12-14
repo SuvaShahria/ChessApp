@@ -1,8 +1,5 @@
 import { AuthService } from '@services/auth.service';
-// import { UserService } from '@services/user.service';
-import { ClientMessage } from '@models/client-message.model';
 import { Component, OnInit } from '@angular/core';
-import { User } from '@models/user.model';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -14,9 +11,6 @@ import { first } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
 
-  // title = 'Please Login';
-  // public clientMessage: ClientMessage = new ClientMessage('');
-  // public user: User = new User(0,'','','');
   loginForm: FormGroup;
     loading = false;
     submitted = false;
@@ -42,7 +36,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
 
-    this.returnUrl = this.route.snapshot.queryParamMap['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParamMap[''] || '/home';
   }
 
   get f() {return this.loginForm.controls;}
@@ -67,13 +61,5 @@ export class LoginComponent implements OnInit {
                 });
     }
 
-// Login(): void {
-//   console.log(this.user);
-//     this.userService.Login(this.user)
-//       .subscribe(
-//         data => this.clientMessage = data,
-//         error => this.clientMessage.message = 'SOMETHING WENT WRONG'
-//       )
-//   }
 }
 

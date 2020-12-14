@@ -17,13 +17,13 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  public Login(user:User): Observable<ClientMessage> {
-    return this.http
-    .post(`${USER_URL}login`,user,this.httpOptions)
-    .pipe(
-      catchError(this.handleError<any>('cannot login user'))
-    )
-  }
+  // public Login(user:User): Observable<ClientMessage> {
+  //   return this.http
+  //   .post(`${USER_URL}login`,user,this.httpOptions)
+  //   .pipe(
+  //     catchError(this.handleError<any>('cannot login user'))
+  //   )
+  // }
 
   public registerUser(user: User): Observable<ClientMessage> {
     return this.http

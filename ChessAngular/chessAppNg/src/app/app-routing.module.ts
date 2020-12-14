@@ -13,7 +13,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  {path: '', component: MainComponent, canActivate: [AuthGuard] }
+  {path: '', component: MainComponent }
   ,{path: 'main', component: MainComponent}
   ,{path: 'register', component: RegisterComponent}
   ,{path: 'login', component: LoginComponent}
@@ -21,7 +21,7 @@ const routes: Routes = [
   ,{path: 'history', component: HistoryComponent}
   ,{path: 'find-match', component: FindMatchComponent}
   ,{path: 'play', component: PlayComponent}
-  ,{path: 'home', component: HomeComponent}
+  ,{path: 'home', component: HomeComponent, canActivate: [AuthGuard]}
   
   ,{path: '**', redirectTo: ''}
 ];
