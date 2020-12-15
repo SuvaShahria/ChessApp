@@ -13,6 +13,7 @@ import { FindMatchComponent } from './components/find-match/find-match.component
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { PlayComponent } from './components/play/play.component';
+import { PlayvsComponent } from './components/playvs/playvs.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PlayComponent } from './components/play/play.component';
     TipsComponent,
     HistoryComponent,
     FindMatchComponent,
-    PlayComponent
+    PlayComponent,
+    PlayvsComponent
   ],
   imports: [
     BrowserModule,
