@@ -36,6 +36,7 @@ public class MatchRecord implements Serializable{
      */
     public enum MatchStatus {
         NONE, // should never be used - indicates problem
+        PENDING, // waiting for another play to input the code
         ONGOING, // game is not over yet
         WHITE_VICTORY,
         BLACK_VICTORY,
@@ -50,17 +51,16 @@ public class MatchRecord implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name="CODE")
+    private int code;
+
     @ManyToOne
     @JoinColumn(name="WHITE_USER_ID", nullable = false, referencedColumnName = "ID")
     private User whiteUser;
 
     @ManyToOne
-    @JoinColumn(name="BLACK_USER_ID", nullable = false, referencedColumnName = "ID")
+    @JoinColumn(name="BLACK_USER_ID", nullable = true, referencedColumnName = "ID")
     private User blackUser;
-
-    @ManyToOne
-    @JoinColumn(name="CURRENT_TURN_USER_ID", nullable = false, referencedColumnName = "ID")
-    private User currentTurnUser;
 
     @Column(name="MATCH_STATUS")
     @Enumerated(EnumType.ORDINAL)
@@ -77,40 +77,6 @@ public class MatchRecord implements Serializable{
      * Does NOT intialize any fields.
      */
     public MatchRecord(){}
-
-    /**
-     * Does NOT validate any fields.
-     */
-    public MatchRecord(
-            int id, 
-            User whiteUser, 
-            User blackUser, 
-            User currentTurnUser, 
-            MatchStatus status,
-            String moveHistory) {
-        this.id = id;
-        this.whiteUser = whiteUser;
-        this.blackUser = blackUser;
-        this.currentTurnUser = currentTurnUser;
-        this.status = status;
-        this.moveHistory = moveHistory;
-    }
-
-    /**
-     * Does NOT validate any fields.
-     */
-    public MatchRecord(
-            User whiteUser, 
-            User blackUser, 
-            User currentTurnUser, 
-            MatchStatus status,
-            String moveHistory) {
-        this.whiteUser = whiteUser;
-        this.blackUser = blackUser;
-        this.currentTurnUser = currentTurnUser;
-        this.status = status;
-        this.moveHistory = moveHistory;
-    }
 
     // ---------------------
     // SETTERS AND GETTERS
@@ -152,18 +118,6 @@ public class MatchRecord implements Serializable{
         this.blackUser = blackUser;
     }
 
-    public User getCurrentTurnUser() {
-        return this.currentTurnUser;
-    }
-
-    /**
-     * Does not validate the user.
-     * @param currentTurnUser
-     */
-    public void setCurrentTurnUser(User currentTurnUser) {
-        this.currentTurnUser = currentTurnUser;
-    }
-
     public MatchStatus getStatus() {
         return this.status;
     }
@@ -177,11 +131,8 @@ public class MatchRecord implements Serializable{
     }
 
     /**
-     * Returns a string containing the move history of this match, in standard (algebraic)
-     * chess notaton. Each move is seperated by a comma. A game with no moves yet will
-     * produce the empty string.
-     * 
-     * EG, "e4 e5,a2 a1,e5 e8"
+     * Returns a string containing the move history of this match. MatchRecord has no
+     * understanding of the meaning of the string, and does no parsing.
      * 
      * @return
      */
@@ -190,46 +141,23 @@ public class MatchRecord implements Serializable{
     }
 
     /**
-     * Does not validate the history.
+     * Does not validate the history. Completely replaces the old string.
      * @param moveHistory
      */
     public void setMoveHistory(String moveHistory) {
         this.moveHistory = moveHistory;
     }
 
-    // ---------------------
-    // OTHER PUBLIC METHODS
-    // ---------------------
-
-    /**
-     * Records a single move, adding it to the move history. Also, switches the
-     * currentTurnUser to the other, eg from white to black.
-     * 
-     * The move string should be a single turn/move, without commas, eg "e4 e5"
-     * Does NOT validate the new move string.
-     * 
-     * @param move
-     */
-    public void recordMove(String move){
-        recordMove(move, true);
+    public int getCode() {
+        return this.code;
     }
 
     /**
-     * Records a single move, adding it to the move history. Also, if the parameter
-     * changeCurrentTurnUser is true, switches the current player.
+     * Does NOT validate the code.
      * 
-     * The move string should be a single turn/move, without commas, eg "e4 e5"
-     * Does NOT validate the new move string.
-     * 
-     * @param move
-     * @param changeCurrentTurnUser
+     * @param code
      */
-    public void recordMove(String move, boolean changeCurrentTurnUser){
-        moveHistory = moveHistory + "," + move;
-        if (changeCurrentTurnUser){
-            if (currentTurnUser.getId() == whiteUser.getId())
-                setCurrentTurnUser(blackUser);
-            else setCurrentTurnUser(whiteUser);
-        }
+    public void setCode(int code) {
+        this.code = code;
     }
 }
