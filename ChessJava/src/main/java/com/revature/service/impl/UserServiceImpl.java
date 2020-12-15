@@ -31,9 +31,9 @@ public class UserServiceImpl implements UserService {
     private UserRepository uRepo;
 
     // ---------------------
-    // SERVICE METHODS
+    // HELPER/TESTING METHODS
     // ---------------------
-
+    
     /**
      * Uses the given uRepo instead of the spring-injected bean.
      * Should be used for testing.
@@ -43,11 +43,35 @@ public class UserServiceImpl implements UserService {
     public void useOutsideRepository(UserRepository uRepo){
         this.uRepo = uRepo;
     }
-
+    
+    // ---------------------
+    // SERVICE METHODS
+    // ---------------------
+    
+    /**
+     * Persists the given user to the database.
+     * Use this method to update a user that already exists.
+     * 
+     * Assumes the fields of the user are valid.
+     * 
+     * Throws ServiceException if the user is not already in the DB - use register()
+     * 
+     * @param user : a user that already exists
+     * @throws ServiceException : if there is a problem with the database, or if user is
+     *                              not already present in DB
+     */
     @Override
     public void update(User user) throws ServiceException {
-        // TODO Auto-generated method stub
-
+        try{
+            if (!uRepo.checkExists(user))
+                throw new ServiceException(
+                    "USI.update(): user <" 
+                    + user.getUsername()
+                    + "> not found.");
+            uRepo.update(user);
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
     }
 
     /**

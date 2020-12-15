@@ -13,7 +13,7 @@ import com.revature.service.ServiceException;
 public interface UserService {
 
     // ---------------------
-    // SERVICE METHODS
+    // HELPER/TESTING METHODS
     // ---------------------
 
     /**
@@ -23,6 +23,10 @@ public interface UserService {
      * @param urepo
      */
     public void useOutsideRepository(UserRepository urepo);
+
+    // ---------------------
+    // SERVICE METHODS
+    // ---------------------
 
     /**
      * Persists the given user to the database.

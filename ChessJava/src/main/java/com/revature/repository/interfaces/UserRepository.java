@@ -87,7 +87,6 @@ public interface UserRepository {
      * Returns a list containing all of the registered users.
      * If no such users exists, returns an empty list.
      * 
-     * @param filter
      * @return
      * @throws RepositoryException : if there is a problem with the database
      */
