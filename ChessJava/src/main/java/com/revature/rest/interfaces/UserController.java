@@ -9,7 +9,6 @@
 package com.revature.rest.interfaces;
 
 //import javax.servlet.http.HttpServletRequest;
-import com.revature.ajax.ClientMessage;
 import com.revature.model.User;
 import com.revature.model.UserWithPassword;
 import com.revature.service.interfaces.UserService;
@@ -53,5 +52,5 @@ public interface UserController {
      * @param barePassword
      * @return
      */
-    public User logIn(String username, String barePassword);
+    public User logIn(String[] args);
 }

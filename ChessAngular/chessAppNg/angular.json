@@ -29,6 +29,7 @@
             ],
             "scripts": [
               "src/main2.js"
+              ,"src/main3.js"
             ]
           },
           "configurations": {

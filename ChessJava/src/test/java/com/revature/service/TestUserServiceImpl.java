@@ -16,7 +16,6 @@ import static org.mockito.Mockito.when;
 
 import com.revature.model.User;
 import com.revature.repository.RepositoryException;
-import com.revature.service.ServiceException;
 import com.revature.repository.interfaces.UserRepository;
 import com.revature.service.impl.UserServiceImpl;
 import com.revature.service.interfaces.UserService;
@@ -36,7 +35,6 @@ public class TestUserServiceImpl {
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
-    private final String fileName = "testHibernate.cfg.xml";
     private UserService uService; // will actually be Impl
     private UserRepository uRepo;
 
@@ -85,7 +83,6 @@ public class TestUserServiceImpl {
     public void testRegisterAlreadyExists() throws ServiceException, RepositoryException{
         User uIn = new User("user", "email");
         String bp = "password";
-        User uOut = new User(1, "user", "email");
         when(uRepo.checkExists(uIn)).thenReturn(false);
         User result = uService.register(uIn, bp);
         assertNull(result);
@@ -171,5 +168,6 @@ public class TestUserServiceImpl {
         } catch (ServiceException e){
             caught = e.getMessage().startsWith("RepositoryException");
         }
+        assertTrue(caught);
     }
 }

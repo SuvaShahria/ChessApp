@@ -17,6 +17,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlayComponent } from './components/play/play.component';
 import { HomeComponent } from './components/home/home.component';
+import { PlayvsComponent } from './components/playvs/playvs.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { HomeComponent } from './components/home/home.component';
     HistoryComponent,
     FindMatchComponent,
     PlayComponent,
-    HomeComponent
+    HomeComponent,
+    PlayvsComponent
   ],
   imports: [
     BrowserModule,
@@ -40,12 +42,12 @@ import { HomeComponent } from './components/home/home.component';
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-  
+
    // provider used to create fake backend
    fakeBackendProvider
   ],
- 
- 
+
+
     bootstrap: [AppComponent]
 })
 export class AppModule { }

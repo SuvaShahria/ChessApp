@@ -5,8 +5,8 @@
 				<a class="navbar-brand" routerLink="/" >
 				<img class="crown" src={{crown}}/>
 				</a>
-				<button  class="navbar-toggle" type="button" data-toggle="collapse" 
-				data-target="#navbarToggler" aria-controls="navbarToggler" 
+				<button  class="navbar-toggle" type="button" data-toggle="collapse"
+				data-target="#navbarToggler" aria-controls="navbarToggler"
 				aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 					<span class="sr-only">Toggle navigation</span>
@@ -14,7 +14,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				
+
 			</div>
 		</div>
 		<div class="collapse navbar-collapse" id="navbarToggler">
@@ -22,20 +22,18 @@
 				<li  ><a routerLink="/login">Login</a></li>
 			</ul>
 			<ul class="nav navbar-nav" *ngIf="!user">
-				
+
                 <li><a routerLink="/tips">Tips</a></li>
 				<li><a routerLink="/register">Register</a></li>
 			</ul>
-			
+
 			<ul class="nav navbar-nav" *ngIf="user">
 				<li><a routerLink="/find-match">Find Match</a></li>
 				<li><a routerLink="/history">History</a></li>
 				<li><a routerLink="/play">Play</a></li>
+				<li><a routerLink="/playvs">PlayVs</a></li>
 				<li><a class="nav-item nav-link" (click)="logout()">Logout</a></li>
 			</ul>
 		</div>
 	</div>
 </nav>
-
-
-
