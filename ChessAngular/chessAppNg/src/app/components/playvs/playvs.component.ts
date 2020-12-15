@@ -9,6 +9,7 @@ export class PlayvsComponent implements OnInit {
   title = 'chessAppNg';
   public code = 0;
   public name = 0;
+  public piece: String = './assets/img/chesspieces/wikipedia/{piece}.png'; 
   constructor() { }
 
   ngOnInit(): void{
@@ -21,6 +22,7 @@ export class PlayvsComponent implements OnInit {
   }
   createGame(s: String,ori: String) {
     //console.log("hi")
+    //myExtObject2.setNull()
     myExtObject2.create(s,ori);
   }
 
@@ -59,15 +61,19 @@ export class PlayvsComponent implements OnInit {
     this.title = "w";
     this.code = val;
     myExtObject2.makeGame(this.code);
-    this.createGame('./assets/img/chesspieces/wikipedia/{piece}.png','white')
+    this.createGame(this.piece,'white')
     
   }
 
   findGame(){
     myExtObject2.setCode(this.code)
     myExtObject2.findGame()
-    this.createGame('./assets/img/chesspieces/wikipedia/{piece}.png','black')
+    this.createGame(this.piece,'black')
     myExtObject2.firstMove()
+  }
+
+  setPiece(s: String){
+    this.piece = s;
   }
 
 }
