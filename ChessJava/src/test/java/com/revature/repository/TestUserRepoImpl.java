@@ -31,6 +31,9 @@ import org.hibernate.criterion.Restrictions;
 import org.junit.Before;
 import org.junit.Test;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.XmlWebApplicationContext;
 
 public class TestUserRepoImpl {
 
@@ -48,7 +51,17 @@ public class TestUserRepoImpl {
         urepo = new UserRepositoryImpl();
         urepo.useOutsideSessionFactory(
                 new Configuration().configure(fileName).buildSessionFactory());
-        sfactory = new Configuration().configure(fileName).buildSessionFactory();
+        //sfactory = new Configuration().configure(fileName).buildSessionFactory();
+        //ContextLoader conLoader = new ContextLoader();
+        
+        WebApplicationContext appCon = new XmlWebApplicationContext();
+        sfactory = appCon.getBean(SessionFactory.class);
+       
+    }
+
+    @Test
+    public void testSpring(){
+        
     }
 
     // ---------------------

@@ -161,10 +161,26 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
+    /**
+     * Returns a list containing all of the registered users.
+     * If no such users exists, returns an empty list.
+     * 
+     * @return
+     * @throws RepositoryException : if there is a problem with the database
+     */
+    @SuppressWarnings(value="unchecked")
     @Override
     public List<User> findAllUsers() throws RepositoryException {
-        // TODO Auto-generated method stub
-        return null;
+        try{
+            Session session = sessionFactory.getCurrentSession();
+            //Transaction tx = session.beginTransaction();
+            Criteria crit = session.createCriteria(User.class);
+            List<User> userList = crit.list();
+            //tx.commit();
+            return userList;
+        } catch(HibernateException e){
+            throw new RepositoryException("HibernateException: " + e.getMessage());
+        }
     }
 
     /**
