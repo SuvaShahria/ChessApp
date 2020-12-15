@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.revature.model.MatchRecord;
 import com.revature.model.User;
+import com.revature.model.MatchRecord.MatchStatus;
 import com.revature.repository.RepositoryException;
 import com.revature.repository.interfaces.MatchRepository;
 import com.revature.service.ServiceException;
@@ -160,10 +161,29 @@ public class MatchServiceImpl implements MatchService {
         return null;
     }
 
+    /**
+     * Adds the given player as the blackPlayer of the game indicated by the given code.
+     * Throws an exception if the MatchRecord does not exist, or if it already has a
+     * black player.
+     * 
+     * @param blackPlayer
+     * @param code
+     * @throws ServiceException
+     */
     @Override
     public void acceptCode(User player, int code) throws ServiceException {
-        // TODO Auto-generated method stub
-
+        try{
+            if (!mRepo.checkExistsByCode(code))
+                throw new ServiceException("No game with code <" + code + "> found.");
+            MatchRecord mr = mRepo.findMatchRecordByCode(code);
+            if (mr.getStatus() != MatchStatus.PENDING)
+                throw new ServiceException(
+                        "Game with code <" + code + "> has already started.");
+            mr.setBlackUser(player);
+            mr.setStatus(MatchStatus.ONGOING);
+            save(mr);
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
     }
-    
 }

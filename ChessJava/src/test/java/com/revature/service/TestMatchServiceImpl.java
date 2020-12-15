@@ -7,14 +7,23 @@
  */
 package com.revature.service;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+import com.revature.model.MatchRecord;
+import com.revature.model.User;
+import com.revature.model.MatchRecord.MatchStatus;
+import com.revature.repository.RepositoryException;
 import com.revature.repository.interfaces.MatchRepository;
 import com.revature.service.impl.MatchServiceImpl;
 import com.revature.service.interfaces.MatchService;
 
 import org.junit.Before;
 import org.junit.Rule;
+import org.junit.Test;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
@@ -53,4 +62,85 @@ public class TestMatchServiceImpl {
     // ---------------------
 
     // currently not testing these because it just calls the repo
+
+    // ---------------------
+    // acceptCode() TESTS
+    // ---------------------
+
+    /**
+     * Expects success
+     */
+    @Test
+    public void testAcceptCode() throws RepositoryException, ServiceException{
+        User u = new User(1, "user", "email@fake.com");
+        int code = 12345;
+        MatchRecord mr = new MatchRecord();
+        mr.setStatus(MatchStatus.PENDING);
+        when(mRepo.checkExistsByCode(code)).thenReturn(true);
+        when(mRepo.findMatchRecordByCode(code)).thenReturn(mr);
+        mService.acceptCode(u, code);
+        // see if the game was updated
+        assertEquals(u.getId(), mr.getBlackUser().getId());
+        assertEquals(MatchStatus.ONGOING, mr.getStatus());
+        // NOTE: technically doesn't listen to see if the repo is asked to persist mr
+    }
+
+    /**
+     * Expects failure due to game not existing
+     */
+    @Test
+    public void testAcceptCodeNotFound() throws RepositoryException, ServiceException{
+        User u = new User(1, "user", "email@fake.com");
+        int code = 12345;
+        when(mRepo.checkExistsByCode(code)).thenReturn(false);
+        boolean caught = false;
+        try{
+            mService.acceptCode(u, code);
+        } catch(ServiceException e){
+            if (!e.getMessage().startsWith("RepositoryException"))
+                caught = true;
+        }
+        assertTrue(caught);
+    }
+
+    /**
+     * Expects failure due to game not being pending
+     */
+    @Test
+    public void testAcceptCodeNotPending() throws RepositoryException, ServiceException{
+        User u = new User(1, "user", "email@fake.com");
+        int code = 12345;
+        MatchRecord mr = new MatchRecord();
+        mr.setStatus(MatchStatus.ONGOING);
+        when(mRepo.checkExistsByCode(code)).thenReturn(true);
+        when(mRepo.findMatchRecordByCode(code)).thenReturn(mr);
+        boolean caught = false;
+        try{
+            mService.acceptCode(u, code);
+        } catch(ServiceException e){
+            if (!e.getMessage().startsWith("RepositoryException"))
+                caught = true;
+        }
+        assertTrue(caught);
+    }
+
+    /**
+     * Expects failure due to RepoException
+     */
+    @Test
+    public void testAcceptCodeRepoExcept() throws RepositoryException, ServiceException{
+        User u = new User(1, "user", "email@fake.com");
+        int code = 12345;
+        MatchRecord mr = new MatchRecord();
+        mr.setStatus(MatchStatus.ONGOING);
+        when(mRepo.checkExistsByCode(code)).thenThrow(new RepositoryException("test"));
+        boolean caught = false;
+        try{
+            mService.acceptCode(u, code);
+        } catch(ServiceException e){
+            if (e.getMessage().contains("test"))
+                caught = true;
+        }
+        assertTrue(caught);
+    }
 }
