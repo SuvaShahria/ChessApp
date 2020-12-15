@@ -79,8 +79,8 @@ public class MatchRecordControllerImpl implements MatchRecordController {
     public @ResponseBody String testGM(@RequestBody String req){
     	
     	System.out.println("Get Move"+ req);
-        //return "a4b5 a7a6"; 
-    	return "a4b5 b2b4"; 
+       // return "a4b5 a7a6"; //white first
+    	return "a4b5 b2b4"; //black first
     }
     
     
