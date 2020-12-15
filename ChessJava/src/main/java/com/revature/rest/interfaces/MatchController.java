@@ -10,6 +10,8 @@ package com.revature.rest.interfaces;
 import com.revature.model.MatchRecord;
 import com.revature.service.interfaces.MatchService;
 
+import org.springframework.web.bind.annotation.ResponseBody;
+
 public interface MatchController {
 
     // ---------------------
@@ -37,13 +39,38 @@ public interface MatchController {
     public MatchRecord checkMatchRecord(int id);
 
     /**
-     * Records the given move to the MatchRecord entry indicated by the given id.
-     * The string should be a single move, in chess notation.
+     * Returns the entire moveHistory string from the requested MatchRecord
+     * Returns null if failure
      * 
-     * @param id
-     * @param move
-     * @return true if the move is successfully recorded, false otherwise
+     * @param req
+     * @return
      */
-    public boolean recordMove(int id, String move);
-    
+    public String getMove(String req);
+
+    /**
+     * Replaces the entire moveHistory string on the requested MatchRecord
+     * Returns false if failure
+     * 
+     * @param req
+     * @return
+     */
+    public boolean recordMove(String req);
+
+    /**
+     * Starts a new game with the given code, with the given player as white
+     * Returns false if failure
+     * 
+     * @param req
+     * @return
+     */
+    public boolean makeGame(String req);
+
+    /**
+     * Adds the given player as black to the pending game indicated by the given code.
+     * Returns false if failure
+     * 
+     * @param req
+     * @return
+     */
+    public boolean findGame(String req);
 }

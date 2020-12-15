@@ -10,8 +10,11 @@ package com.revature.rest.impl;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.revature.model.MatchRecord;
+import com.revature.model.User;
 import com.revature.rest.interfaces.MatchController;
+import com.revature.service.ServiceException;
 import com.revature.service.interfaces.MatchService;
+import com.revature.service.interfaces.UserService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 @Controller("matchRecordController")
@@ -29,16 +33,19 @@ public class MatchControllerImpl implements MatchController {
     // INSTANCE VARIABLES
     // ---------------------
 
-    //@Autowired
-    private MatchService mrService;
+    @Autowired
+    private MatchService mService;
+
+    @Autowired
+    private UserService uService;
 
     // ---------------------
     // UTILITY / TESTING METHODS
     // ---------------------
 
     @Override
-    public void useOutsideService(MatchService mrService) {
-        this.mrService = mrService;
+    public void useOutsideService(MatchService mService) {
+        this.mService = mService;
     }
 
     // ---------------------
@@ -112,11 +119,45 @@ public class MatchControllerImpl implements MatchController {
         return null;
     }
 
-    @PostMapping("/recordMove")
+    /**
+     * Returns the entire moveHistory string from the requested MatchRecord
+     * Returns null if failure
+     * 
+     * let template = {user: "user",code: code}
+     * 
+     * @param req
+     * @return
+     */
+    @ResponseStatus(HttpStatus.OK)
     @Override
-    public @ResponseBody boolean recordMove(
-            @RequestBody int id, 
-            @RequestBody String move) {
+    public @ResponseBody String getMove(@RequestBody String req) {
+        try{
+            JsonObject json = new Gson().fromJson(req, JsonObject.class);
+            String codeString = json.get("user").toString();
+            int code = Integer.parseInt(codeString);
+            MatchRecord mr = mService.findMatchRecordByCode(code);
+            if (mr == null) return null;
+            return mr.getMoveHistory();
+        } catch(ServiceException e){
+            return null;
+        }
+    }
+
+    @Override
+    public boolean recordMove(String req) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean makeGame(String req) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean findGame(String req) {
+        // TODO Auto-generated method stub
         return false;
     }
     
