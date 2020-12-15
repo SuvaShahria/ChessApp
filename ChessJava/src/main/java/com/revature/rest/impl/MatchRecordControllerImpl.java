@@ -43,6 +43,19 @@ public class MatchRecordControllerImpl implements MatchRecordController {
     // REQUEST-HANDLING METHODS
     // ---------------------
 
+    
+    @PostMapping("/hello2")
+    public @ResponseBody String helloWorld(){
+    	System.out.println("hello worked");
+        return "Hello world222!"; 
+    }
+    
+    @PostMapping("/testrecordMove")
+    public @ResponseBody boolean testRM(){
+    	System.out.println("hello worked");
+        return false; 
+    }
+    
     @PostMapping("/checkMatchRecord")
     @Override
     public @ResponseBody MatchRecord checkMatchRecord(@RequestBody int id) {
