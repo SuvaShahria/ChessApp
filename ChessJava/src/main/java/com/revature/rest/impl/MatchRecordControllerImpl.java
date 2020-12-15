@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
 
 @Controller("matchRecordController")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -54,13 +56,54 @@ public class MatchRecordControllerImpl implements MatchRecordController {
         return "Hello world222!"; 
     }
     
+    
+    /*
+     * need @ResponseStatus(HttpStatus.OK) or wont work
+     * let template = {
+          user: "user",
+          code: code
+      } -- look at testmakeGame for out to get elements
+      -- user lowercase here
+     */
+    @PostMapping("/testGetMove")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody String testGM(@RequestBody String req){
+    	
+    	System.out.println("Get Move"+ req);
+        return "a4b5 a7a6"; 
+    }
+    
+    
+    /*
+     * let template = {
+             code: code,
+             moves: moves
+           }
+     */
     @PostMapping("/testrecordMove")
-    public @ResponseBody boolean testRM( 
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody boolean testRM(@RequestBody String req){
+    	
+    	System.out.println("Recording Move: "+req);
+        return true; 
+    }
+    
+    /*
+     * let template = {
+          whiteUser: "user",
+          code: code
+      }
+      --to get string convert to json, then use get and toString()
+     */
+    @PostMapping("/testmakeGame")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody boolean testMG( 
             @RequestBody String req){
     	Gson gson=new Gson();
     	JsonObject json = new Gson().fromJson(req, JsonObject.class);
     	//JsonElement j = json.get("whiteUser");
     	String w = json.get("whiteUser").toString();
+    	String code = json.get("code").toString();
     	System.out.println(req);
     	System.out.println(w);
     	

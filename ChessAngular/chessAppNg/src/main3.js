@@ -6,6 +6,7 @@ var myExtObject2 = (function() {
     var w = ''
     var b = ''
     var h = 2
+    var code = '';
     // var pieces = './assets/img/chesspieces/wikipedia/{piece}.png'
     return {
       create: function(s,ori) {
@@ -83,19 +84,46 @@ var myExtObject2 = (function() {
       }
 
       function oppGo(){
-        var move = game.move({
-          from: 'a7',
-          to: 'a6',
-          promotion: 'q' //promote to queen
-        })
+        let xhr = new XMLHttpRequest()
+        let template = {
+          user: "user",
+          code: code
+      }
+        xhr.onreadystatechange = function(){
+          if(this.readyState ===4 && this.status ===200){
+            //console.log(moves)
+          moves = this.responseText
+          var split = moves.split(" ");
+          var l = split.length;
+          //var f = split.substring(l-4,l-2)
+          //var a = split.substring(l-2,l)
+          //console.log(split[l-1])
+          var f = split[l-1].substring(0,2)
+          var t = split[l-1].substring(2,4)
+          var move = game.move({
+            from: f,
+            to: t,
+            promotion: 'q' //promote to queen
+          })
+  
+          board.position(game.fen())
+          }
+          
+        }
+        xhr.open("POST","http://localhost:8080/ChessApp/testGetMove")
+        xhr.send(JSON.stringify(template))
 
-        board.position(game.fen())
+        
+        
+        
       }
       
       function onDrop (source, target) {
         
         removeGreySquares()
-       
+        
+
+
         // see if the move is legal
         var move = game.move({
           from: source,
@@ -109,10 +137,19 @@ var myExtObject2 = (function() {
           b= source +' '+ target
           //var b = Source + " " + target;
           $mvDiv.html(b)
-  
+          moves+= " "
           moves += source
           moves += target
-          moves+= " "
+          
+
+          let xhr = new XMLHttpRequest()
+           let template = {
+             code: code,
+             moves: moves
+           }
+
+          xhr.open("POST","http://localhost:8080/ChessApp/testrecordMove")
+           xhr.send(JSON.stringify(template))
           //console.log(moves)
         }
         if (move === null) return 'snapback'
@@ -262,21 +299,22 @@ var myExtObject2 = (function() {
       toggle: function(){
         h = h+1
       },
-      makeGame: function(code){
+      makeGame: function(c){
+        code = c
         let xhr = new XMLHttpRequest()
         let template = {
           whiteUser: "user",
-          moveHistory: "nothing"
+          code: code
       }
         xhr.onreadystatechange = function(){
           if(this.responseText == false){
             //console.log("return boolean")
           }
-          console.log(this.responseText)
+          //console.log(this.responseText)
           // var ans = JSON.parse(this.responseText);
           // console.log(JSON.stringify(ans))
         }
-        xhr.open("POST","http://localhost:8080/ChessApp/testrecordMove")
+        xhr.open("POST","http://localhost:8080/ChessApp/testmakeGame")
         xhr.send(JSON.stringify(template))
         //this.te()
       },

@@ -19,7 +19,7 @@ export class PlayvsComponent implements OnInit {
     myExtObject2.delete();
   }
   createGame(s: String,ori: String) {
-    console.log("hi")
+    //console.log("hi")
     myExtObject2.create(s,ori);
   }
 
@@ -54,7 +54,7 @@ export class PlayvsComponent implements OnInit {
   }
 
   generateCode(){
-    var val = Math.floor(1000 + Math.random() * 9000);
+    var val = Math.floor(1000 + Math.random() * 100000);
     this.title = "w";
     this.code = val;
     myExtObject2.makeGame(this.code);
