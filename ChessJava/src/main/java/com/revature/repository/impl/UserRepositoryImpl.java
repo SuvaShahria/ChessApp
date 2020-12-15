@@ -65,9 +65,9 @@ public class UserRepositoryImpl implements UserRepository {
                     + user.getUsername() 
                     + "> + not found; use register for new users.");
             Session session = sessionFactory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
+            //Transaction tx = session.beginTransaction();
             session.update(user);
-            tx.commit();
+            //tx.commit();
         }catch(HibernateException e){
             throw new RepositoryException("HibernateException: " + e.getMessage());
         }
@@ -90,11 +90,11 @@ public class UserRepositoryImpl implements UserRepository {
         try{
             if(checkExists(user)) throw new RepositoryException("User already exists");
             Session session = sessionFactory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
+            //Transaction tx = session.beginTransaction();
             session.save(user);
             UserPassword upass = new UserPassword(user, encryptPassword(barePassword));
             session.save(upass);
-            tx.commit();
+            //tx.commit();
             return user;
         } catch(HibernateException e){
             throw new RepositoryException("HibernateException: " + e.getMessage());
@@ -128,9 +128,9 @@ public class UserRepositoryImpl implements UserRepository {
     public User findUser(int id) throws RepositoryException {
         try{
             Session session = sessionFactory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
+            //Transaction tx = session.beginTransaction();
             User u = (User)session.get(User.class, id);
-            tx.commit();
+            //tx.commit();
             return u;
         } catch(HibernateException e){
             throw new RepositoryException("HibernateException: " + e.getMessage());
@@ -150,11 +150,11 @@ public class UserRepositoryImpl implements UserRepository {
     public User findUser(String username) throws RepositoryException {
         try{
             Session session = sessionFactory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
+            //Transaction tx = session.beginTransaction();
             Criteria crit = session.createCriteria(User.class);
             crit.add(Restrictions.eq("username", username));
             List<User> userList = crit.list();
-            tx.commit();
+            //tx.commit();
             return (userList.isEmpty()) ? null : userList.get(0);
         } catch(HibernateException e){
             throw new RepositoryException("HibernateException: " + e.getMessage());
@@ -185,11 +185,11 @@ public class UserRepositoryImpl implements UserRepository {
         try{
             if (!checkExists(user)) throw new RepositoryException("User not found");
             Session session = sessionFactory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
+            //Transaction tx = session.beginTransaction();
             Criteria crit = session.createCriteria(UserPassword.class);
             crit.add(Restrictions.eq("user.id", user.getId()));
             List<UserPassword> passList = crit.list();
-            tx.commit();
+            //tx.commit();
             if (passList.isEmpty()) 
                 throw new RepositoryException("User does not have a matching password");
             UserPassword upass = passList.get(0);
@@ -227,9 +227,9 @@ public class UserRepositoryImpl implements UserRepository {
     public boolean checkExists(int id) throws RepositoryException {
         try{
             Session session = sessionFactory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
+            //Transaction tx = session.beginTransaction();
             User u = (User)session.get(User.class, id);
-            tx.commit();
+            //tx.commit();
             return u != null;
         } catch(HibernateException e){
             throw new RepositoryException("HibernateException: " + e.getMessage());
@@ -250,11 +250,11 @@ public class UserRepositoryImpl implements UserRepository {
     public boolean checkExists(String username) throws RepositoryException {
         try{
             Session session = sessionFactory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
+            //Transaction tx = session.beginTransaction();
             Criteria crit = session.createCriteria(User.class);
             crit.add(Restrictions.eq("username", username));
             List<User> userList = crit.list();
-            tx.commit();
+            //tx.commit();
             return !userList.isEmpty();
         } catch(HibernateException e){
             throw new RepositoryException("HibernateException: " + e.getMessage());

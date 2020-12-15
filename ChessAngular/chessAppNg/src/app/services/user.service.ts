@@ -17,17 +17,9 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  public Login(user:User): Observable<ClientMessage> {
-    return this.http
-    .post(`${USER_URL}login`,user,this.httpOptions)
-    .pipe(
-      catchError(this.handleError<any>('cannot login user'))
-    )
-  }
-
   public registerUser(user: User): Observable<ClientMessage> {
     return this.http
-      .post(`${USER_URL}register`, user, this.httpOptions)
+      .post(`${USER_URL}registerUser`, user, this.httpOptions)
       .pipe(
         catchError(this.handleError<any>('cannot register user'))
       )
@@ -35,15 +27,15 @@ export class UserService {
 
   public findUser(user: User): Observable<User> {
     return this.http
-      .post<User>(`${USER_URL}findHero`, user)
+      .post<User>(`${USER_URL}findUser`, user)
       .pipe(
-        catchError(this.handleError<User>('get hero', null))
+        catchError(this.handleError<User>('get user', null))
       )
   }
 
   public findAllUsers(): Observable<User[]> {
     return this.http
-    .get<User[]>(`${USER_URL}findAllHeroes`)
+    .get<User[]>(`${USER_URL}findAllUsers`)
     .pipe(
       catchError(this.handleError<User[]>('getUsers', []))
       );

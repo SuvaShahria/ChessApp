@@ -1,3 +1,5 @@
+import { AuthGuard } from './helper/auth.guard';
+import { HomeComponent } from './components/home/home.component';
 import { PlayComponent } from './components/play/play.component';
 import { FindMatchComponent } from './components/find-match/find-match.component';
 import { PlayvsComponent } from './components/playvs/playvs.component';
@@ -11,7 +13,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'main', pathMatch: 'full'}
+  {path: '', component: MainComponent }
   ,{path: 'main', component: MainComponent}
   ,{path: 'register', component: RegisterComponent}
   ,{path: 'login', component: LoginComponent}
@@ -19,7 +21,9 @@ const routes: Routes = [
   ,{path: 'history', component: HistoryComponent}
   ,{path: 'find-match', component: FindMatchComponent}
   ,{path: 'play', component: PlayComponent}
+  ,{path: 'home', component: HomeComponent, canActivate: [AuthGuard]}
   ,{path: 'playvs', component: PlayvsComponent}
+  ,{path: '**', redirectTo: ''}
 ];
 
 @NgModule({

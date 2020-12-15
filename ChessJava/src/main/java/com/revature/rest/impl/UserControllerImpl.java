@@ -73,8 +73,11 @@ public class UserControllerImpl implements UserController{
     @Override
     public @ResponseBody User registerUser(@RequestBody UserWithPassword uwp){
         try{
-            return uService.register(uwp.makeUser(), uwp.getBarePassword());
+            User u = uService.register(uwp.makeUser(), uwp.getBarePassword());
+            System.out.println("DEBUG: is user null? " + (u == null));
+            return u;
         } catch (ServiceException e){
+            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -91,14 +94,19 @@ public class UserControllerImpl implements UserController{
      */
     @PostMapping("/logIn")
     @Override
-    public @ResponseBody User logIn(
-            @RequestBody String username, 
-            @RequestBody String barePassword){
+    public @ResponseBody User logIn(@RequestBody String[] args){
         try{
+            String username = args[0];
+            String barePassword = args[1];
             User user = new User(username); // clumsy/lazy
             return uService.logIn(user, barePassword);
         } catch (ServiceException e){
             return null;
         }
+    }
+
+    @PostMapping("/testRegisterUser")
+    public @ResponseBody UserWithPassword postRegisterTest(@RequestBody UserWithPassword uwp){
+        return uwp;
     }
 }

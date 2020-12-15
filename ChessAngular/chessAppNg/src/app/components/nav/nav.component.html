@@ -2,26 +2,38 @@
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-					data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<a class="navbar-brand" routerLink="/" >
+				<img class="crown" src={{crown}}/>
+				</a>
+				<button  class="navbar-toggle" type="button" data-toggle="collapse"
+				data-target="#navbarToggler" aria-controls="navbarToggler"
+				aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" routerLink="/" >
-				<img class="crown" src={{crown}}/>
-				</a>
+
 			</div>
 		</div>
-		<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
-				<li><a routerLink="/login">Login</a></li>
-				<li><a routerLink="/find-match">Find Match</a></li>
+		<div class="collapse navbar-collapse" id="navbarToggler">
+			<ul class="nav navbar-nav" *ngIf="!user" aria-expanded="true">
+				<li  ><a routerLink="/login">Login</a></li>
+			</ul>
+			<ul class="nav navbar-nav" *ngIf="!user">
+
                 <li><a routerLink="/tips">Tips</a></li>
-                <li><a routerLink="/history">History</a></li>
 				<li><a routerLink="/register">Register</a></li>
+			</ul>
+
+			<ul class="nav navbar-nav" *ngIf="user">
+				<li><a routerLink="/find-match">Find Match</a></li>
+				<li><a routerLink="/history">History</a></li>
 				<li><a routerLink="/play">Play</a></li>
 				<li><a routerLink="/playvs">PlayVs</a></li>
+				<li><a class="nav-item nav-link" (click)="logout()">Logout</a></li>
 			</ul>
 		</div>
+	</div>
+</nav>

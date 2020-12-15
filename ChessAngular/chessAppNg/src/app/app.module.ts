@@ -1,3 +1,6 @@
+import { fakeBackendProvider } from './helper/fake-backend.interceptor';
+import { AuthInterceptor } from './helper/auth.interceptor';
+import { ErrorInterceptor } from './helper/error.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -10,9 +13,10 @@ import { LoginComponent } from './components/login/login.component';
 import { TipsComponent } from './components/tips/tips.component';
 import { HistoryComponent } from './components/history/history.component';
 import { FindMatchComponent } from './components/find-match/find-match.component';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlayComponent } from './components/play/play.component';
+import { HomeComponent } from './components/home/home.component';
 import { PlayvsComponent } from './components/playvs/playvs.component';
 
 @NgModule({
@@ -26,15 +30,24 @@ import { PlayvsComponent } from './components/playvs/playvs.component';
     HistoryComponent,
     FindMatchComponent,
     PlayComponent,
+    HomeComponent,
     PlayvsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+
+   // provider used to create fake backend
+   //,fakeBackendProvider
+  ],
+
+
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

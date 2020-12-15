@@ -52,5 +52,5 @@ public interface UserController {
      * @param barePassword
      * @return
      */
-    public User logIn(String username, String barePassword);
+    public User logIn(String[] args);
 }
