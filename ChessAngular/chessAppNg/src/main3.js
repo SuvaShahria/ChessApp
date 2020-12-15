@@ -264,16 +264,20 @@ var myExtObject2 = (function() {
       },
       makeGame: function(code){
         let xhr = new XMLHttpRequest()
+        let template = {
+          whiteUser: "user",
+          moveHistory: "nothing"
+      }
         xhr.onreadystatechange = function(){
           if(this.responseText == false){
             //console.log("return boolean")
           }
-          //console.log(this.responseText)
+          console.log(this.responseText)
           // var ans = JSON.parse(this.responseText);
           // console.log(JSON.stringify(ans))
         }
         xhr.open("POST","http://localhost:8080/ChessApp/testrecordMove")
-        xhr.send()
+        xhr.send(JSON.stringify(template))
         //this.te()
       },
       te: function(){

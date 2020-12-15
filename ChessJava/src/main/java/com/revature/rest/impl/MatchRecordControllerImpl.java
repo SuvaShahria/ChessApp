@@ -7,7 +7,11 @@
  */
 package com.revature.rest.impl;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.revature.model.MatchRecord;
+import com.revature.model.UserWithPassword;
 import com.revature.rest.interfaces.MatchRecordController;
 import com.revature.service.interfaces.MatchRecordService;
 
@@ -51,8 +55,15 @@ public class MatchRecordControllerImpl implements MatchRecordController {
     }
     
     @PostMapping("/testrecordMove")
-    public @ResponseBody boolean testRM(){
-    	System.out.println("hello worked");
+    public @ResponseBody boolean testRM( 
+            @RequestBody String req){
+    	Gson gson=new Gson();
+    	JsonObject json = new Gson().fromJson(req, JsonObject.class);
+    	//JsonElement j = json.get("whiteUser");
+    	String w = json.get("whiteUser").toString();
+    	System.out.println(req);
+    	System.out.println(w);
+    	
         return false; 
     }
     
