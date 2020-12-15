@@ -163,4 +163,40 @@ public class MatchRepositoryImpl implements MatchRepository{
 		return null;
 	}
     
+    /**
+     * Determines if the db has a MatchRecord matching either the id or code of the given
+     * mr.
+     * 
+     * @param mr
+     * @return
+     * @throws RepositoryException 
+     */
+    @Override
+    public boolean checkExists(MatchRecord mr) throws RepositoryException{
+        return findMatchRecord(mr) != null;
+    }
+
+    /**
+     * Determines if the db has a MatchRecord matching the given id
+     * 
+     * @param mr
+     * @return
+     * @throws RepositoryException 
+     */
+    @Override
+    public boolean checkExistsById(int id) throws RepositoryException{
+        return findMatchRecordById(id) != null;
+    }
+
+    /**
+     * Determines if the db has a MatchRecord matching the given code
+     * 
+     * @param mr
+     * @return
+     * @throws RepositoryException 
+     */
+    @Override
+    public boolean checkExistsByCode(int code) throws RepositoryException{
+        return findMatchRecordByCode(code) != null;
+    }
 }
