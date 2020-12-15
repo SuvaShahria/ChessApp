@@ -12,6 +12,8 @@ import com.revature.model.MatchRecord;
 import com.revature.model.User;
 import com.revature.repository.RepositoryException;
 
+import org.hibernate.SessionFactory;
+
 
 public interface MatchRepository {
 
@@ -24,15 +26,26 @@ public interface MatchRepository {
      */
     public enum MatchStatusFilter{
         ALL,
+        PENDING,
         ONGOING,
         FINISHED,
         WON_BY_GIVEN_USER,
         LOST_BY_GIVEN_USER,
-        CURRENT_USER_IS_GIVEN_USER,
     }
 
     // ---------------------
-    // METHODS
+    // HELPER/TEST METHODS
+    // ---------------------
+
+    /**
+     * Used for testing, injects a new sessionFactory.
+     * 
+     * @param sessionFactory
+     */
+    public void useOutsideSessionFactory(SessionFactory sessionFactory);
+    
+    // ---------------------
+    // DATA ACCESS METHODS
     // ---------------------
 
     /**
@@ -58,7 +71,19 @@ public interface MatchRepository {
      * @return
      * @throws RepositoryException
      */
-    public MatchRecord findMatchRecord(int id) throws RepositoryException;
+    public MatchRecord findMatchRecordById(int id) throws RepositoryException;
+
+    /**
+     * Returns the match record corresponding to the given code.
+     * If no such match record exists, returns null.
+     * 
+     * Throws RepositoryException if there is a problem with the database.
+     * 
+     * @param id
+     * @return
+     * @throws RepositoryException
+     */
+    public MatchRecord findMatchRecordByCode(int code) throws RepositoryException;
 
     /**
      * Finds all match records where the given user is one of the players.
