@@ -53,15 +53,6 @@ public class TestUserRepoImpl {
                 new Configuration().configure(fileName).buildSessionFactory());
         //sfactory = new Configuration().configure(fileName).buildSessionFactory();
         //ContextLoader conLoader = new ContextLoader();
-        
-        WebApplicationContext appCon = new XmlWebApplicationContext();
-        sfactory = appCon.getBean(SessionFactory.class);
-       
-    }
-
-    @Test
-    public void testSpring(){
-        
     }
 
     // ---------------------

@@ -17,7 +17,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+//import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -288,9 +288,28 @@ public class UserRepositoryImpl implements UserRepository {
      * @throws RepositoryException
      */
     @Override
+    @SuppressWarnings(value="unchecked")
     public void resetPassword(User user, String newBarePassword) throws RepositoryException {
-        // TODO Auto-generated method stub
-
+        if (!checkExists(user)) 
+            throw new RepositoryException(
+                "In URI resetPassword(): User <" 
+                + user.getUsername() 
+                + "> already exists!");
+        try{
+            Session session = sessionFactory.getCurrentSession();
+            //Transaction tx = session.beginTransaction();
+            Criteria crit = session.createCriteria(UserPassword.class);
+            crit.add(Restrictions.eq("user.id", user.getId()));
+            List<UserPassword> passList = crit.list();
+            if (passList.isEmpty()) 
+            throw new RepositoryException("User does not have a matching password");
+            UserPassword upass = passList.get(0);
+            upass.setEncryptedPass(encryptPassword(newBarePassword));
+            session.update(upass);
+            //tx.commit();
+        } catch (HibernateException e){
+            throw new RepositoryException("HibernateException: " + e.getMessage());
+        }
     }
 
     // ---------------------
