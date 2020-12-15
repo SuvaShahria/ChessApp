@@ -55,22 +55,61 @@ public class MatchServiceImpl implements MatchService {
         }
     }
 
+    /**
+     * Returns the match record corresponding to the id or code of the given mr. Returns
+     * null if none found
+     * 
+     * Throws ServiceException if there is a problem with the database.
+     * 
+     * @param mr
+     * @return
+     * @throws ServiceException
+     */
     @Override
     public MatchRecord findMatchRecord(MatchRecord mr) throws ServiceException {
-        // TODO Auto-generated method stub
-        return null;
+        try{
+            return mRepo.findMatchRecord(mr);
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
     }
 
+    /**
+     * Returns the match record corresponding to the given id.
+     * If no such match record exists, returns null.
+     * 
+     * Throws ServiceException if there is a problem with the database.
+     * 
+     * @param id
+     * @return
+     * @throws ServiceException
+     */
     @Override
     public MatchRecord findMatchRecordById(int id) throws ServiceException {
-        // TODO Auto-generated method stub
-        return null;
+        try{
+            return mRepo.findMatchRecordById(id);
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
     }
 
+    /**
+     * Returns the match record corresponding to the given code.
+     * If no such match record exists, returns null.
+     * 
+     * Throws ServiceException if there is a problem with the database.
+     * 
+     * @param code
+     * @return
+     * @throws ServiceException
+     */
     @Override
     public MatchRecord findMatchRecordByCode(int code) throws ServiceException {
-        // TODO Auto-generated method stub
-        return null;
+        try{
+            return mRepo.findMatchRecordByCode(code);
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
     }
 
     @Override
