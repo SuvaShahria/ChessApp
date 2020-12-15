@@ -59,6 +59,16 @@ public interface UserService {
     public User register(User user, String barePassword) throws ServiceException;
 
     /**
+     * Returns the user corresponding to information in the given user (id or username)
+     * If no such user exists, returns null.
+     * 
+     * @param id
+     * @return
+     * @throws ServiceException : if there is a problem with the database
+     */
+    public User findUser(User u) throws ServiceException;
+
+    /**
      * Returns the user corresponding to the given id.
      * If no such user exists, returns null.
      * 
