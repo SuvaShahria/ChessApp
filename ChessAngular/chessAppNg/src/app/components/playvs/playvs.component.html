@@ -27,6 +27,8 @@
     <br>
     <button (click)="generateCode()">Generate Code</button>
     &nbsp;
-    <p>{{code}}</p>
+    <p>code: {{code}}</p>
+    <input [(ngModel)] = "code" type="number">
+    <button (click)="findGame()">Find Game</button>
   
   </div>

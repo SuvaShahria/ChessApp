@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.http.HttpStatus;
 
 @Controller("matchRecordController")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:4100"})
 public class MatchRecordControllerImpl implements MatchRecordController {
 
     // ---------------------
@@ -46,7 +46,18 @@ public class MatchRecordControllerImpl implements MatchRecordController {
     // ---------------------
     // REQUEST-HANDLING METHODS
     // ---------------------
-
+    
+    /*
+     * let template = {
+          user: "user",
+          code: code
+      }
+     */
+    @PostMapping("/testfindGame")
+    public @ResponseBody boolean findG(@RequestBody String req){
+    	System.out.println("find game worked");
+        return true; 
+    }
     
     @PostMapping("/hello2")
     public @ResponseBody String helloWorld(){
@@ -68,7 +79,8 @@ public class MatchRecordControllerImpl implements MatchRecordController {
     public @ResponseBody String testGM(@RequestBody String req){
     	
     	System.out.println("Get Move"+ req);
-        return "a4b5 a7a6"; 
+        //return "a4b5 a7a6"; 
+    	return "a4b5 b2b4"; 
     }
     
     
@@ -97,6 +109,7 @@ public class MatchRecordControllerImpl implements MatchRecordController {
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody boolean testMG( 
             @RequestBody String req){
+    	System.out.println("test make game");
     	Gson gson=new Gson();
     	JsonObject json = new Gson().fromJson(req, JsonObject.class);
     	//JsonElement j = json.get("whiteUser");

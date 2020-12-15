@@ -7,7 +7,8 @@ declare var myExtObject2: any;
 })
 export class PlayvsComponent implements OnInit {
   title = 'chessAppNg';
-  code = 0;
+  public code = 0;
+  public name = 0;
   constructor() { }
 
   ngOnInit(): void{
@@ -60,6 +61,13 @@ export class PlayvsComponent implements OnInit {
     myExtObject2.makeGame(this.code);
     this.createGame('./assets/img/chesspieces/wikipedia/{piece}.png','white')
     
+  }
+
+  findGame(){
+    myExtObject2.setCode(this.code)
+    myExtObject2.findGame()
+    this.createGame('./assets/img/chesspieces/wikipedia/{piece}.png','black')
+    myExtObject2.firstMove()
   }
 
 }
