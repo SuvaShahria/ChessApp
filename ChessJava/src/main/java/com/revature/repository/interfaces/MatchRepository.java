@@ -62,6 +62,18 @@ public interface MatchRepository {
     public void save(MatchRecord mr) throws RepositoryException;
 
     /**
+     * Returns an mr from the database that matches either the id or code of the given mr.
+     * Null if no such mr found.
+     * 
+     * Throws exception if there is a problem with the db.
+     * 
+     * @param mr
+     * @return
+     * @throws RepositoryException
+     */
+    public MatchRecord findMatchRecord(MatchRecord mr) throws RepositoryException;
+
+    /**
      * Returns the match record corresponding to the given id.
      * If no such match record exists, returns null.
      * 

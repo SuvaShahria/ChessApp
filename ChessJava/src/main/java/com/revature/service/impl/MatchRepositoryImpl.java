@@ -11,14 +11,17 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.fasterxml.jackson.databind.deser.DataFormatReaders.Match;
 import com.revature.model.MatchRecord;
 import com.revature.model.User;
 import com.revature.repository.RepositoryException;
 import com.revature.repository.interfaces.MatchRepository;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -72,18 +75,76 @@ public class MatchRepositoryImpl implements MatchRepository{
         }
 	}
 
+    /**
+     * Returns a mr from the database that matches either the id or code of the given mr.
+     * Null if no such mr found.
+     * 
+     * Throws exception if there is a problem with the db.
+     * 
+     * @param mr
+     * @return
+     * @throws RepositoryException
+     */
+    @Override
+    public MatchRecord findMatchRecord(MatchRecord mr) throws RepositoryException{
+        MatchRecord result = findMatchRecordById(mr.getId());
+        return (result != null) ? result : findMatchRecordByCode(mr.getCode());
+    }
+
+    /**
+     * Returns the match record corresponding to the given id.
+     * If no such match record exists, returns null.
+     * 
+     * Throws RepositoryException if there is a problem with the database.
+     * 
+     * @param id
+     * @return
+     * @throws RepositoryException
+     */
 	@Override
 	public MatchRecord findMatchRecordById(int id) throws RepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+            Session session = sessionFactory.getCurrentSession();
+            return (MatchRecord)session.get(MatchRecord.class, id);
+        } catch(HibernateException e){
+            throw new RepositoryException("HibernateException: " + e.getMessage());
+        }
 	}
 
-	@Override
+    /**
+     * Returns the match record corresponding to the given code.
+     * If no such match record exists, returns null.
+     * 
+     * Throws RepositoryException if there is a problem with the database.
+     * 
+     * @param id
+     * @return
+     * @throws RepositoryException
+     */
+    @Override
+    @SuppressWarnings(value="unchecked")
 	public MatchRecord findMatchRecordByCode(int code) throws RepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+            Session session = sessionFactory.getCurrentSession();
+            Criteria crit = session.createCriteria(MatchRecord.class);
+            crit.add(Restrictions.eq("code", code));
+            List<MatchRecord> mrList = crit.list(); // haha, mister list
+            return (mrList.isEmpty()) ? null : mrList.get(0);
+        } catch(HibernateException e){
+            throw new RepositoryException("HibernateException: " + e.getMessage());
+        }
 	}
 
+    /**
+     * Returns the match record corresponding to the given code.
+     * If no such match record exists, returns null.
+     * 
+     * Throws RepositoryException if there is a problem with the database.
+     * 
+     * @param id
+     * @return
+     * @throws RepositoryException
+     */
 	@Override
 	public List<MatchRecord> findMatchRecordsBy(User user) throws RepositoryException {
 		// TODO Auto-generated method stub
