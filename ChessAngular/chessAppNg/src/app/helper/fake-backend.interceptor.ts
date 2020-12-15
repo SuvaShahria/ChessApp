@@ -4,7 +4,7 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse, HTT
 import { Observable, of, throwError } from 'rxjs';
 import { delay, dematerialize, materialize, mergeMap } from 'rxjs/operators';
 
-const users: User[] = [{ id: 1, username: 'test', password: 'test', firstName:'test', lastName: 'Test', email: 'Test'}];
+const users: User[] = [{ id: 1, username: 'test', barePassword: 'test', email: 'Test'}];
 
 
 @Injectable()
@@ -34,13 +34,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         function authenticate() {
             const { username, password } = body;
-            const user = users.find(x => x.username === username && x.password === password);
+            const user = users.find(x => x.username === username && x.barePassword === password);
             if (!user) return error('Username or password is incorrect');
             return ok({
                 id: user.id,
                 username: user.username,
-                firstName: user.firstName,
-                lastName: user.lastName
+                
             })
         }
 
