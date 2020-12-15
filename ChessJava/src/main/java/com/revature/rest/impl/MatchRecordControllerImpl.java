@@ -48,10 +48,16 @@ public class MatchRecordControllerImpl implements MatchRecordController {
     // ---------------------
     // REQUEST-HANDLING METHODS
     // ---------------------
-
+    
+    /*
+     * let template = {
+          user: "user",
+          code: code
+      }
+     */
     @PostMapping("/testfindGame")
     public @ResponseBody boolean findG(@RequestBody String req){
-    	System.out.println("hello worked");
+    	System.out.println("find game worked");
         return true; 
     }
     
@@ -105,6 +111,7 @@ public class MatchRecordControllerImpl implements MatchRecordController {
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody boolean testMG( 
             @RequestBody String req){
+    	System.out.println("test make game");
     	Gson gson=new Gson();
     	JsonObject json = new Gson().fromJson(req, JsonObject.class);
     	//JsonElement j = json.get("whiteUser");

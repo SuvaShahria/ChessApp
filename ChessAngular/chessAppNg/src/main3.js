@@ -371,6 +371,16 @@ var myExtObject2 = (function() {
         // })
 
         // board.position(game.fen())
+      },
+      findGame: function(){
+        let xhr = new XMLHttpRequest()
+        let template = {
+          user: "user",
+          code: code
+         }
+
+         xhr.open("POST","http://localhost:8080/ChessApp/testfindGame")
+        xhr.send(JSON.stringify(template))
       }
       
     }

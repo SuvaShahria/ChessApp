@@ -65,6 +65,7 @@ export class PlayvsComponent implements OnInit {
 
   findGame(){
     myExtObject2.setCode(this.code)
+    myExtObject2.findGame()
     this.createGame('./assets/img/chesspieces/wikipedia/{piece}.png','black')
     myExtObject2.firstMove()
   }
