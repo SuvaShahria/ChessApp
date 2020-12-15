@@ -171,6 +171,14 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Returns a list of all the users in the database.
+     * 
+     * Throws ServiceException if there is a problem with the database
+     * 
+     * @return
+     * @throws ServiceException
+     */
     @Override
     public List<User> findAllUsers() throws ServiceException {
         try{
