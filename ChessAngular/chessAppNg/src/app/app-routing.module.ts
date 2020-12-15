@@ -20,10 +20,10 @@ const routes: Routes = [
   ,{path: 'tips', component: TipsComponent}
   ,{path: 'history', component: HistoryComponent}
   ,{path: 'find-match', component: FindMatchComponent}
-  ,{path: 'play', component: PlayComponent},
-  ,{path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-  ,{path: '**', redirectTo: ''}
+  ,{path: 'play', component: PlayComponent}
+  ,{path: 'home', component: HomeComponent, canActivate: [AuthGuard]}
   ,{path: 'playvs', component: PlayvsComponent}
+  ,{path: '**', redirectTo: ''}
 ];
 
 @NgModule({

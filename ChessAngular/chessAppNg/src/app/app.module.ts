@@ -41,10 +41,10 @@ import { PlayvsComponent } from './components/playvs/playvs.component';
     ReactiveFormsModule
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
 
    // provider used to create fake backend
-   fakeBackendProvider
+   //,fakeBackendProvider
   ],
 
 

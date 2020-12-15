@@ -35,15 +35,15 @@ export class UserService {
 
   public findUser(user: User): Observable<User> {
     return this.http
-      .post<User>(`${USER_URL}findHero`, user)
+      .post<User>(`${USER_URL}findUser`, user)
       .pipe(
-        catchError(this.handleError<User>('get hero', null))
+        catchError(this.handleError<User>('get user', null))
       )
   }
 
   public findAllUsers(): Observable<User[]> {
     return this.http
-    .get<User[]>(`${USER_URL}findAllHeroes`)
+    .get<User[]>(`${USER_URL}findAllUsers`)
     .pipe(
       catchError(this.handleError<User[]>('getUsers', []))
       );

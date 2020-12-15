@@ -73,7 +73,6 @@ public class UserControllerImpl implements UserController{
     @Override
     public @ResponseBody User registerUser(@RequestBody UserWithPassword uwp){
         try{
-            //System.out.println("-----" + uwp.getUsername() + "-----");
             User u = uService.register(uwp.makeUser(), uwp.getBarePassword());
             System.out.println("DEBUG: is user null? " + (u == null));
             return u;
