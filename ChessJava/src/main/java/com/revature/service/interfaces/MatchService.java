@@ -9,10 +9,23 @@ import java.util.List;
 
 import com.revature.model.MatchRecord;
 import com.revature.model.User;
+import com.revature.repository.interfaces.MatchRepository;
 import com.revature.service.ServiceException;
 
 public interface MatchService {
-    
+        
+    // ---------------------
+    // TESTER/HELPER METHODS
+    // ---------------------
+
+    /**
+     * Injects the given mRepo to replace the one given by spring.
+     * Used for testing.
+     * 
+     * @param mRepo
+     */
+    public void useOutsideRepository(MatchRepository mRepo);
+
     // ---------------------
     // SERVICE METHODS
     // ---------------------
@@ -31,6 +44,18 @@ public interface MatchService {
     public void save(MatchRecord mr) throws ServiceException;
 
     /**
+     * Returns the match record corresponding to the id or code of the given mr. Returns
+     * null if none found
+     * 
+     * Throws ServiceException if there is a problem with the database.
+     * 
+     * @param mr
+     * @return
+     * @throws ServiceException
+     */
+    public MatchRecord findMatchRecord(MatchRecord mr) throws ServiceException;
+
+    /**
      * Returns the match record corresponding to the given id.
      * If no such match record exists, returns null.
      * 
@@ -40,7 +65,19 @@ public interface MatchService {
      * @return
      * @throws ServiceException
      */
-    public MatchRecord findMatchRecord(int id) throws ServiceException;
+    public MatchRecord findMatchRecordById(int id) throws ServiceException;
+
+    /**
+     * Returns the match record corresponding to the given code.
+     * If no such match record exists, returns null.
+     * 
+     * Throws ServiceException if there is a problem with the database.
+     * 
+     * @param code
+     * @return
+     * @throws ServiceException
+     */
+    public MatchRecord findMatchRecordByCode(int code) throws ServiceException;
     
     /**
      * Finds all match records.
@@ -113,19 +150,6 @@ public interface MatchService {
      */
     public List<MatchRecord> findAllFinishedMatchRecordsWithPlayer(User player) 
             throws ServiceException;
-
-    /**
-     * Finds all finished match records where the given user is one of the players AND
-     * it is their turn.
-     * 
-     * Throws ServiceException if there is a problem with the database, such as if
-     * the user does not exist.
-     * 
-     * @param user
-     * @return
-     */
-    public List<MatchRecord> findAllMatchRecordsWithCurrentPlayer(User player) 
-            throws ServiceException;
     
     /**
      * Finds all finished match records where the given user is/was the winner.
@@ -137,7 +161,7 @@ public interface MatchService {
      * @return
      */
     public List<MatchRecord> findAllMatchRecordsWithWinner(User player) 
-            throws ServiceException;
+                throws ServiceException;
 
     /**
      * Finds all finished match records where the given user is/was the loser.
@@ -149,5 +173,16 @@ public interface MatchService {
      * @return
      */
     public List<MatchRecord> findAllMatchRecordsWithLoser(User player) 
-            throws ServiceException;    
+                throws ServiceException;
+
+    /**
+     * Adds the given player as the blackPlayer of the game indicated by the given code.
+     * Throws an exception if the MatchRecord does not exist, or if it already has a
+     * black player.
+     * 
+     * @param blackPlayer
+     * @param code
+     * @throws ServiceException
+     */
+    public void acceptCode(User player, int code) throws ServiceException;
 }
