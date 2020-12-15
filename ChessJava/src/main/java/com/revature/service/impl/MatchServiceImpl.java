@@ -186,4 +186,28 @@ public class MatchServiceImpl implements MatchService {
             throw new ServiceException("RepositoryException: " + e.getMessage());
         }
     }
+
+    /**
+     * Creates a new MatchRecord, with the given code, the given player as white, and in
+     * the PENDING status.
+     * 
+     * Throws exception if the code is not unique.
+     * 
+     * @param player
+     * @param code
+     * @throws ServiceException
+     */
+    public void makeGame(User player, int code) throws ServiceException{
+        try{
+            if (mRepo.checkExistsByCode(code))
+                throw new ServiceException("Game w/ code <" + code + "> already exists.");
+            MatchRecord mr = new MatchRecord();
+            mr.setWhiteUser(player);
+            mr.setCode(code);
+            mr.setStatus(MatchStatus.PENDING);
+            save(mr);
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
+    }
 }

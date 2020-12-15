@@ -5,6 +5,7 @@
  */
 package com.revature.service.interfaces;
 
+import java.security.Provider.Service;
 import java.util.List;
 
 import com.revature.model.MatchRecord;
@@ -180,9 +181,22 @@ public interface MatchService {
      * Throws an exception if the MatchRecord does not exist, or if it already has a
      * black player.
      * 
-     * @param blackPlayer
+     * @param player
      * @param code
      * @throws ServiceException
      */
     public void acceptCode(User player, int code) throws ServiceException;
+
+    /**
+     * Creates a new MatchRecord, with the given code, the given player as white, and in
+     * the PENDING status.
+     * 
+     * Throws exception if the code is not unique.
+     * 
+     * @param player
+     * @param code
+     * @throws ServiceException
+     */
+    public void makeGame(User player, int code) throws ServiceException;
+
 }

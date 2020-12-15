@@ -11,6 +11,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.revature.model.MatchRecord;
@@ -83,6 +85,7 @@ public class TestMatchServiceImpl {
         assertEquals(u.getId(), mr.getBlackUser().getId());
         assertEquals(MatchStatus.ONGOING, mr.getStatus());
         // NOTE: technically doesn't listen to see if the repo is asked to persist mr
+        //verify(mRepo.save(mr), times(1));
     }
 
     /**
@@ -137,6 +140,58 @@ public class TestMatchServiceImpl {
         boolean caught = false;
         try{
             mService.acceptCode(u, code);
+        } catch(ServiceException e){
+            if (e.getMessage().contains("test"))
+                caught = true;
+        }
+        assertTrue(caught);
+    }
+
+    // ---------------------
+    // makeGame() TESTS
+    // ---------------------
+
+    /**
+     * Expects success
+     */
+    @Test
+    public void testMakeGame() throws RepositoryException, ServiceException {
+        User u = new User(1, "white", "white@email.com");
+        int code = 54321;
+        when(mRepo.checkExistsByCode(code)).thenReturn(false);
+        mService.makeGame(u, code);
+        // if no errors, we're good
+    }
+
+    /**
+     * Expects failure due to game existing
+     */
+    @Test
+    public void testMakeGameAlreadyExists() throws RepositoryException, ServiceException {
+        User u = new User(1, "white", "white@email.com");
+        int code = 54321;
+        when(mRepo.checkExistsByCode(code)).thenReturn(true);
+        boolean caught = false;
+        try{
+            mService.makeGame(u, code);
+        } catch(ServiceException e){
+            if (!e.getMessage().startsWith("RepositoryException"))
+                caught = true;
+        }
+        assertTrue(caught);
+    }
+
+    /**
+     * Expects failure due to repo exception
+     */
+    @Test
+    public void testMakeGameRepoExcept() throws RepositoryException, ServiceException {
+        User u = new User(1, "white", "white@email.com");
+        int code = 54321;
+        when(mRepo.checkExistsByCode(code)).thenThrow(new RepositoryException("test"));
+        boolean caught = false;
+        try{
+            mService.makeGame(u, code);
         } catch(ServiceException e){
             if (e.getMessage().contains("test"))
                 caught = true;
