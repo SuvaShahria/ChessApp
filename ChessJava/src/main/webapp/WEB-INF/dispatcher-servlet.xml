@@ -23,4 +23,13 @@
 			<value>.html</value>
 		</property>
 	</bean>
+
+	<bean id="matchRecordController" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/static</value>
+		</property>
+		<property name="suffix">
+			<value>.html</value>
+		</property>
+	</bean>
 </beans>

@@ -2,7 +2,7 @@ import { AuthGuard } from './helper/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { PlayComponent } from './components/play/play.component';
 import { FindMatchComponent } from './components/find-match/find-match.component';
-
+import { PlayvsComponent } from './components/playvs/playvs.component';
 import { HistoryComponent } from './components/history/history.component';
 import { TipsComponent } from './components/tips/tips.component';
 import { LoginComponent } from './components/login/login.component';
@@ -20,10 +20,10 @@ const routes: Routes = [
   ,{path: 'tips', component: TipsComponent}
   ,{path: 'history', component: HistoryComponent}
   ,{path: 'find-match', component: FindMatchComponent}
-  ,{path: 'play', component: PlayComponent}
-  ,{path: 'home', component: HomeComponent, canActivate: [AuthGuard]}
-  
+  ,{path: 'play', component: PlayComponent},
+  ,{path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   ,{path: '**', redirectTo: ''}
+  ,{path: 'playvs', component: PlayvsComponent}
 ];
 
 @NgModule({

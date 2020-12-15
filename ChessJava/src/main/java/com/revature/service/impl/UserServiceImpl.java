@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User register(User user, String barePassword) throws ServiceException {
         try{
-            return (uRepo.checkExists(user)) ? uRepo.register(user, barePassword) : null;
+            return (uRepo.checkExists(user)) ? null : uRepo.register(user, barePassword);
         } catch(RepositoryException e){
             throw new ServiceException("RepositoryException: " + e.getMessage());
         }
