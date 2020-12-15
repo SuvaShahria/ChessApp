@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.http.HttpStatus;
 
 @Controller("matchRecordController")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:4100"})
 public class MatchRecordControllerImpl implements MatchRecordController {
 
     // ---------------------
@@ -49,6 +49,11 @@ public class MatchRecordControllerImpl implements MatchRecordController {
     // REQUEST-HANDLING METHODS
     // ---------------------
 
+    @PostMapping("/testfindGame")
+    public @ResponseBody boolean findG(@RequestBody String req){
+    	System.out.println("hello worked");
+        return true; 
+    }
     
     @PostMapping("/hello2")
     public @ResponseBody String helloWorld(){
@@ -70,7 +75,8 @@ public class MatchRecordControllerImpl implements MatchRecordController {
     public @ResponseBody String testGM(@RequestBody String req){
     	
     	System.out.println("Get Move"+ req);
-        return "a4b5 a7a6"; 
+        //return "a4b5 a7a6"; 
+    	return "a4b5 b2b4"; 
     }
     
     

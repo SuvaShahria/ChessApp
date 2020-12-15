@@ -5,8 +5,10 @@ var myExtObject2 = (function() {
     var piece = '';
     var w = ''
     var b = ''
-    var h = 2
+    var h = 1
     var code = '';
+    var board = null;
+    var game = new Chess()
     // var pieces = './assets/img/chesspieces/wikipedia/{piece}.png'
     return {
       create: function(s,ori) {
@@ -16,8 +18,7 @@ var myExtObject2 = (function() {
       pieces =s;
       var whiteSquareGrey = '#a9a9a9'
       var blackSquareGrey = '#696969'
-      var board = null;
-      var game = new Chess()
+      
       var $status = $('#status')
       var $mvDiv = $('#mvDiv')  
       
@@ -40,20 +41,20 @@ var myExtObject2 = (function() {
       }
       function onMouseoverSquare (square, piece) {
         // get list of possible moves for this square
-        var moves = game.moves({
+        var moves2 = game.moves({
           square: square,
           verbose: true
         })
       
         // exit if there are no moves available for this square
-        if (moves.length === 0) return
+        if (moves2.length === 0) return
       
         // highlight the square they moused over
         greySquare(square)
       
         // highlight the possible squares for this piece
-        for (var i = 0; i < moves.length; i++) {
-          greySquare(moves[i].to)
+        for (var i = 0; i < moves2.length; i++) {
+          greySquare(moves2[i].to)
         }
       }
       
@@ -66,9 +67,16 @@ var myExtObject2 = (function() {
         if (game.game_over()) return false
       
         // only pick up pieces for the side to move
-        if (piece.search(/^b/) !== -1) {
-          return false
+        if(ori == 'white'){
+          if (piece.search(/^b/) !== -1) {
+            return false
+          }
+        }else{
+          if (piece.search(/^w/) !== -1) {
+            return false
+          }
         }
+        
       }
 
       function makeRandomMove () {
@@ -88,7 +96,7 @@ var myExtObject2 = (function() {
         let template = {
           user: "user",
           code: code
-      }
+         }
         xhr.onreadystatechange = function(){
           if(this.readyState ===4 && this.status ===200){
             //console.log(moves)
@@ -119,6 +127,7 @@ var myExtObject2 = (function() {
       }
       
       function onDrop (source, target) {
+        //myExtObject2.te()
         
         removeGreySquares()
         
@@ -320,6 +329,48 @@ var myExtObject2 = (function() {
       },
       te: function(){
         console.log("te")
+      },
+      setCode: function(c){
+        code = c
+        console.log(code)
+      },
+      firstMove: function(){
+        let xhr = new XMLHttpRequest()
+        let template = {
+          user: "user",
+          code: code
+         }
+        xhr.onreadystatechange = function(){
+          if(this.readyState ===4 && this.status ===200){
+            //console.log(moves)
+          moves = this.responseText
+          var split = moves.split(" ");
+          var l = split.length;
+          //var f = split.substring(l-4,l-2)
+          //var a = split.substring(l-2,l)
+          //console.log(split[l-1])
+          var f = split[l-1].substring(0,2)
+          var t = split[l-1].substring(2,4)
+          var move = game.move({
+            from: f,
+            to: t,
+            promotion: 'q' //promote to queen
+          })
+  
+          board.position(game.fen())
+          }
+          
+        }
+        xhr.open("POST","http://localhost:8080/ChessApp/testGetMove")
+        xhr.send(JSON.stringify(template))
+        console.log("first move")
+        // var move = game.move({
+        //   from: 'a2',
+        //   to: 'a4',
+        //   promotion: 'q' //promote to queen
+        // })
+
+        // board.position(game.fen())
       }
       
     }
