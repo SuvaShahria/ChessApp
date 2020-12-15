@@ -20,7 +20,7 @@ When you're presenting, you're welcome to provide a brief slideshow demonstratin
 ## Agile Scrum Guidelines
 For software teams, the stand-up is like the team’s huddle. It’s even commonly known as the daily scrum, and reinforces “we” to keep everyone aware of the team’s landscape and progress.
 - Every morning, at 10:00am you will have a Daily Standup of about 7-10 minutes.
-- At the end, each **Scrum Master** will report to the Trainer (Sophia) about the current status of the project and any blockoers you're facing or have resolved
+- At the end, each **Scrum Master** will report to the Trainer (Sophia) about the current status of the project and any blockers you're facing or have resolved
 ### In your Team Standups Use the 3 question agenda:
 *Scrum Master asks each attendee to answer these questions.*
   1. *What have I done since the last meeting?*
