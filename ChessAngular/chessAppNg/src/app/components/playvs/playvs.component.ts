@@ -22,7 +22,7 @@ export class PlayvsComponent implements OnInit {
   }
   createGame(s: String,ori: String) {
     //console.log("hi")
-    //myExtObject2.setNull()
+    myExtObject2.setNull()
     myExtObject2.create(s,ori);
   }
 
