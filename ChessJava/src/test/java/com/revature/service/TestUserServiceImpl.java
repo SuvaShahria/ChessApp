@@ -11,7 +11,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -225,4 +224,18 @@ public class TestUserServiceImpl {
         }
         assertTrue(caught);
     }
+
+    // ---------------------
+    // findUser() TESTS
+    // ---------------------
+
+    // currently, not testing findUser methods because they literally just pass a param
+    // to the repo method
+
+    // ---------------------
+    // findAllUsers() TESTS
+    // ---------------------
+
+    // currently, not testing the findAllUsers method because it literally just calls the
+    // repo method
 }

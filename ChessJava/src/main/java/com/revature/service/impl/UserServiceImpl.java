@@ -173,18 +173,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAllUsers() throws ServiceException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    // TODO delete this
-    @SuppressWarnings(value="all")
-    private void template() throws ServiceException{
         try{
-            throw new RepositoryException(); // REMOVE THIS BEFORE USE
+            return uRepo.findAllUsers();
         } catch(RepositoryException e){
             throw new ServiceException("RepositoryException: " + e.getMessage());
         }
     }
-    
 }
