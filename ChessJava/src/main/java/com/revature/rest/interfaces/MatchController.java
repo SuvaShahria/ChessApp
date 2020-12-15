@@ -8,9 +8,9 @@
 package com.revature.rest.interfaces;
 
 import com.revature.model.MatchRecord;
-import com.revature.service.interfaces.MatchRecordService;
+import com.revature.service.interfaces.MatchService;
 
-public interface MatchRecordController {
+public interface MatchController {
 
     // ---------------------
     // UTILITY / TESTING METHODS
@@ -21,7 +21,7 @@ public interface MatchRecordController {
      * 
      * @param mrService
      */
-    public void useOutsideService(MatchRecordService mrService);
+    public void useOutsideService(MatchService mrService);
 
     // ---------------------
     // REQUEST-HANDLING METHODS

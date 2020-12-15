@@ -8,12 +8,10 @@
 package com.revature.rest.impl;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.revature.model.MatchRecord;
-import com.revature.model.UserWithPassword;
-import com.revature.rest.interfaces.MatchRecordController;
-import com.revature.service.interfaces.MatchRecordService;
+import com.revature.rest.interfaces.MatchController;
+import com.revature.service.interfaces.MatchService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,21 +23,21 @@ import org.springframework.http.HttpStatus;
 
 @Controller("matchRecordController")
 @CrossOrigin(origins = "http://localhost:4200")
-public class MatchRecordControllerImpl implements MatchRecordController {
+public class MatchControllerImpl implements MatchController {
 
     // ---------------------
     // INSTANCE VARIABLES
     // ---------------------
 
     //@Autowired
-    private MatchRecordService mrService;
+    private MatchService mrService;
 
     // ---------------------
     // UTILITY / TESTING METHODS
     // ---------------------
 
     @Override
-    public void useOutsideService(MatchRecordService mrService) {
+    public void useOutsideService(MatchService mrService) {
         this.mrService = mrService;
     }
 

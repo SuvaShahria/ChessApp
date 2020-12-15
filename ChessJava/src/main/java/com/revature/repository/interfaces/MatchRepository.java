@@ -13,7 +13,7 @@ import com.revature.model.User;
 import com.revature.repository.RepositoryException;
 
 
-public interface MatchRecordRepository {
+public interface MatchRepository {
 
     // ---------------------
     // ENUM(S)

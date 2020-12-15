@@ -11,7 +11,7 @@ import com.revature.model.MatchRecord;
 import com.revature.model.User;
 import com.revature.service.ServiceException;
 
-public interface MatchRecordService {
+public interface MatchService {
     
     // ---------------------
     // SERVICE METHODS
