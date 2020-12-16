@@ -32,7 +32,7 @@ We used **Angular**, **HTML**, **CSS**, **JavaScript**, and **TypeScript** to ge
 We implemented **chess.js API** and **chessboard.js API** for the chess logic and chessboard graphics. 
 
 ### Front End
-* The backend system uses **Spring** to connect to an **AWS RDS Postgres database**. 
+* The backend system uses **SpringMVC** to connect to an **AWS RDS Postgres database**. 
 * The front-end view uses HTML/JavaScript to make an application that can call server-side components. 
 * Passwords are encrypted in Java and securely stored in the database. 
 * The middle tier follows proper layered architecture, has reasonable (~70%) test coverage of the service layer, and implements log4j for appropriate logging. 
