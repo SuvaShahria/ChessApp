@@ -34,6 +34,10 @@ export class PlayvsComponent implements OnInit {
     
     myExtObject2.delete();
   }
+
+  test(){
+    myExtObject2.test()
+  }
   createGame(s: String,ori: String) {
     //console.log("hi")
     myExtObject2.setNull()
