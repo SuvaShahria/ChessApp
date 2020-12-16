@@ -128,6 +128,7 @@ public class MatchControllerImpl implements MatchController {
      * @param req
      * @return
      */
+    @PostMapping("/makeGame")
     @ResponseStatus(HttpStatus.OK)
     @Override
     public @ResponseBody String getMove(@RequestBody String req) {
@@ -143,12 +144,40 @@ public class MatchControllerImpl implements MatchController {
         }
     }
 
+    /**
+     * Replaces the entire moveHistory string on the requested MatchRecord
+     * Returns false if failure
+     * 
+     * let template = {code: code, moves: moves}
+     * 
+     * @param req
+     * @return
+     */
+    @PostMapping("/recordMove")
+    @ResponseStatus(HttpStatus.OK)
     @Override
-    public boolean recordMove(String req) {
-        // TODO Auto-generated method stub
-        return false;
+    public @ResponseBody boolean recordMove(@RequestBody String req) {
+        try{
+            JsonObject json = new Gson().fromJson(req, JsonObject.class);
+            String codeString = json.get("user").toString();
+            int code = Integer.parseInt(codeString);
+            MatchRecord mr = mService.findMatchRecordByCode(code);
+            if (mr == null) return false;
+            String moveHistory = json.get("moves").toString();
+            mr.setMoveHistory(moveHistory);
+            return true;
+        } catch(ServiceException e){
+            return false;
+        }
     }
 
+    /**
+     * Starts a new game with the given code, with the given player(username) as white
+     * Returns false if failure
+     * 
+     * @param req
+     * @return
+     */
     @Override
     public boolean makeGame(String req) {
         // TODO Auto-generated method stub
