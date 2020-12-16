@@ -1,11 +1,16 @@
 var myExtObject = (function() {
-  var t = 0;
+  var t = 1;
+  var turn = 0;
   var moves = "";
   var loc = "wikipedia"
   var piece = '';
   var w = ''
   var b = ''
   var h = 2
+  var l
+  var split;
+  var board2 = null;
+  var game2 = new Chess()
   // var pieces = './assets/img/chesspieces/wikipedia/{piece}.png'
   return {
     create: function(s) {
@@ -155,6 +160,133 @@ var myExtObject = (function() {
 
 
       //-------------------------------------------------CREATE------------------------------------------------------------------------
+    },
+    create2: function(s){
+       // ---------------------------------------------------------------------------------------------------
+      
+    // document.getElementById('board').style.visibility = 'visible';
+    pieces =s;
+    
+    
+    var $status = $('#status')
+    var $mvDiv = $('#mvDiv')  
+    
+    
+    
+    function updateStatus () {
+      var status = ''
+    
+      var moveColor = 'White'
+      if (game2.turn() === 'b') {
+        moveColor = 'Black'
+      }
+    
+      // checkmate
+      if (game2.in_checkmate()) {
+        //console.log(s)
+        status = 'Game over, ' + moveColor + ' is in checkmate.'
+      }
+    
+      // draw?
+      else if (game2.in_draw()) {
+        //console.log(s)
+        status = 'Game over, drawn position'
+      }
+    
+      
+      else {
+        status = moveColor + ' turn'
+    
+        
+        if (game2.in_check()) {
+          status += ', ' + moveColor + ' is in check'
+        }
+      }
+    
+      $status.html(status)
+      
+    }
+    board2 = ChessBoard('board', {
+    
+      position: 'start',
+      pieceTheme: pieces,
+  })
+
+  updateStatus()
+
+
+    },
+    find: function(code,un){
+      let xhr = new XMLHttpRequest()
+      let template = {
+        user: un,
+        code: code
+       }
+      xhr.onreadystatechange = function(){
+        if(this.readyState ===4 && this.status ===200){
+          //console.log(moves)
+        moves = this.responseText
+        split = moves.split(" ");
+        l= split.length
+        console.log(moves)
+        // var split = moves.split(" ");
+        // var l = split.length;
+        // //var f = split.substring(l-4,l-2)
+        // //var a = split.substring(l-2,l)
+        // //console.log(split[l-1])
+        // var f = split[l-1].substring(0,2)
+        // var t = split[l-1].substring(2,4)
+        // var move = game.move({
+        //   from: f,
+        //   to: t,
+        //   promotion: 'q' //promote to queen
+        // })
+
+        // if(move == null){
+        //   window.setTimeout(d2,3000)
+        // }
+        // //await new Promise(r => setTimeout(r, 2000));
+
+        // board.position(game.fen())
+        
+        }
+        
+      }
+      xhr.open("POST","http://localhost:8080/ChessApp/getMove")
+      xhr.send(JSON.stringify(template))
+    },
+    next: function(){
+      console.log(t)
+     
+      console.log(moves)
+      
+       var f = split[t].substring(0,2)
+       console.log(f)
+       var t2 = split[t].substring(2,4)
+       console.log(t2)
+      
+      var move = game2.move({
+        from: f,
+        to: t2,
+        promotion: 'q' //promote to queen
+      })
+
+
+      board2.position(game2.fen())
+      t= t+1;
+      if(t>l-1){
+        t = l-1
+      }
+
+    },
+    prev: function(){
+      console.log(t)
+      game2.undo()
+      board2.position(game2.fen())
+      t = t-1;
+      if(t<1){
+        t = 1;
+      }
     },
     func2: function() {
       return t;
