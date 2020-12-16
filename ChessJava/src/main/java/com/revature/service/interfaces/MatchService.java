@@ -210,4 +210,30 @@ public interface MatchService {
      */
     public void makeGame(User player, int code) throws ServiceException;
 
+    /**
+     * Given a game code, finds the game with that code, then returns a string containing
+     * the usernames of the two players in it, seperated by a space.
+     * If there is only one player (if the game is pending), only that user's username is
+     * returned.
+     * 
+     * Throws exception if there is a problem.
+     * 
+     * @param code
+     * @throws ServiceException
+     */
+    public String getPlayerStringByCode(int code) throws ServiceException;
+
+    /**
+     * Marks the given user as the winner of the given game.
+     * 
+     * Throws exception if there is a problem, such as if the user is not one of the
+     * players of the game, or if the username and/or code are invalid, or if the game is
+     * not ONGOING.
+     * 
+     * @param code
+     * @param username
+     * @throws ServiceException
+     */
+    public void recordMatchWinner(int code, String username) throws ServiceException;
+
 }

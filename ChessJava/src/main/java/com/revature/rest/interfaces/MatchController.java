@@ -97,4 +97,35 @@ public interface MatchController {
      * @return
      */
     public List<MatchRecord> getAllGamesWithPlayer(User user);
+
+    /**
+     * Given a game code, finds the game with that code, then returns a string containing
+     * the usernames of the two players in it, seperated by a space.
+     * If there is only one player (if the game is pending), only that user's username is
+     * returned.
+     * 
+     * Returns null if there is a problem.
+     * 
+     * Intended for POST
+     * 
+     * let template = {code: code}
+     * 
+     * @param code
+     * @throws ServiceException
+     */
+    public String getPlayerStringByCode(String req);
+
+    /**
+     * Given a game code and a username, makes that user the winner of that game.
+     * Will fail if the game or username are not found, if the user is not one of the
+     * players in the game, or if the game is not ONGOING.
+     * 
+     * Intended for POST
+     * 
+     * let template = {code: code, user: username}
+     * 
+     * @param req
+     * @return
+     */
+    public boolean recordGameWinner(String req);
 }

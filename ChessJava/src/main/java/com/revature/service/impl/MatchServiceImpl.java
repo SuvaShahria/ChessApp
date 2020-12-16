@@ -251,4 +251,66 @@ public class MatchServiceImpl implements MatchService {
             throw new ServiceException("RepositoryException: " + e.getMessage());
         }
     }
+
+    /**
+     * Given a game code, finds the game with that code, then returns a string containing
+     * the usernames of the two players in it, seperated by a space.
+     * If there is only one player (if the game is pending), only that user's username is
+     * returned.
+     * 
+     * Throws exception if there is a problem.
+     * 
+     * @param code
+     * @throws ServiceException
+     */
+    public String getPlayerStringByCode(int code) throws ServiceException{
+        try{
+            if (!mRepo.checkExistsByCode(code))
+                throw new ServiceException("Game w/ code <" + code + "> not found.");
+            MatchRecord mr = findMatchRecordByCode(code);
+            //System.out.println("DEBUG: found game with code: " + code);
+            //System.out.println("DEBUG: whiteUser username is: " + mr.getWhiteUser().getUsername());
+            //System.out.println("DEBUG: blackUser username is: " + mr.getBlackUser().getUsername());
+            String playerString = mr.getWhiteUser().getUsername();
+            if (mr.getStatus() != MatchStatus.PENDING)
+                playerString = playerString + " " + mr.getBlackUser().getUsername();
+            return playerString;
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Marks the given user as the winner of the given game.
+     * 
+     * Throws exception if there is a problem, such as if the user is not one of the
+     * players of the game, or if the username and/or code are invalid, or if the game is
+     * not ONGOING.
+     * 
+     * @param code
+     * @param username
+     * @throws ServiceException
+     */
+    public void recordMatchWinner(int code, String username) throws ServiceException{
+        try{
+            if (!mRepo.checkExistsByCode(code))
+                throw new ServiceException("Game w/ code <" + code + "> not found.");
+            if (!uRepo.checkExists(username))
+                throw new ServiceException("User <" + username + "> not found.");
+            MatchRecord mr = findMatchRecordByCode(code);
+            if (mr.getStatus() != MatchStatus.ONGOING)
+                throw new ServiceException("Game w/ code <" + code + "> is not ONGOING.");
+            User u = uRepo.findUser(username);
+            if (mr.getWhiteUser().getId() == u.getId())
+                mr.setStatus(MatchStatus.WHITE_VICTORY);
+            else if (mr.getBlackUser().getId() == u.getId())
+                mr.setStatus(MatchStatus.BLACK_VICTORY);
+            else throw new ServiceException(
+                "recordMatchWinner(): User <" + username 
+                + "> is not one of the players in game w/ code <" + code + ">");
+            mRepo.save(mr);
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
+    }
 }
