@@ -97,4 +97,19 @@ public interface MatchController {
      * @return
      */
     public List<MatchRecord> getAllGamesWithPlayer(User user);
+
+    /**
+     * Given a game code, finds the game with that code, then returns a string containing
+     * the usernames of the two players in it, seperated by a space.
+     * If there is only one player (if the game is pending), only that user's username is
+     * returned.
+     * 
+     * Returns null if there is a problem.
+     * 
+     * Intended for POST
+     * 
+     * @param code
+     * @throws ServiceException
+     */
+    public String getPlayerStringByCode(String req);
 }

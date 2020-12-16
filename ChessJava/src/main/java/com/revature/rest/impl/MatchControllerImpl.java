@@ -267,4 +267,35 @@ public class MatchControllerImpl implements MatchController {
             return null;
         }
     }
+
+    /**
+     * Given a game code, finds the game with that code, then returns a string containing
+     * the usernames of the two players in it, seperated by a space.
+     * If there is only one player (if the game is pending), only that user's username is
+     * returned.
+     * 
+     * Returns null if there is a problem.
+     * 
+     * let template = {code: code}
+     * 
+     * @param code
+     * @throws ServiceException
+     */
+    @Override
+    @PostMapping("/getPlayerStringByCode")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody String getPlayerStringByCode(@RequestBody String req){
+        try{
+            JsonObject json = new Gson().fromJson(req, JsonObject.class);
+            String codeString = json.get("code").getAsString();
+            //System.out.println("DEBUG: parsed code as: " + codeString);
+            int code = Integer.parseInt(codeString);
+            String playerString = mService.getPlayerStringByCode(code);
+            //System.out.println("DEBUG: playerString is: " + playerString);
+            return playerString;
+        } catch(ServiceException e){
+            //System.out.println("DEBUG: ServiceException: " + e.getMessage());
+            return null;
+        }
+    }
 }
