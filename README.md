@@ -13,10 +13,12 @@
 Chess App is a full stack web application that allows users to login and play chess against each other online.
 
 ## Chess App User Stories 
+* Users can register and create a new account. 
 * Users can login and play chess against each other online.
 * Users can reskin the chessboard and chess pieces according to their preferences. 
 * Users can challenge other users to a chess match over the internet.
 * Users can view all users, their incomplete games, and pending games. 
+* Users can logout. 
 
 ## Sample Views
 ![](./imgs/view1.png)
