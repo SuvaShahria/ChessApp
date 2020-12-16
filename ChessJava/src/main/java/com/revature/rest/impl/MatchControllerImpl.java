@@ -106,10 +106,11 @@ public class MatchControllerImpl implements MatchController {
     	Gson gson=new Gson();
     	JsonObject json = new Gson().fromJson(req, JsonObject.class);
     	//JsonElement j = json.get("whiteUser");
-    	String w = json.get("whiteUser").toString();
-    	String code = json.get("code").toString();
+    	String w = json.get("whiteUser").getAsString();
+        String code = json.get("code").getAsString();
     	System.out.println(req);
-    	System.out.println(w);
+        System.out.println("username is: " + w + ", and code is: " + code);
+        System.out.println("is username.equals to user?: " + w.equals("user"));
     	
         return false; 
     }
@@ -135,7 +136,7 @@ public class MatchControllerImpl implements MatchController {
     public @ResponseBody String getMove(@RequestBody String req) {
         try{
             JsonObject json = new Gson().fromJson(req, JsonObject.class);
-            String codeString = json.get("code").toString();
+            String codeString = json.get("code").getAsString();
             int code = Integer.parseInt(codeString);
             MatchRecord mr = mService.findMatchRecordByCode(code);
             if (mr == null) return null;
@@ -160,11 +161,11 @@ public class MatchControllerImpl implements MatchController {
     public @ResponseBody boolean recordMove(@RequestBody String req) {
         try{
             JsonObject json = new Gson().fromJson(req, JsonObject.class);
-            String codeString = json.get("code").toString();
+            String codeString = json.get("code").getAsString();
             int code = Integer.parseInt(codeString);
             MatchRecord mr = mService.findMatchRecordByCode(code);
             if (mr == null) return false;
-            String moveHistory = json.get("moves").toString();
+            String moveHistory = json.get("moves").getAsString();
             mr.setMoveHistory(moveHistory);
             mService.save(mr);
             return true; // if no error, success
@@ -193,12 +194,10 @@ public class MatchControllerImpl implements MatchController {
             if (u == null) return false;
             String codeString = json.get("code").getAsString();
             int code = Integer.parseInt(codeString);
-            System.out.println(code);
-            System.out.println(u.getUsername());
-            //mService.makeGame(u, code);
+            mService.makeGame(u, code);
             return true; // if no error, success
         } catch(ServiceException e){
-        	System.out.println("make game fail");
+        	//System.out.println("make game fail");
             return false;
         }
     }
@@ -207,7 +206,7 @@ public class MatchControllerImpl implements MatchController {
      * Adds the given player as black to the pending game indicated by the given code.
      * Returns false if failure
      * 
-     * let template = {user: "user",code: code}
+     * let template = {user: username,code: code}
      * 
      * @param req
      * @return
@@ -215,13 +214,14 @@ public class MatchControllerImpl implements MatchController {
     @PostMapping("/findGame")
     @ResponseStatus(HttpStatus.OK)
     @Override
-    public boolean findGame(String req) {
+    public @ResponseBody boolean findGame(@RequestBody String req) {
         try{
             JsonObject json = new Gson().fromJson(req, JsonObject.class);
-            String username = json.get("user").toString();
+            String username = json.get("user").getAsString();
+            System.out.println("DEBUG: about to findUser by username");
             User u = uService.findUser(username);
             if (u == null) return false;
-            String codeString = json.get("code").toString();
+            String codeString = json.get("code").getAsString();
             int code = Integer.parseInt(codeString);
             mService.acceptCode(u, code);
             return true; // if no error, success

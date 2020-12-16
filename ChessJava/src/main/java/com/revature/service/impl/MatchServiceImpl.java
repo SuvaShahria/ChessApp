@@ -205,6 +205,7 @@ public class MatchServiceImpl implements MatchService {
             mr.setWhiteUser(player);
             mr.setCode(code);
             mr.setStatus(MatchStatus.PENDING);
+            mr.setMoveHistory("");
             save(mr);
         } catch(RepositoryException e){
             throw new ServiceException("RepositoryException: " + e.getMessage());

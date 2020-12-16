@@ -69,6 +69,9 @@ public class MatchRepositoryImpl implements MatchRepository{
 		try{
             Session session = sessionFactory.getCurrentSession();
             session.saveOrUpdate(mr);
+            //if (mr.getId() < 1) // if 'null'
+            //    session.save(mr);
+            //else session.update(mr);
         } catch(HibernateException e){
             throw new RepositoryException("HibernateException: " + e.getMessage());
         }
