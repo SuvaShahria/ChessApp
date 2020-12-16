@@ -10,7 +10,7 @@
 ![](./imgs/video.gif)
 
 ## Executive Summary
-Our Chess App is is full stack web application that allows users to login and play chess against each other online.
+Chess App is a full stack web application that allows users to login and play chess against each other online.
 
 ## Chess App User Stories 
 * Users can login and play chess against each other online.
