@@ -134,7 +134,7 @@ public class MatchControllerImpl implements MatchController {
     public @ResponseBody String getMove(@RequestBody String req) {
         try{
             JsonObject json = new Gson().fromJson(req, JsonObject.class);
-            String codeString = json.get("user").toString();
+            String codeString = json.get("code").toString();
             int code = Integer.parseInt(codeString);
             MatchRecord mr = mService.findMatchRecordByCode(code);
             if (mr == null) return null;
@@ -159,7 +159,7 @@ public class MatchControllerImpl implements MatchController {
     public @ResponseBody boolean recordMove(@RequestBody String req) {
         try{
             JsonObject json = new Gson().fromJson(req, JsonObject.class);
-            String codeString = json.get("user").toString();
+            String codeString = json.get("code").toString();
             int code = Integer.parseInt(codeString);
             MatchRecord mr = mService.findMatchRecordByCode(code);
             if (mr == null) return false;
@@ -178,10 +178,22 @@ public class MatchControllerImpl implements MatchController {
      * @param req
      * @return
      */
+    @PostMapping("/makeGame")
+    @ResponseStatus(HttpStatus.OK)
     @Override
-    public boolean makeGame(String req) {
-        // TODO Auto-generated method stub
-        return false;
+    public @ResponseBody boolean makeGame(@RequestBody String req) {
+        try{
+            JsonObject json = new Gson().fromJson(req, JsonObject.class);
+            String username = json.get("whiteUser").toString();
+            User u = uService.findUser(username);
+            if (u == null) return false;
+            String codeString = json.get("code").toString();
+            int code = Integer.parseInt(codeString);
+            mService.makeGame(u, code);
+            return true; // if no error, success
+        } catch(ServiceException e){
+            return false;
+        }
     }
 
     @Override
