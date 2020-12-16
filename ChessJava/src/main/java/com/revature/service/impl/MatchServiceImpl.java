@@ -7,6 +7,8 @@ import com.revature.model.User;
 import com.revature.model.MatchRecord.MatchStatus;
 import com.revature.repository.RepositoryException;
 import com.revature.repository.interfaces.MatchRepository;
+import com.revature.repository.interfaces.UserRepository;
+import com.revature.repository.interfaces.MatchRepository.MatchStatusFilter;
 import com.revature.service.ServiceException;
 import com.revature.service.interfaces.MatchService;
 
@@ -22,6 +24,9 @@ public class MatchServiceImpl implements MatchService {
 
     @Autowired
     private MatchRepository mRepo;
+
+    @Autowired
+    private UserRepository uRepo;
 
     // ---------------------
     // TESTER/HELPER METHODS
@@ -113,10 +118,29 @@ public class MatchServiceImpl implements MatchService {
         }
     }
 
+    
     @Override
     public List<MatchRecord> findAllMatchRecords() throws ServiceException {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    /**
+     * Finds all pending match records.
+     * If no such match records exist, returns an empty list.
+     * 
+     * Throws ServiceException if there is a problem with the database.
+     * 
+     * @return
+     * @throws ServiceException
+     */
+    @Override
+    public List<MatchRecord> findAllPendingMatchRecords() throws ServiceException{
+        try{
+            return mRepo.findMatchRecordsBy(MatchStatusFilter.PENDING);
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
     }
 
     @Override
@@ -131,10 +155,27 @@ public class MatchServiceImpl implements MatchService {
         return null;
     }
 
+    /**
+     * Finds all match records where the given user is one of the players.
+     * If no such match records exist, returns an empty list.
+     * 
+     * Throws ServiceException if there is a problem with the database, such as if
+     * the user does not exist.
+     * 
+     * @param user
+     * @return
+     */
     @Override
     public List<MatchRecord> findAllMatchRecordsWithPlayer(User player) throws ServiceException {
-        // TODO Auto-generated method stub
-        return null;
+        try{
+            if (!uRepo.checkExists(player))
+                throw new ServiceException(
+                        "findAllMatchRecordsWithPlayer: User <" 
+                        + player.getUsername() + "> not found.");
+            return mRepo.findMatchRecordsBy(player);
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
     }
 
     @Override

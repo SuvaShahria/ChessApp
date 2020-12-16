@@ -35,11 +35,27 @@ export class UserService {
 
   public findAllUsers(): Observable<User[]> {
     return this.http
-    .get<User[]>(`${USER_URL}findAllUsers`)
+    .get<User[]>(`${USER_URL}getAllUsers`)
     .pipe(
       catchError(this.handleError<User[]>('getUsers', []))
       );
     }
+
+    public findAllPendingGames(): Observable<User[]> {
+      return this.http
+      .get<User[]>(`${USER_URL}getAllPendingGames`)
+      .pipe(
+        catchError(this.handleError<User[]>('getUsers', []))
+        );
+      }
+
+      public findAllGamesWithPlayer(): Observable<User[]> {
+        return this.http
+        .get<User[]>(`${USER_URL}getAllGamesWithPlayer`)
+        .pipe(
+          catchError(this.handleError<User[]>('getUsers', []))
+          );
+        }
 
   private handleError<T>(operation = 'operation', result?: T) {
       return (error: any): Observable<T> => {

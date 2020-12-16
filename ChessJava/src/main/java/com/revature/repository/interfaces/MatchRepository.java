@@ -111,7 +111,7 @@ public interface MatchRepository {
 
     /**
      * Finds all match records matching the given status filter.
-     * Only supports ALL, ONGOING, and FINISHED.
+     * Only supports ALL, PENDING, ONGOING, and FINISHED.
      * 
      * @param filter
      * @return
