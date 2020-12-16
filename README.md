@@ -1,3 +1,45 @@
+# Project-2: Chess App 
+## Presentation Date: Friday Dec. 18th, 2020
+
+## Team Members:
+
+* Suva Shahria
+* Matthew LaFleur
+* Max Goncharov
+* Andrew Curry
+
+<br />
+![](./imgs/video.gif)
+
+## Executive Summary
+Our Chess App is is full stack web application that allows users to login and play chess against each other online.
+
+## Chess App User Stories 
+ * Users can login and play chess against each other online.
+* Users can reskin the chessboard and chess pieces according to their preferences. 
+* Users can challenge other users to a chess match over the internet.
+* Users can view all users, their incomplete games, and pending games. 
+
+## Sample Views
+![](./imgs/view1.png)
+<br />
+![](./imgs/view2.png)
+
+## Technologies
+
+### Front End
+We used **Angular**, **HTML**, **CSS**, **JavaScript**, and **TypeScript** to generate the frontend of the application.
+We implemented **chess.js API** and **chessboard.js API** for the chess logic and chessboard graphics. 
+
+### Front End
+* The backend system uses **Spring** to connect to an **AWS RDS Postgres database**. 
+* The front-end view uses HTML/JavaScript to make an application that can call server-side components. 
+* Passwords are encrypted in Java and securely stored in the database. 
+* The middle tier follows proper layered architecture, has reasonable (~70%) test coverage of the service layer, and implements log4j for appropriate logging. 
+
+
+###########
+
 # Project-2 Requirements
 Within groups of 4 or 5, you are required to develop an application using the following mandatory technologies.
 #### Presentation Date: Friday Dec. 18th, 2020
