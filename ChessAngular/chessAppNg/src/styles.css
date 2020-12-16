@@ -5,11 +5,28 @@
     text-align: center;
 }
 
+body{
+  background: #D5F8E7;
+}
+.label {
+  background-color: #D5F8E7;
+  color: black;
+}
+.panel-heading{
+  background-color: #AAF0D1;
+}
+.panel-body{
+  background:#AAF0D1;
+}
+
+.panel-footer{
+  background:#AAF0D1
+}
+
+
+
 #playDiv{
   background: #efeee7;
-}
-body{
-  background: #1e4a9c;
 }
 
 #board{
@@ -21,17 +38,6 @@ body{
   
 }
 
-.panel-body  {
-    word-break: break-all;
-}
-
-.panel-heading {
-    background-color: #d9d9d9;
-}
-
-.panel-footer {
-    background-color: #d9d9d9;
-}
 
 .image-center {
     display: block;
