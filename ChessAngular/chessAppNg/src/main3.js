@@ -1,3 +1,4 @@
+
 var myExtObject2 = (function() {
   var t = 0;
   var moves = "";
@@ -13,6 +14,7 @@ var myExtObject2 = (function() {
   // var pieces = './assets/img/chesspieces/wikipedia/{piece}.png'
   return {
     create: async function(s,ori) {
+      //test
       
       //await new Promise(r => setTimeout(r, 2000));
       // ---------------------------------------------------------------------------------------------------
@@ -97,7 +99,7 @@ var myExtObject2 = (function() {
     async function oppGo(){
       let xhr = new XMLHttpRequest()
       let template = {
-        user: "user",
+        user: un,
         code: code
        }
       xhr.onreadystatechange = function(){
@@ -116,6 +118,10 @@ var myExtObject2 = (function() {
           to: t,
           promotion: 'q' //promote to queen
         })
+
+        if(move == null){
+          window.setTimeout(d2,3000)
+        }
         //await new Promise(r => setTimeout(r, 2000));
 
         board.position(game.fen())
@@ -123,8 +129,14 @@ var myExtObject2 = (function() {
         }
         
       }
-      xhr.open("POST","http://localhost:8080/ChessApp/testGetMove")
+      xhr.open("POST","http://localhost:8080/ChessApp/getMove")
       xhr.send(JSON.stringify(template))
+
+      function d2(){
+        console.log("hi d2 oppg")
+        xhr.open("POST","http://localhost:8080/ChessApp/getMove")
+      xhr.send(JSON.stringify(template))
+      }
       //await myExtObject2.sleep(2000)
 
       
@@ -163,14 +175,14 @@ var myExtObject2 = (function() {
            moves: moves
          }
 
-        xhr.open("POST","http://localhost:8080/ChessApp/testrecordMove")
+        xhr.open("POST","http://localhost:8080/ChessApp/recordMove")
          xhr.send(JSON.stringify(template))
         //console.log(moves)
       }
       if (move === null) return 'snapback'
     
       updateStatus()
-      window.setTimeout(oppGo, 5000)
+      window.setTimeout(oppGo, 250)
     }
     
     // update the board position after the piece snap
@@ -234,7 +246,8 @@ var myExtObject2 = (function() {
     },
     setUsername: function(s){
       un = s;
-      //console.log(un)
+
+      console.log(un)
     },
     sleep: async function(x){
       await new Promise(r => setTimeout(r, x));
@@ -323,6 +336,7 @@ var myExtObject2 = (function() {
     },
     makeGame: function(c){
       code = c
+    
       let xhr = new XMLHttpRequest()
       let template = {
         whiteUser: un,
@@ -343,6 +357,9 @@ var myExtObject2 = (function() {
     setNull: function(){
         moves = "";
     },
+    test: function(){
+        console.log("test")
+    },
     te: function(){
       console.log("te")
     },
@@ -350,12 +367,10 @@ var myExtObject2 = (function() {
       code = c
       console.log(code)
     },
-    firstMove: function(){
-      
-      
+    firstMove:  function(){
       let xhr = new XMLHttpRequest()
       let template = {
-        user: "user",
+        user: un,
         code: code
        }
       xhr.onreadystatechange = function(){
@@ -364,7 +379,7 @@ var myExtObject2 = (function() {
           //console.log(moves)
         moves = this.responseText
         if(moves == "" || moves == null){
-          
+          window.setTimeout(d,3000)
         }
         var split = moves.split(" ");
         var l = split.length;
@@ -373,6 +388,8 @@ var myExtObject2 = (function() {
         //console.log(split[l-1])
         var f = split[l-1].substring(0,2)
         var t = split[l-1].substring(2,4)
+        //console.log(f)
+        //console.log(t)
         var move = game.move({
           from: f,
           to: t,
@@ -383,26 +400,30 @@ var myExtObject2 = (function() {
         }
         
       }
-      xhr.open("POST","http://localhost:8080/ChessApp/testGetMove")
+      xhr.open("POST","http://localhost:8080/ChessApp/getMove")
       xhr.send(JSON.stringify(template))
       console.log("first move")
-      //Window.setTimeout(d, 3000);
-      // var move = game.move({
-      //   from: 'a2',
-      //   to: 'a4',
-      //   promotion: 'q' //promote to queen
-      // })
+      function d(){
+        console.log("hi d")
+        xhr.open("POST","http://localhost:8080/ChessApp/getMove")
+      xhr.send(JSON.stringify(template))
+        
+      }
 
-      // board.position(game.fen())
+      window.setTimeout(d,2000)
+      
+      
+      
     },
     findGame: function(){
+      console.log(code)
       let xhr = new XMLHttpRequest()
       let template = {
-        user: "user",
+        user: un,
         code: code
        }
 
-       xhr.open("POST","http://localhost:8080/ChessApp/testfindGame")
+       xhr.open("POST","http://localhost:8080/ChessApp/findGame")
       xhr.send(JSON.stringify(template))
     }
     

@@ -174,16 +174,10 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public void acceptCode(User player, int code) throws ServiceException {
         try{
-            if (!mRepo.checkExistsByCode(code))
-                throw new ServiceException("No game with code <" + code + "> found.");
+//            if (!mRepo.checkExistsByCode(code))
+//                throw new ServiceException("No game with code <" + code + "> found.");
             MatchRecord mr = mRepo.findMatchRecordByCode(code);
-            if (mr.getStatus() != MatchStatus.PENDING)
-                throw new ServiceException(
-                        "Game with code <" + code + "> has already started.");
-            if (mr.getWhiteUser().getId() == player.getId())
-                throw new ServiceException(
-                    "User <" + player.getId() 
-                    + "> is already the white player in game with code <" + code + ">");
+
             mr.setBlackUser(player);
             mr.setStatus(MatchStatus.ONGOING);
             save(mr);
