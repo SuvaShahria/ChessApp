@@ -8,6 +8,8 @@
  */
 package com.revature.rest.interfaces;
 
+import java.util.List;
+
 //import javax.servlet.http.HttpServletRequest;
 import com.revature.model.User;
 import com.revature.model.UserWithPassword;
@@ -53,4 +55,16 @@ public interface UserController {
      * @return
      */
     public User logIn(String[] args);
+
+    /**
+     * Returns a list of all of the registered users.
+     * 
+     * Returns an empty list if there are no users.
+     * Returns null if there was a problem.
+     * 
+     * Intended for get.
+     * 
+     * @return
+     */
+    public List<User> getAllusers();
 }

@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 
 import com.revature.model.MatchRecord;
 import com.revature.model.User;
+import com.revature.model.MatchRecord.MatchStatus;
 import com.revature.repository.RepositoryException;
 import com.revature.repository.interfaces.MatchRepository;
 
@@ -147,16 +148,55 @@ public class MatchRepositoryImpl implements MatchRepository{
      * @return
      * @throws RepositoryException
      */
-	@Override
+    @Override
+    @SuppressWarnings(value="unchecked")
 	public List<MatchRecord> findMatchRecordsBy(User user) throws RepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+            Session session = sessionFactory.getCurrentSession();
+            Criteria crit = session.createCriteria(MatchRecord.class);
+            crit.add(Restrictions.or(
+                Restrictions.eq("whiteUser.id", user.getId()), 
+                Restrictions.eq("blackUser.id", user.getId())));
+            List<MatchRecord> mrList = crit.list(); // haha, mister list
+            return mrList;
+        } catch(HibernateException e){
+            throw new RepositoryException("HibernateException: " + e.getMessage());
+        }
 	}
 
-	@Override
+    /**
+     * Finds all match records matching the given status filter.
+     * Only supports ALL, PENDING, ONGOING, and FINISHED.
+     * 
+     * @param filter
+     * @return
+     */
+    @Override
+    @SuppressWarnings(value="unchecked")
 	public List<MatchRecord> findMatchRecordsBy(MatchStatusFilter filter) throws RepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+            Session session = sessionFactory.getCurrentSession();
+            Criteria crit = session.createCriteria(MatchRecord.class);
+            switch(filter){
+                case PENDING:
+                    crit.add(Restrictions.eq("status", MatchStatus.PENDING));
+                    break;
+                case ONGOING:
+                    crit.add(Restrictions.eq("status", MatchStatus.ONGOING));
+                    break;
+                case FINISHED:
+                    crit.add(Restrictions.or(
+                            Restrictions.eq("status", MatchStatus.WHITE_VICTORY), 
+                            Restrictions.eq("status", MatchStatus.BLACK_VICTORY)));
+                    break;
+                default: // covers ALL
+                    break;
+            }
+            List<MatchRecord> mrList = crit.list(); // haha, mister list
+            return mrList;
+        } catch(HibernateException e){
+            throw new RepositoryException("HibernateException: " + e.getMessage());
+        }
 	}
 
 	@Override

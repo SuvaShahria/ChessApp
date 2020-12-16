@@ -7,6 +7,8 @@
  */
 package com.revature.rest.impl;
 
+import java.util.List;
+
 import com.revature.model.User;
 import com.revature.model.UserWithPassword;
 import com.revature.rest.interfaces.UserController;
@@ -108,5 +110,25 @@ public class UserControllerImpl implements UserController{
     @PostMapping("/testRegisterUser")
     public @ResponseBody UserWithPassword postRegisterTest(@RequestBody UserWithPassword uwp){
         return uwp;
+    }
+
+    /**
+     * Returns a list of all of the registered users.
+     * 
+     * Returns an empty list if there are no users.
+     * Returns null if there was a problem.
+     * 
+     * Intended for get.
+     * 
+     * @return
+     */
+    @Override
+    @GetMapping("/getAllUsers")
+    public @ResponseBody List<User> getAllusers(){
+        try{
+            return uService.findAllUsers();
+        } catch (ServiceException e){
+            return null;
+        }
     }
 }

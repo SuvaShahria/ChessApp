@@ -92,6 +92,17 @@ public interface MatchService {
     public List<MatchRecord> findAllMatchRecords() throws ServiceException;
 
     /**
+     * Finds all pending match records.
+     * If no such match records exist, returns an empty list.
+     * 
+     * Throws ServiceException if there is a problem with the database.
+     * 
+     * @return
+     * @throws ServiceException
+     */
+    public List<MatchRecord> findAllPendingMatchRecords() throws ServiceException;
+
+    /**
      * Finds all ongoing match records.
      * If no such match records exist, returns an empty list.
      * 
