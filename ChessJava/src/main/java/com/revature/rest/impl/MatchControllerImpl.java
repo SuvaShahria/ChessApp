@@ -8,6 +8,7 @@
 package com.revature.rest.impl;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.revature.model.MatchRecord;
 import com.revature.model.User;
@@ -185,16 +186,19 @@ public class MatchControllerImpl implements MatchController {
     @ResponseStatus(HttpStatus.OK)
     @Override
     public @ResponseBody boolean makeGame(@RequestBody String req) {
-        try{
+    	try{
             JsonObject json = new Gson().fromJson(req, JsonObject.class);
-            String username = json.get("whiteUser").toString();
+            String username = json.get("whiteUser").getAsString();
             User u = uService.findUser(username);
             if (u == null) return false;
-            String codeString = json.get("code").toString();
+            String codeString = json.get("code").getAsString();
             int code = Integer.parseInt(codeString);
-            mService.makeGame(u, code);
+            System.out.println(code);
+            System.out.println(u.getUsername());
+            //mService.makeGame(u, code);
             return true; // if no error, success
         } catch(ServiceException e){
+        	System.out.println("make game fail");
             return false;
         }
     }

@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AuthService } from '@services/auth.service';
 declare var myExtObject2: any;
 @Component({
   selector: 'app-playvs',
@@ -6,7 +7,11 @@ declare var myExtObject2: any;
   styleUrls: ['./playvs.component.css']
 })
 export class PlayvsComponent implements OnInit {
+  //const user = authService.userValue;
+  
+  
   title = 'chessAppNg';
+  public un: String;
   public code = 0;
   public name = 0;
   public piece: String = './assets/img/chesspieces/wikipedia/{piece}.png'; 
@@ -14,10 +19,19 @@ export class PlayvsComponent implements OnInit {
 
   ngOnInit(): void{
     this.add()
+    var v = localStorage.getItem('user');
+    var myArr = JSON.parse(v);
+    this.un = myArr["username"];
+    //console.log(this.un)
+    myExtObject2.setUsername(this.un);
+    //{"id":4,"username":"t","email":"t@gmail.com","authdata":"dDp0"}
+    
     // this.createGame('./assets/img/chesspieces/wikipedia/{piece}.png')
   }
+  
 
   ngOnDestroy(){
+    
     myExtObject2.delete();
   }
   createGame(s: String,ori: String) {
