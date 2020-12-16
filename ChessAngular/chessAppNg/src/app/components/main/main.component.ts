@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
   
-    title = 'Chess!';
+    title = 'Welcome to the Chess Club!';
 
   constructor() { }
 
