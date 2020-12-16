@@ -208,6 +208,8 @@ public class MatchControllerImpl implements MatchController {
      * @param req
      * @return
      */
+    @PostMapping("/findGame")
+    @ResponseStatus(HttpStatus.OK)
     @Override
     public boolean findGame(String req) {
         try{
