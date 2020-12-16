@@ -298,4 +298,31 @@ public class MatchControllerImpl implements MatchController {
             return null;
         }
     }
+
+    /**
+     * Given a game code and a username, makes that user the winner of that game.
+     * Will fail if the game or username are not found, if the user is not one of the
+     * players in the game, or if the game is not ONGOING.
+     * 
+     * let template = {code: code, user: username}
+     * 
+     * @param req
+     * @return
+     */
+    @Override
+    @PostMapping("/recordGameWinner")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody boolean recordGameWinner(@RequestBody String req){
+        try{
+            JsonObject json = new Gson().fromJson(req, JsonObject.class);
+            String codeString = json.get("code").getAsString();
+            int code = Integer.parseInt(codeString);
+            String username = json.get("user").getAsString();
+            mService.recordMatchWinner(code, username);
+            return true; // if no errors, success
+        } catch(ServiceException e){
+            //System.out.println("DEBUG: ServiceException: " + e.getMessage());
+            return false;
+        }
+    }
 }

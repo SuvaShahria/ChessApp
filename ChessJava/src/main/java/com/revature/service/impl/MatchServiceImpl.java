@@ -279,4 +279,38 @@ public class MatchServiceImpl implements MatchService {
             throw new ServiceException("RepositoryException: " + e.getMessage());
         }
     }
+
+    /**
+     * Marks the given user as the winner of the given game.
+     * 
+     * Throws exception if there is a problem, such as if the user is not one of the
+     * players of the game, or if the username and/or code are invalid, or if the game is
+     * not ONGOING.
+     * 
+     * @param code
+     * @param username
+     * @throws ServiceException
+     */
+    public void recordMatchWinner(int code, String username) throws ServiceException{
+        try{
+            if (!mRepo.checkExistsByCode(code))
+                throw new ServiceException("Game w/ code <" + code + "> not found.");
+            if (!uRepo.checkExists(username))
+                throw new ServiceException("User <" + username + "> not found.");
+            MatchRecord mr = findMatchRecordByCode(code);
+            if (mr.getStatus() != MatchStatus.ONGOING)
+                throw new ServiceException("Game w/ code <" + code + "> is not ONGOING.");
+            User u = uRepo.findUser(username);
+            if (mr.getWhiteUser().getId() == u.getId())
+                mr.setStatus(MatchStatus.WHITE_VICTORY);
+            else if (mr.getBlackUser().getId() == u.getId())
+                mr.setStatus(MatchStatus.BLACK_VICTORY);
+            else throw new ServiceException(
+                "recordMatchWinner(): User <" + username 
+                + "> is not one of the players in game w/ code <" + code + ">");
+            mRepo.save(mr);
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
+    }
 }

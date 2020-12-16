@@ -223,4 +223,17 @@ public interface MatchService {
      */
     public String getPlayerStringByCode(int code) throws ServiceException;
 
+    /**
+     * Marks the given user as the winner of the given game.
+     * 
+     * Throws exception if there is a problem, such as if the user is not one of the
+     * players of the game, or if the username and/or code are invalid, or if the game is
+     * not ONGOING.
+     * 
+     * @param code
+     * @param username
+     * @throws ServiceException
+     */
+    public void recordMatchWinner(int code, String username) throws ServiceException;
+
 }

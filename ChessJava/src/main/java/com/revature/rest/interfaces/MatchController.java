@@ -108,8 +108,24 @@ public interface MatchController {
      * 
      * Intended for POST
      * 
+     * let template = {code: code}
+     * 
      * @param code
      * @throws ServiceException
      */
     public String getPlayerStringByCode(String req);
+
+    /**
+     * Given a game code and a username, makes that user the winner of that game.
+     * Will fail if the game or username are not found, if the user is not one of the
+     * players in the game, or if the game is not ONGOING.
+     * 
+     * Intended for POST
+     * 
+     * let template = {code: code, user: username}
+     * 
+     * @param req
+     * @return
+     */
+    public boolean recordGameWinner(String req);
 }
