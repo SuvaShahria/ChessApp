@@ -1,3 +1,4 @@
+import { Game } from './../models/game.model';
 import { USER_URL } from './../../environments/environment.prod';
 import { ClientMessage } from './../models/client-message.model';
 import { Injectable } from '@angular/core';
@@ -39,19 +40,20 @@ export class UserService {
     .pipe(
       catchError(this.handleError<User[]>('getUsers', []))
       );
+      
     }
 
-    public findAllPendingGames(): Observable<User[]> {
+    public findAllPendingGames(): Observable<Game[]> {
       return this.http
-      .get<User[]>(`${USER_URL}getAllPendingGames`)
+      .get<Game[]>(`${USER_URL}getAllPendingGames`)
       .pipe(
-        catchError(this.handleError<User[]>('getUsers', []))
+        catchError(this.handleError<Game[]>('getGames', []))
         );
       }
 
-      public findAllGamesWithPlayer(): Observable<User[]> {
+      public findAllGamesWithPlayer(user: User): Observable<User[]> {
         return this.http
-        .get<User[]>(`${USER_URL}getAllGamesWithPlayer`)
+        .post<User[]>(`${USER_URL}getAllGamesWithPlayer`,user,this.httpOptions)
         .pipe(
           catchError(this.handleError<User[]>('getUsers', []))
           );
