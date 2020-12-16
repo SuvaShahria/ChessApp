@@ -1,6 +1,4 @@
 # Project-2: Chess App 
-## Presentation Date: Friday Dec. 18th, 2020
-
 ## Team Members:
 
 * Suva Shahria
