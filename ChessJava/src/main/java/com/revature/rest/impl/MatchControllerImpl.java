@@ -165,7 +165,8 @@ public class MatchControllerImpl implements MatchController {
             if (mr == null) return false;
             String moveHistory = json.get("moves").toString();
             mr.setMoveHistory(moveHistory);
-            return true;
+            mService.save(mr);
+            return true; // if no error, success
         } catch(ServiceException e){
             return false;
         }
@@ -174,6 +175,8 @@ public class MatchControllerImpl implements MatchController {
     /**
      * Starts a new game with the given code, with the given player(username) as white
      * Returns false if failure
+     * 
+     * let template = {whiteUser: "user",code: code}
      * 
      * @param req
      * @return
@@ -196,10 +199,28 @@ public class MatchControllerImpl implements MatchController {
         }
     }
 
+    /**
+     * Adds the given player as black to the pending game indicated by the given code.
+     * Returns false if failure
+     * 
+     * let template = {user: "user",code: code}
+     * 
+     * @param req
+     * @return
+     */
     @Override
     public boolean findGame(String req) {
-        // TODO Auto-generated method stub
-        return false;
+        try{
+            JsonObject json = new Gson().fromJson(req, JsonObject.class);
+            String username = json.get("user").toString();
+            User u = uService.findUser(username);
+            if (u == null) return false;
+            String codeString = json.get("code").toString();
+            int code = Integer.parseInt(codeString);
+            mService.acceptCode(u, code);
+            return true; // if no error, success
+        } catch(ServiceException e){
+            return false;
+        }
     }
-    
 }
