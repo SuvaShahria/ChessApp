@@ -7,6 +7,7 @@ import com.revature.model.User;
 import com.revature.model.MatchRecord.MatchStatus;
 import com.revature.repository.RepositoryException;
 import com.revature.repository.interfaces.MatchRepository;
+import com.revature.repository.interfaces.MatchRepository.MatchStatusFilter;
 import com.revature.service.ServiceException;
 import com.revature.service.interfaces.MatchService;
 
@@ -117,6 +118,24 @@ public class MatchServiceImpl implements MatchService {
     public List<MatchRecord> findAllMatchRecords() throws ServiceException {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    /**
+     * Finds all pending match records.
+     * If no such match records exist, returns an empty list.
+     * 
+     * Throws ServiceException if there is a problem with the database.
+     * 
+     * @return
+     * @throws ServiceException
+     */
+    @Override
+    public List<MatchRecord> findAllPendingMatchRecords() throws ServiceException{
+        try{
+            return mRepo.findMatchRecordsBy(MatchStatusFilter.PENDING);
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
     }
 
     @Override
