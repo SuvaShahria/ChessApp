@@ -13,7 +13,7 @@ import com.revature.service.ServiceException;
 public interface UserService {
 
     // ---------------------
-    // SERVICE METHODS
+    // HELPER/TESTING METHODS
     // ---------------------
 
     /**
@@ -23,6 +23,10 @@ public interface UserService {
      * @param urepo
      */
     public void useOutsideRepository(UserRepository urepo);
+
+    // ---------------------
+    // SERVICE METHODS
+    // ---------------------
 
     /**
      * Persists the given user to the database.
@@ -53,6 +57,16 @@ public interface UserService {
      * @throws ServiceException
      */
     public User register(User user, String barePassword) throws ServiceException;
+
+    /**
+     * Returns the user corresponding to information in the given user (id or username)
+     * If no such user exists, returns null.
+     * 
+     * @param id
+     * @return
+     * @throws ServiceException : if there is a problem with the database
+     */
+    public User findUser(User u) throws ServiceException;
 
     /**
      * Returns the user corresponding to the given id.
