@@ -6,8 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tips.component.css'],
 })
 export class TipsComponent {
+
+  title = 'Best Tips To Winning Chess!';
+
+
   constructor() {
 
 
   }
 }
+
