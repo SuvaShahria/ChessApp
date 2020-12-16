@@ -34,7 +34,7 @@ We implemented **chess.js API** and **chessboard.js API** for the chess logic an
 * The backend system uses **SpringMVC** to connect to an **AWS RDS Postgres database**. 
 * The front-end view uses **HTML/JavaScript** to make an application that can call server-side components. 
 * Passwords are encrypted in **Java** and securely stored in the database. 
-* The middle tier follows proper layered architecture, has reasonable (~70%) test coverage of the service layer. 
+* The middle tier follows proper layered architecture and has reasonable (~70%) test coverage of the service layer. 
 
 
 ## 
