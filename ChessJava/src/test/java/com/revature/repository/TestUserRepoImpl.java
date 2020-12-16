@@ -48,7 +48,8 @@ public class TestUserRepoImpl {
         urepo = new UserRepositoryImpl();
         urepo.useOutsideSessionFactory(
                 new Configuration().configure(fileName).buildSessionFactory());
-        sfactory = new Configuration().configure(fileName).buildSessionFactory();
+        //sfactory = new Configuration().configure(fileName).buildSessionFactory();
+        //ContextLoader conLoader = new ContextLoader();
     }
 
     // ---------------------

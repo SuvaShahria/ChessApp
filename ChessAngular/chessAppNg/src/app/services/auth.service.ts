@@ -27,8 +27,8 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<User>(`${USER_URL}/logIn`, {username, password})
-    .pipe(map(user => {
+    return this.http.post<User>(`${USER_URL}logIn`, [username,password])
+    .pipe(map(user => { 
       user.authdata = window.btoa(username+':'+password);
       localStorage.setItem('user',JSON.stringify(user));
       this.userSubject.next(user);

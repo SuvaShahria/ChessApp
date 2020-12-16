@@ -170,4 +170,72 @@ public class TestUserServiceImpl {
         }
         assertTrue(caught);
     }
+
+    // ---------------------
+    // update() TESTS
+    // ---------------------
+
+    /**
+     * Expects a successful update
+     * 
+     * @throws RepositoryException
+     */
+    @Test
+    public void testUpdate() throws RepositoryException, ServiceException {
+        User u = new User(1, "username", "email@e.com");
+        when(uRepo.checkExists(u)).thenReturn(true);
+        uService.update(u);
+        // if no errors, success
+    }
+
+    /**
+     * Expects a failed update due to the user not being found
+     * 
+     * @throws RepositoryException
+     */
+    @Test
+    public void testUpdateNotFound() throws RepositoryException {
+        User u = new User(1, "username", "email@e.com");
+        when(uRepo.checkExists(u)).thenReturn(false);
+        boolean caught = false;
+        try{
+            uService.update(u);
+        } catch(ServiceException e){
+            caught = true;
+        }
+        assertTrue(caught);
+    }
+
+    /**
+     * Expects a failed update due to a repo exception
+     * 
+     * @throws RepositoryException
+     */
+    @Test
+    public void testUpdateRepoExcept() throws RepositoryException {
+        User u = new User(1, "username", "email@e.com");
+        when(uRepo.checkExists(u)).thenThrow(new RepositoryException());
+        boolean caught = false;
+        try{
+            uService.update(u);
+        } catch(ServiceException e){
+            if (e.getMessage().startsWith("RepositoryException"))
+                caught = true;
+        }
+        assertTrue(caught);
+    }
+
+    // ---------------------
+    // findUser() TESTS
+    // ---------------------
+
+    // currently, not testing findUser methods because they literally just pass a param
+    // to the repo method
+
+    // ---------------------
+    // findAllUsers() TESTS
+    // ---------------------
+
+    // currently, not testing the findAllUsers method because it literally just calls the
+    // repo method
 }

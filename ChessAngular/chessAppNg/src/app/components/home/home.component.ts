@@ -14,13 +14,7 @@ export class HomeComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.loading = true;
-    this.userService.findAllUsers()
-    .pipe(first())
-    .subscribe(users => {
-      this.loading = false;
-      this.users = users;
-  });
+
   }
 
 }
