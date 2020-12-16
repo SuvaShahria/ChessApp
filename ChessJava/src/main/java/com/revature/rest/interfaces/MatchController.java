@@ -10,6 +10,7 @@ package com.revature.rest.interfaces;
 import java.util.List;
 
 import com.revature.model.MatchRecord;
+import com.revature.model.User;
 import com.revature.service.interfaces.MatchService;
 
 public interface MatchController {
@@ -79,7 +80,21 @@ public interface MatchController {
      * Returns an empty list if there are no pending games.
      * Returns null if there is a problem.
      * 
+     * Intended for GET
+     * 
      * @return
      */
     public List<MatchRecord> getAllPendingGames();
+
+    /**
+     * Returns a list of every match in which the given user is one of the players.
+     * Returns an empty list if there are no such games.
+     * Returns null if there is a problem.
+     * 
+     * Intended for POST
+     * 
+     * @param user
+     * @return
+     */
+    public List<MatchRecord> getAllGamesWithPlayer(User user);
 }

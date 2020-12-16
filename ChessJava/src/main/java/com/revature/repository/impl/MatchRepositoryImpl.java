@@ -148,10 +148,20 @@ public class MatchRepositoryImpl implements MatchRepository{
      * @return
      * @throws RepositoryException
      */
-	@Override
+    @Override
+    @SuppressWarnings(value="unchecked")
 	public List<MatchRecord> findMatchRecordsBy(User user) throws RepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+            Session session = sessionFactory.getCurrentSession();
+            Criteria crit = session.createCriteria(MatchRecord.class);
+            crit.add(Restrictions.or(
+                Restrictions.eq("whiteUser.id", user.getId()), 
+                Restrictions.eq("blackUser.id", user.getId())));
+            List<MatchRecord> mrList = crit.list(); // haha, mister list
+            return mrList;
+        } catch(HibernateException e){
+            throw new RepositoryException("HibernateException: " + e.getMessage());
+        }
 	}
 
     /**

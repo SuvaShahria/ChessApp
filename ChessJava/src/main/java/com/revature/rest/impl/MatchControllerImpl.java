@@ -249,4 +249,22 @@ public class MatchControllerImpl implements MatchController {
             return null;
         }
     }
+
+    /**
+     * Returns a list of every match in which the given user is one of the players.
+     * Returns an empty list if there are no such games.
+     * Returns null if there is a problem.
+     * 
+     * @param user
+     * @return
+     */
+    @Override
+    @PostMapping("/getAllGamesWithPlayer")
+    public @ResponseBody List<MatchRecord> getAllGamesWithPlayer(@RequestBody User user){
+        try{
+            return mService.findAllMatchRecordsWithPlayer(user);
+        } catch(ServiceException e){
+            return null;
+        }
+    }
 }
