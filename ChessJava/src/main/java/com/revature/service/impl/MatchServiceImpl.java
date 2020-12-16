@@ -164,7 +164,8 @@ public class MatchServiceImpl implements MatchService {
     /**
      * Adds the given player as the blackPlayer of the game indicated by the given code.
      * Throws an exception if the MatchRecord does not exist, or if it already has a
-     * black player.
+     * black player - or, if the player accepting the code and trying to join is also the
+     * white player
      * 
      * @param blackPlayer
      * @param code
@@ -173,12 +174,10 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public void acceptCode(User player, int code) throws ServiceException {
         try{
-            if (!mRepo.checkExistsByCode(code))
-                throw new ServiceException("No game with code <" + code + "> found.");
+//            if (!mRepo.checkExistsByCode(code))
+//                throw new ServiceException("No game with code <" + code + "> found.");
             MatchRecord mr = mRepo.findMatchRecordByCode(code);
-            if (mr.getStatus() != MatchStatus.PENDING)
-                throw new ServiceException(
-                        "Game with code <" + code + "> has already started.");
+
             mr.setBlackUser(player);
             mr.setStatus(MatchStatus.ONGOING);
             save(mr);
@@ -205,6 +204,7 @@ public class MatchServiceImpl implements MatchService {
             mr.setWhiteUser(player);
             mr.setCode(code);
             mr.setStatus(MatchStatus.PENDING);
+            mr.setMoveHistory("");
             save(mr);
         } catch(RepositoryException e){
             throw new ServiceException("RepositoryException: " + e.getMessage());
