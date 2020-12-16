@@ -267,4 +267,62 @@ public class MatchControllerImpl implements MatchController {
             return null;
         }
     }
+
+    /**
+     * Given a game code, finds the game with that code, then returns a string containing
+     * the usernames of the two players in it, seperated by a space.
+     * If there is only one player (if the game is pending), only that user's username is
+     * returned.
+     * 
+     * Returns null if there is a problem.
+     * 
+     * let template = {code: code}
+     * 
+     * @param code
+     * @throws ServiceException
+     */
+    @Override
+    @PostMapping("/getPlayerStringByCode")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody String getPlayerStringByCode(@RequestBody String req){
+        try{
+            JsonObject json = new Gson().fromJson(req, JsonObject.class);
+            String codeString = json.get("code").getAsString();
+            //System.out.println("DEBUG: parsed code as: " + codeString);
+            int code = Integer.parseInt(codeString);
+            String playerString = mService.getPlayerStringByCode(code);
+            //System.out.println("DEBUG: playerString is: " + playerString);
+            return playerString;
+        } catch(ServiceException e){
+            //System.out.println("DEBUG: ServiceException: " + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Given a game code and a username, makes that user the winner of that game.
+     * Will fail if the game or username are not found, if the user is not one of the
+     * players in the game, or if the game is not ONGOING.
+     * 
+     * let template = {code: code, user: username}
+     * 
+     * @param req
+     * @return
+     */
+    @Override
+    @PostMapping("/recordGameWinner")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody boolean recordGameWinner(@RequestBody String req){
+        try{
+            JsonObject json = new Gson().fromJson(req, JsonObject.class);
+            String codeString = json.get("code").getAsString();
+            int code = Integer.parseInt(codeString);
+            String username = json.get("user").getAsString();
+            mService.recordMatchWinner(code, username);
+            return true; // if no errors, success
+        } catch(ServiceException e){
+            //System.out.println("DEBUG: ServiceException: " + e.getMessage());
+            return false;
+        }
+    }
 }

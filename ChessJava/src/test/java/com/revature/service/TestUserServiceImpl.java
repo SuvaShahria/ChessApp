@@ -65,7 +65,7 @@ public class TestUserServiceImpl {
         User uIn = new User("user", "email");
         String bp = "password";
         User uOut = new User(1, "user", "email");
-        when(uRepo.checkExists(uIn)).thenReturn(true);
+        when(uRepo.checkExists(uIn)).thenReturn(false);
         when(uRepo.register(uIn, bp)).thenReturn(uOut);
         User result = uService.register(uIn, bp);
         assertNotNull(result);
@@ -100,7 +100,7 @@ public class TestUserServiceImpl {
         try{
             User uIn = new User("user", "email");
             String bp = "password";
-            when(uRepo.checkExists(uIn)).thenReturn(true);
+            when(uRepo.checkExists(uIn)).thenReturn(false);
             when(uRepo.register(uIn, bp)).thenThrow(new RepositoryException());
             uService.register(uIn, bp);
         } catch (ServiceException e){

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-declare var myExtObject3: any;
+declare var myExtObject: any;
 @Component({
   selector: 'app-replay',
   templateUrl: './replay.component.html',
@@ -7,47 +7,64 @@ declare var myExtObject3: any;
 })
 export class ReplayComponent implements OnInit, OnDestroy{
   title = 'chessAppNg';
+  public code = 0;
+  public un: String;
   ngOnInit(): void{
-    // this.add()
-    // this.createGame('./assets/img/chesspieces/wikipedia/{piece}.png')
+    var v = localStorage.getItem('user');
+    var myArr = JSON.parse(v);
+    this.un = myArr["username"];
+    this.add()
+   
   }
 
   ngOnDestroy(){
-    // myExtObject3.delete();
+    myExtObject.delete();
   }
   createGame(s: String) {
     console.log("hi")
-    myExtObject3.create(s);
+    myExtObject.create2(s);
   }
 
   myFunction(){
     console.log("?")
   }
+  findGame(){
+    myExtObject.find(this.code,this.un)
+    this.createGame('./assets/img/chesspieces/wikipedia/{piece}.png')
+  }
+
+  next(){
+    myExtObject.next()
+  }
+
+  prev(){
+    myExtObject.prev()
+  }
 
   callFunction2() {
-      console.log(myExtObject3.func2());
+      console.log(myExtObject.func2());
   }
 
   delete(){
-    myExtObject3.delete();
+    myExtObject.delete();
     
   }
 
   add(){
-    myExtObject3.add();
+    myExtObject.add();
   }
 
   getMoves(){
-    myExtObject3.getMoves();
-    console.log( myExtObject3.getMoves());
+    myExtObject.getMoves();
+    console.log( myExtObject.getMoves());
   }
 
   color(x: any){
-    myExtObject3.color(x);
+    myExtObject.color(x);
   }
 
   toggle(){
-    myExtObject3.toggle();
+    myExtObject.toggle();
   }
 
 }

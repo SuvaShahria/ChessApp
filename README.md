@@ -1,3 +1,52 @@
+# Project-2: Chess App 
+## Team Members:
+
+* Suva Shahria
+* Matthew LaFleur
+* Max Goncharov
+* Andrew Curry
+
+<br />
+![](./imgs/video.gif)
+
+## Executive Summary
+Chess App is a full-stack web application that allows users to login and play chess against each other online.
+
+## Chess App User Stories 
+* Users can register and create a new account. 
+* Users can login and play chess against each other online.
+* Users can reskin the chessboard and chess pieces according to their preferences. 
+* Users can challenge other users to a chess match over the internet.
+* Users can view all users, their incomplete games, and pending games. 
+* Users can logout. 
+
+## Sample Views
+![](./imgs/view1.png)
+<br />
+![](./imgs/view2.png)
+
+## Technology Stack
+
+### Front-End
+* We used **Angular**, **HTML**, **CSS**, **JavaScript**, and **TypeScript** to generate the frontend of the application.
+* We implemented **chess.js API** and **chessboard.js API** for the chess logic and chessboard graphics. 
+
+### Back-End
+* We used **SpringMVC** to leverage the Dispatcher-Servlet to create a FrontController design pattern to communicate with the backend.
+* The back-end system uses **SpringMVC** to connect to an **AWS RDS Postgres database**. 
+* The front-end view uses **HTML/JavaScript** to make an application that can call server-side components. 
+* Passwords are encrypted in **Java** and securely stored in the database. 
+* The middle tier follows proper layered architecture and has reasonable (~70%) test coverage of the service layer. 
+
+### Misc
+* **GitHub** and **GitBash** for version control.
+* **Slack**, **Zoom**, and **Discord** for team communication and stand-up meetings.
+* We employed the **scrum** methodology and the **agile** development framework during the two-week sprint.
+
+
+###################
+###################
+
 # Project-2 Requirements
 Within groups of 4 or 5, you are required to develop an application using the following mandatory technologies.
 #### Presentation Date: Friday Dec. 18th, 2020

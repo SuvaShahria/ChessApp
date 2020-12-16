@@ -1,5 +1,4 @@
-
-var myExtObject3 = (function() {
+var myExtObject4 = (function() {
     var t = 0;
     var moves = "";
     var loc = "wikipedia"
@@ -7,23 +6,17 @@ var myExtObject3 = (function() {
     var w = ''
     var b = ''
     var h = 2
-    var code = '';
-    var board = null;
-    var game = new Chess()
-    var un = "";
     // var pieces = './assets/img/chesspieces/wikipedia/{piece}.png'
     return {
-      create: async function(s,ori) {
-        //test
-        
-        //await new Promise(r => setTimeout(r, 2000));
+      create: function(s) {
         // ---------------------------------------------------------------------------------------------------
-      game.reset()
+        
       // document.getElementById('board').style.visibility = 'visible';
       pieces =s;
       var whiteSquareGrey = '#a9a9a9'
       var blackSquareGrey = '#696969'
-      
+      var board = null;
+      var game = new Chess()
       var $status = $('#status')
       var $mvDiv = $('#mvDiv')  
       
@@ -46,20 +39,20 @@ var myExtObject3 = (function() {
       }
       function onMouseoverSquare (square, piece) {
         // get list of possible moves for this square
-        var moves2 = game.moves({
+        var moves = game.moves({
           square: square,
           verbose: true
         })
       
         // exit if there are no moves available for this square
-        if (moves2.length === 0) return
+        if (moves.length === 0) return
       
         // highlight the square they moused over
         greySquare(square)
       
         // highlight the possible squares for this piece
-        for (var i = 0; i < moves2.length; i++) {
-          greySquare(moves2[i].to)
+        for (var i = 0; i < moves.length; i++) {
+          greySquare(moves[i].to)
         }
       }
       
@@ -72,85 +65,15 @@ var myExtObject3 = (function() {
         if (game.game_over()) return false
       
         // only pick up pieces for the side to move
-        if(ori == 'white'){
-          if (piece.search(/^b/) !== -1) {
-            return false
-          }
-        }else{
-          if (piece.search(/^w/) !== -1) {
-            return false
-          }
+        if ((game.turn() === 'w' && piece.search(/^b/) !== -1) ||
+            (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
+          return false
         }
-        
-      }
-  
-      function makeRandomMove () {
-        var possibleMoves = game.moves()
-      
-        // game over
-        if (possibleMoves.length === 0) return
-      
-        var randomIdx = Math.floor(Math.random() * possibleMoves.length)
-        //console.log(possibleMoves[randomIdx])
-        game.move(possibleMoves[randomIdx])
-        board.position(game.fen())
-      }
-  
-      async function oppGo(){
-        let xhr = new XMLHttpRequest()
-        let template = {
-          user: un,
-          code: code
-         }
-        xhr.onreadystatechange = function(){
-          if(this.readyState ===4 && this.status ===200){
-            //console.log(moves)
-          moves = this.responseText
-          var split = moves.split(" ");
-          var l = split.length;
-          //var f = split.substring(l-4,l-2)
-          //var a = split.substring(l-2,l)
-          //console.log(split[l-1])
-          var f = split[l-1].substring(0,2)
-          var t = split[l-1].substring(2,4)
-          var move = game.move({
-            from: f,
-            to: t,
-            promotion: 'q' //promote to queen
-          })
-  
-          if(move == null){
-            window.setTimeout(d2,3000)
-          }
-          //await new Promise(r => setTimeout(r, 2000));
-  
-          board.position(game.fen())
-          
-          }
-          
-        }
-        xhr.open("POST","http://localhost:8080/ChessApp/getMove")
-        xhr.send(JSON.stringify(template))
-  
-        function d2(){
-          console.log("hi d2 oppg")
-          xhr.open("POST","http://localhost:8080/ChessApp/getMove")
-        xhr.send(JSON.stringify(template))
-        }
-        //await myExtObject2.sleep(2000)
-  
-        
-        
-        
       }
       
       function onDrop (source, target) {
-        //myExtObject2.te()
-        
         removeGreySquares()
-        
-  
-  
+       
         // see if the move is legal
         var move = game.move({
           from: source,
@@ -164,25 +87,15 @@ var myExtObject3 = (function() {
           b= source +' '+ target
           //var b = Source + " " + target;
           $mvDiv.html(b)
-          moves+= " "
+  
           moves += source
           moves += target
-          
-  
-          let xhr = new XMLHttpRequest()
-           let template = {
-             code: code,
-             moves: moves
-           }
-  
-          xhr.open("POST","http://localhost:8080/ChessApp/recordMove")
-           xhr.send(JSON.stringify(template))
+          moves+= " "
           //console.log(moves)
         }
         if (move === null) return 'snapback'
       
         updateStatus()
-        window.setTimeout(oppGo, 250)
       }
       
       // update the board position after the piece snap
@@ -227,7 +140,6 @@ var myExtObject3 = (function() {
       draggable: true,
         position: 'start',
         pieceTheme: pieces,
-        orientation: ori,
         onDragStart: onDragStart,
         onDrop: onDrop,
         onMouseoutSquare: onMouseoutSquare,
@@ -243,14 +155,6 @@ var myExtObject3 = (function() {
   
   
         //-------------------------------------------------CREATE------------------------------------------------------------------------
-      },
-      setUsername: function(s){
-        un = s;
-  
-        console.log(un)
-      },
-      sleep: async function(x){
-        await new Promise(r => setTimeout(r, x));
       },
       func2: function() {
         return t;
@@ -269,23 +173,24 @@ var myExtObject3 = (function() {
       },
       add: function(){
         c = document.createElement('div');
-        c.setAttribute("id", "board");
+        c.setAttribute("id", "board2");
         document.body.appendChild(c);
         c = document.createElement('Label');
-        c.setAttribute("id", "st");
+        c.setAttribute("id", "st2");
         c.innerHTML= "STATUS:"
         document.body.appendChild(c);
         c = document.createElement('div');
-        c.setAttribute("id", "status");
+        c.setAttribute("id", "status2");
         document.body.appendChild(c);
+        
   
-        c = document.createElement('Label');
-        c.setAttribute("id", "mv");
-        c.innerHTML= "LAST MOVE:"
-        document.body.appendChild(c);
-        c = document.createElement('div');
-        c.setAttribute("id", "mvDiv");
-        document.body.appendChild(c);
+        // c = document.createElement('Label');
+        // c.setAttribute("id", "mv");
+        // c.innerHTML= "LAST MOVE:"
+        // document.body.appendChild(c);
+        // c = document.createElement('div');
+        // c.setAttribute("id", "mvDiv");
+        // document.body.appendChild(c);
       },
       getMoves: function(){
         return moves;
@@ -333,100 +238,8 @@ var myExtObject3 = (function() {
       },
       toggle: function(){
         h = h+1
-      },
-      makeGame: function(c){
-        code = c
-      
-        let xhr = new XMLHttpRequest()
-        let template = {
-          whiteUser: un,
-          code: code
-        }
-        xhr.onreadystatechange = function(){
-          if(this.responseText == false){
-            //console.log("return boolean")
-          }
-          //console.log(this.responseText)
-          // var ans = JSON.parse(this.responseText);
-          // console.log(JSON.stringify(ans))
-        }
-        xhr.open("POST","http://localhost:8080/ChessApp/makeGame")
-        xhr.send(JSON.stringify(template))
-        //this.te()
-      },
-      setNull: function(){
-          moves = "";
-      },
-      test: function(){
-          console.log("test")
-      },
-      te: function(){
-        console.log("te")
-      },
-      setCode: function(c){
-        code = c
-        console.log(code)
-      },
-      firstMove:  function(){
-        let xhr = new XMLHttpRequest()
-        let template = {
-          user: un,
-          code: code
-         }
-        xhr.onreadystatechange = function(){
-          moves = "";
-          if(this.readyState ===4 && this.status ===200){
-            //console.log(moves)
-          moves = this.responseText
-          if(moves == "" || moves == null){
-            window.setTimeout(d,3000)
-          }
-          var split = moves.split(" ");
-          var l = split.length;
-          //var f = split.substring(l-4,l-2)
-          //var a = split.substring(l-2,l)
-          //console.log(split[l-1])
-          var f = split[l-1].substring(0,2)
-          var t = split[l-1].substring(2,4)
-          //console.log(f)
-          //console.log(t)
-          var move = game.move({
-            from: f,
-            to: t,
-            promotion: 'q' //promote to queen
-          })
-  
-          board.position(game.fen())
-          }
-          
-        }
-        xhr.open("POST","http://localhost:8080/ChessApp/getMove")
-        xhr.send(JSON.stringify(template))
-        console.log("first move")
-        function d(){
-          console.log("hi d")
-          xhr.open("POST","http://localhost:8080/ChessApp/getMove")
-        xhr.send(JSON.stringify(template))
-          
-        }
-  
-        window.setTimeout(d,2000)
-        
-        
-        
-      },
-      findGame: function(){
-        console.log(code)
-        let xhr = new XMLHttpRequest()
-        let template = {
-          user: un,
-          code: code
-         }
-  
-         xhr.open("POST","http://localhost:8080/ChessApp/findGame")
-        xhr.send(JSON.stringify(template))
       }
       
     }
   
-  })(myExtObject3||{})
+  })(myExtObject4||{})
