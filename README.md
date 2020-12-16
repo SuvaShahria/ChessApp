@@ -29,9 +29,9 @@ Our Chess App is is full stack web application that allows users to login and pl
 We used **Angular**, **HTML**, **CSS**, **JavaScript**, and **TypeScript** to generate the frontend of the application.
 We implemented **chess.js API** and **chessboard.js API** for the chess logic and chessboard graphics. 
 
-### Front End
+### Back End
 * The backend system uses **SpringMVC** to connect to an **AWS RDS Postgres database**. 
-* The front-end view uses HTML/JavaScript to make an application that can call server-side components. 
+* The front-end view uses **HTML/JavaScript** to make an application that can call server-side components. 
 * Passwords are encrypted in Java and securely stored in the database. 
 * The middle tier follows proper layered architecture, has reasonable (~70%) test coverage of the service layer, and implements log4j for appropriate logging. 
 
