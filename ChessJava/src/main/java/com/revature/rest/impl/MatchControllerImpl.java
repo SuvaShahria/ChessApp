@@ -7,6 +7,8 @@
  */
 package com.revature.rest.impl;
 
+import java.util.List;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -19,6 +21,7 @@ import com.revature.service.interfaces.UserService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -227,6 +230,41 @@ public class MatchControllerImpl implements MatchController {
             return true; // if no error, success
         } catch(ServiceException e){
             return false;
+        }
+    }
+
+    /**
+     * Returns a list of every match which has the status PENDING (waiting for a player).
+     * Returns an empty list if there are no pending games.
+     * Returns null if there is a problem.
+     * 
+     * @return
+     */
+    @Override
+    @GetMapping("/getAllPendingGames")
+    public @ResponseBody List<MatchRecord> getAllPendingGames(){
+        try{
+            return mService.findAllPendingMatchRecords();
+        } catch(ServiceException e){
+            return null;
+        }
+    }
+
+    /**
+     * Returns a list of every match in which the given user is one of the players.
+     * Returns an empty list if there are no such games.
+     * Returns null if there is a problem.
+     * 
+     * @param user
+     * @return
+     */
+    @Override
+    @PostMapping("/getAllGamesWithPlayer")
+    public @ResponseBody List<MatchRecord> getAllGamesWithPlayer(@RequestBody User user){
+        try{
+            return mService.findAllMatchRecordsWithPlayer(user);
+        } catch(ServiceException e){
+            return null;
         }
     }
 }
