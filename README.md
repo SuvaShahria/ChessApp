@@ -26,16 +26,20 @@ Chess App is a full stack web application that allows users to login and play ch
 ## Technologies
 
 ### Front End
-We used **Angular**, **HTML**, **CSS**, **JavaScript**, and **TypeScript** to generate the frontend of the application.
-We implemented **chess.js API** and **chessboard.js API** for the chess logic and chessboard graphics. 
+* We used **Angular**, **HTML**, **CSS**, **JavaScript**, and **TypeScript** to generate the frontend of the application.
+* We implemented **chess.js API** and **chessboard.js API** for the chess logic and chessboard graphics. 
 
 ### Back End
-* We are using **SpringMVC** to leverage the Dispatcher-Servlet to create a FrontController design pattern to communicate with the backend.
+* We used **SpringMVC** to leverage the Dispatcher-Servlet to create a FrontController design pattern to communicate with the backend.
 * The backend system uses **SpringMVC** to connect to an **AWS RDS Postgres database**. 
 * The front-end view uses **HTML/JavaScript** to make an application that can call server-side components. 
 * Passwords are encrypted in **Java** and securely stored in the database. 
 * The middle tier follows proper layered architecture and has reasonable (~70%) test coverage of the service layer. 
 
+### Misc
+* GitHub and GitBash for version control
+* Slack, Zoom, and Discord for team communication and stand-up meetings
+* We utilized scrum agile development framework
 
 ## 
 
