@@ -12,8 +12,10 @@ import com.revature.model.MatchRecord;
 import com.revature.model.User;
 import com.revature.repository.RepositoryException;
 
+import org.hibernate.SessionFactory;
 
-public interface MatchRecordRepository {
+
+public interface MatchRepository {
 
     // ---------------------
     // ENUM(S)
@@ -24,15 +26,26 @@ public interface MatchRecordRepository {
      */
     public enum MatchStatusFilter{
         ALL,
+        PENDING,
         ONGOING,
         FINISHED,
         WON_BY_GIVEN_USER,
         LOST_BY_GIVEN_USER,
-        CURRENT_USER_IS_GIVEN_USER,
     }
 
     // ---------------------
-    // METHODS
+    // HELPER/TEST METHODS
+    // ---------------------
+
+    /**
+     * Used for testing, injects a new sessionFactory.
+     * 
+     * @param sessionFactory
+     */
+    public void useOutsideSessionFactory(SessionFactory sessionFactory);
+    
+    // ---------------------
+    // DATA ACCESS METHODS
     // ---------------------
 
     /**
@@ -49,6 +62,18 @@ public interface MatchRecordRepository {
     public void save(MatchRecord mr) throws RepositoryException;
 
     /**
+     * Returns a mr from the database that matches either the id or code of the given mr.
+     * Null if no such mr found.
+     * 
+     * Throws exception if there is a problem with the db.
+     * 
+     * @param mr
+     * @return
+     * @throws RepositoryException
+     */
+    public MatchRecord findMatchRecord(MatchRecord mr) throws RepositoryException;
+
+    /**
      * Returns the match record corresponding to the given id.
      * If no such match record exists, returns null.
      * 
@@ -58,7 +83,19 @@ public interface MatchRecordRepository {
      * @return
      * @throws RepositoryException
      */
-    public MatchRecord findMatchRecord(int id) throws RepositoryException;
+    public MatchRecord findMatchRecordById(int id) throws RepositoryException;
+
+    /**
+     * Returns the match record corresponding to the given code.
+     * If no such match record exists, returns null.
+     * 
+     * Throws RepositoryException if there is a problem with the database.
+     * 
+     * @param id
+     * @return
+     * @throws RepositoryException
+     */
+    public MatchRecord findMatchRecordByCode(int code) throws RepositoryException;
 
     /**
      * Finds all match records where the given user is one of the players.
@@ -94,5 +131,33 @@ public interface MatchRecordRepository {
      */
     public List<MatchRecord> findMatchRecordsBy(User user, MatchStatusFilter filter) 
             throws RepositoryException;
+
+    /**
+     * Determines if the db has a MatchRecord matching either the id or code of the given
+     * mr.
+     * 
+     * @param mr
+     * @return
+     * @throws RepositoryException 
+     */
+    public boolean checkExists(MatchRecord mr) throws RepositoryException;
+
+    /**
+     * Determines if the db has a MatchRecord matching the given id
+     * 
+     * @param mr
+     * @return
+     * @throws RepositoryException 
+     */
+    public boolean checkExistsById(int id) throws RepositoryException;
+
+    /**
+     * Determines if the db has a MatchRecord matching the given code
+     * 
+     * @param mr
+     * @return
+     * @throws RepositoryException 
+     */
+    public boolean checkExistsByCode(int code) throws RepositoryException;
     
 }

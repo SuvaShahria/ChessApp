@@ -31,9 +31,9 @@ public class UserServiceImpl implements UserService {
     private UserRepository uRepo;
 
     // ---------------------
-    // SERVICE METHODS
+    // HELPER/TESTING METHODS
     // ---------------------
-
+    
     /**
      * Uses the given uRepo instead of the spring-injected bean.
      * Should be used for testing.
@@ -43,11 +43,35 @@ public class UserServiceImpl implements UserService {
     public void useOutsideRepository(UserRepository uRepo){
         this.uRepo = uRepo;
     }
-
+    
+    // ---------------------
+    // SERVICE METHODS
+    // ---------------------
+    
+    /**
+     * Persists the given user to the database.
+     * Use this method to update a user that already exists.
+     * 
+     * Assumes the fields of the user are valid.
+     * 
+     * Throws ServiceException if the user is not already in the DB - use register()
+     * 
+     * @param user : a user that already exists
+     * @throws ServiceException : if there is a problem with the database, or if user is
+     *                              not already present in DB
+     */
     @Override
     public void update(User user) throws ServiceException {
-        // TODO Auto-generated method stub
-
+        try{
+            if (!uRepo.checkExists(user))
+                throw new ServiceException(
+                    "USI.update(): user <" 
+                    + user.getUsername()
+                    + "> not found.");
+            uRepo.update(user);
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
     }
 
     /**
@@ -74,16 +98,55 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Returns the user corresponding to information in the given user (id or username)
+     * If no such user exists, returns null.
+     * 
+     * @param id
+     * @return
+     * @throws ServiceException : if there is a problem with the database
+     */
     @Override
-    public User findUser(int id) throws ServiceException {
-        // TODO Auto-generated method stub
-        return null;
+    public User findUser(User u) throws ServiceException{
+        try{
+            return uRepo.findUser(u);
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
     }
 
+    /**
+     * Returns the user corresponding to the given id.
+     * If no such user exists, returns null.
+     * 
+     * @param id
+     * @return
+     * @throws ServiceException : if there is a problem with the database
+     */
+    @Override
+    public User findUser(int id) throws ServiceException {
+        try{
+            return uRepo.findUser(id);
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Returns the user corresponding to the given username.
+     * If no such user exists, returns null.
+     * 
+     * @param username
+     * @return
+     * @throws ServiceException : if there is a problem with the database
+     */
     @Override
     public User findUser(String username) throws ServiceException {
-        // TODO Auto-generated method stub
-        return null;
+        try{
+            return uRepo.findUser(username);
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
     }
 
     /**
@@ -108,20 +171,20 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Returns a list of all the users in the database.
+     * 
+     * Throws ServiceException if there is a problem with the database
+     * 
+     * @return
+     * @throws ServiceException
+     */
     @Override
     public List<User> findAllUsers() throws ServiceException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    // TODO delete this
-    @SuppressWarnings(value="all")
-    private void template() throws ServiceException{
         try{
-            throw new RepositoryException(); // REMOVE THIS BEFORE USE
+            return uRepo.findAllUsers();
         } catch(RepositoryException e){
             throw new ServiceException("RepositoryException: " + e.getMessage());
         }
     }
-    
 }
