@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
-@Controller("matchRecordController")
+@Controller("matchController")
 @CrossOrigin(origins = "http://localhost:4200")
 public class MatchControllerImpl implements MatchController {
 
@@ -128,7 +128,7 @@ public class MatchControllerImpl implements MatchController {
      * @param req
      * @return
      */
-    @PostMapping("/makeGame")
+    @PostMapping("/getMove")
     @ResponseStatus(HttpStatus.OK)
     @Override
     public @ResponseBody String getMove(@RequestBody String req) {

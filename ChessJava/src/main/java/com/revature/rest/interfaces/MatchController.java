@@ -10,8 +10,6 @@ package com.revature.rest.interfaces;
 import com.revature.model.MatchRecord;
 import com.revature.service.interfaces.MatchService;
 
-import org.springframework.web.bind.annotation.ResponseBody;
-
 public interface MatchController {
 
     // ---------------------
