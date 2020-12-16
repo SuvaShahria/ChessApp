@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlayComponent } from './components/play/play.component';
 import { HomeComponent } from './components/home/home.component';
 import { PlayvsComponent } from './components/playvs/playvs.component';
+import { ReplayComponent } from './components/replay/replay.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { PlayvsComponent } from './components/playvs/playvs.component';
     FindMatchComponent,
     PlayComponent,
     HomeComponent,
-    PlayvsComponent
+    PlayvsComponent,
+    ReplayComponent
   ],
   imports: [
     BrowserModule,
