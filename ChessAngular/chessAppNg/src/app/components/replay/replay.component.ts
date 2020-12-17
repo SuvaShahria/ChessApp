@@ -51,7 +51,7 @@ export class ReplayComponent implements OnInit, OnDestroy{
   }
 
   add(){
-    myExtObject.add();
+    myExtObject.add(2);
   }
 
   getMoves(){
