@@ -149,6 +149,7 @@ public class MatchServiceImpl implements MatchService {
         return null;
     }
 
+    
     @Override
     public List<MatchRecord> findAllFinishedMatchRecords() throws ServiceException {
         // TODO Auto-generated method stub
@@ -184,10 +185,28 @@ public class MatchServiceImpl implements MatchService {
         return null;
     }
 
+    /**
+     * Finds all finished match records where the given user is one of the players.
+     * If no such match records exist, returns an empty list.
+     * 
+     * Throws ServiceException if there is a problem with the database, such as if
+     * the user does not exist.
+     * 
+     * @param user
+     * @return
+     */
     @Override
-    public List<MatchRecord> findAllFinishedMatchRecordsWithPlayer(User player) throws ServiceException {
-        // TODO Auto-generated method stub
-        return null;
+    public List<MatchRecord> findAllFinishedMatchRecordsWithPlayer(User player) 
+        throws ServiceException {
+        try{
+            if (!uRepo.checkExists(player))
+                throw new ServiceException(
+                    "findAllFinishedMatchRecordsWithPlayer: User <" 
+                    + player.getUsername() + "> not found.");
+            return mRepo.findMatchRecordsBy(player, MatchStatusFilter.FINISHED);
+        } catch(RepositoryException e){
+            throw new ServiceException("RepositoryException: " + e.getMessage());
+        }
     }
 
     @Override
