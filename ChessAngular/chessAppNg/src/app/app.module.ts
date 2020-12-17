@@ -11,8 +11,6 @@ import { MainComponent } from './components/main/main.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { TipsComponent } from './components/tips/tips.component';
-import { HistoryComponent } from './components/history/history.component';
-import { FindMatchComponent } from './components/find-match/find-match.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlayComponent } from './components/play/play.component';
@@ -28,8 +26,6 @@ import { ReplayComponent } from './components/replay/replay.component';
     RegisterComponent,
     LoginComponent,
     TipsComponent,
-    HistoryComponent,
-    FindMatchComponent,
     PlayComponent,
     HomeComponent,
     PlayvsComponent,

@@ -1,3 +1,4 @@
+import { Match } from './../models/match.model';
 import { Game } from './../models/game.model';
 import { USER_URL } from './../../environments/environment.prod';
 import { ClientMessage } from './../models/client-message.model';
@@ -33,6 +34,14 @@ export class UserService {
         catchError(this.handleError<User>('get user', null))
       )
   }
+
+  public findMatchHistory(): Observable<Match[]> {
+    return this.http
+    .get<Match[]>(`${USER_URL}getMatchHistoryOfPlayer`)
+    .pipe(
+      catchError(this.handleError<Match[]>('getMatch', []))
+      );
+    }
 
   public findAllUsers(): Observable<User[]> {
     return this.http

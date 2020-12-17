@@ -1,5 +1,8 @@
 <div class="panel-heading">
     <span class="label label-default label-center" id="title" *ngIf="user" >Welcome  {{this.userValue.username}}</span>
+    <div class="text-center">
+    <img class="shield"  src={{shield}}/>
+</div>
 </div>
 <div class="panel-body">
 
@@ -32,11 +35,11 @@
         </li>
     </ul>
 </div>
-<div class="panel-heading">
+<!-- <div class="panel-heading">
     <span class="label label-default label-center" id="player-search">Looking for a Specific Game?</span>
 </div>
 <div class="panel-body">
-    <!-- <ul class="player-found">
+    <ul class="player-found">
         <div>
             <label> Player Name:
                 <input #Player />
@@ -46,5 +49,5 @@
                 Find Match!
             </button>
         </div>
-    </ul> -->
-</div>
+    </ul> 
+</div>-->
