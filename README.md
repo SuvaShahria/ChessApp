@@ -10,7 +10,7 @@
 ![](./imgs/video.gif)
 
 ## Executive Summary
-Chess App is a full-stack web application that allows users to login and play chess against each other online. User's can challenge other users to a game. Replay old games that they've play. Users can customize the theme of the board and the pieces.
+Chess App is a full-stack web application that allows users to login and play chess against each other online. 
 
 ## Chess App User Stories 
 * Users can register and create a new account. 
