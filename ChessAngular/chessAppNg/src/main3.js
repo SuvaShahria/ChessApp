@@ -120,7 +120,7 @@ var myExtObject2 = (function() {
         })
 
         if(move == null){
-          window.setTimeout(d2,3000)
+          window.setTimeout(d2,1500)
         }
         //await new Promise(r => setTimeout(r, 2000));
 
@@ -379,7 +379,7 @@ var myExtObject2 = (function() {
           //console.log(moves)
         moves = this.responseText
         if(moves == "" || moves == null){
-          window.setTimeout(d,3000)
+          window.setTimeout(d,2000)
         }
         var split = moves.split(" ");
         var l = split.length;
