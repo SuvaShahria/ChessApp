@@ -19,19 +19,14 @@ Chess App is a full-stack web application that allows users to login and play ch
 * Users can view all users, their incomplete games, and pending games. 
 * Users can logout. 
 
-## Sample Views
-![](./imgs/view1.png)
-<br />
-![](./imgs/view2.png)
-
 ## Technology Stack
 
 ### Front-End
-* We used **Angular**, **Bootstrap**, **HTML**, **CSS**, **JavaScript**, and **TypeScript** to create the frontend of the application.
+* We used **Angular**, **Bootstrap**, **HTML**, **CSS**, **JavaScript**, and **TypeScript** to create the front-end of the application.
 * We implemented **chess.js API** and **chessboard.js API** for the chess logic and chessboard graphics. 
 
 ### Back-End
-* We used **SpringMVC** to leverage the Dispatcher-Servlet to create a FrontController design pattern to communicate with the backend.
+* We used **SpringMVC** to leverage the Dispatcher-Servlet to create a FrontController design pattern to communicate with the back-end.
 * The back-end system uses **SpringMVC** along with **Hibernate** to connect to an **AWS RDS Postgres database**. 
 * Passwords are encrypted in **Java** and securely stored in the database. 
 * The middle tier follows proper layered architecture and has reasonable (~70%) test coverage of the service layer. 
@@ -40,3 +35,20 @@ Chess App is a full-stack web application that allows users to login and play ch
 * **GitHub** and **GitBash** for version control.
 * **Slack**, **Zoom**, and **Discord** for team communication and stand-up meetings.
 * We employed the **scrum** methodology and the **agile** development framework during the two-week sprint.
+
+## Sample Views
+![](./imgs/login.png)
+<br />
+![](./imgs/main.png)
+<br />
+![](./imgs/play.png)
+<br />
+![](./imgs/playvs.png)
+<br />
+![](./imgs/register.png)
+<br />
+![](./imgs/replay.png)
+<br />
+![](./imgs/theme2.png)
+<br />
+![](./imgs/themes.png)
