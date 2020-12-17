@@ -325,4 +325,25 @@ public class MatchControllerImpl implements MatchController {
             return false;
         }
     }
+
+    /**
+     * Given a user, return a list of all the FINISHED games that player is/was in.
+     * Returns an empty list if no such games are found.
+     * 
+     * Returns null on failure/error, such as if the user is not found.
+     * 
+     * @param user
+     * @return
+     */
+    @Override
+    @PostMapping("/getMatchHistoryOfPlayer")
+    public @ResponseBody List<MatchRecord> getMatchHistoryOfPlayer(
+        @RequestBody User user){
+        try{
+            return mService.findAllFinishedMatchRecordsWithPlayer(user);
+        } catch(ServiceException e){
+            //System.out.println("DEBUG: ServiceException: " + e.getMessage());
+            return null;
+        }
+    }
 }
