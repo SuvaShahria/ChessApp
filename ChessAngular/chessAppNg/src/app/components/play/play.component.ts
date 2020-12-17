@@ -34,7 +34,7 @@ export class PlayComponent implements OnInit, OnDestroy{
   }
 
   add(){
-    myExtObject.add();
+    myExtObject.add(1);
   }
 
   getMoves(){

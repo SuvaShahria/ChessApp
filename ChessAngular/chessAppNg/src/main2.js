@@ -303,11 +303,12 @@ var myExtObject = (function() {
       var b4 = document.getElementById("mvDiv");
       b4.remove()
     },
-    add: function(){
+    add: function(x){
       c = document.createElement('div');
       c.setAttribute("id", "board");
       document.body.appendChild(c);
-      c = document.createElement('Label');
+      if(x==1){
+        c = document.createElement('Label');
       c.setAttribute("id", "st");
       c.innerHTML= "STATUS:"
       document.body.appendChild(c);
@@ -322,6 +323,7 @@ var myExtObject = (function() {
       c = document.createElement('div');
       c.setAttribute("id", "mvDiv");
       document.body.appendChild(c);
+      }
     },
     getMoves: function(){
       return moves;
