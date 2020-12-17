@@ -128,4 +128,17 @@ public interface MatchController {
      * @return
      */
     public boolean recordGameWinner(String req);
+
+    /**
+     * Given a user, return a list of all the FINISHED games that player is/was in.
+     * Returns an empty list if no such games are found.
+     * 
+     * Returns null on failure/error, such as if the user is not found.
+     * 
+     * Intended for POST
+     * 
+     * @param user
+     * @return
+     */
+    public List<MatchRecord> getMatchHistoryOfPlayer(User user);
 }

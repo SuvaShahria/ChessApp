@@ -199,10 +199,63 @@ public class MatchRepositoryImpl implements MatchRepository{
         }
 	}
 
-	@Override
+    /**
+     * Finds all match records where the given user is one of the players, AND the status
+     * matches the given status filter.
+     * Supports all filter types.
+     * 
+     * @param user
+     * @param filter
+     * @return
+     * @throws RepositoryException
+     */
+    @Override
+    @SuppressWarnings(value="unchecked")
 	public List<MatchRecord> findMatchRecordsBy(User user, MatchStatusFilter filter) throws RepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+            Session session = sessionFactory.getCurrentSession();
+            Criteria crit = session.createCriteria(MatchRecord.class);
+            crit.add(Restrictions.or(
+                    Restrictions.eq("whiteUser.id", user.getId()), 
+                    Restrictions.eq("blackUser.id", user.getId())));
+            switch(filter){
+                case PENDING:
+                    crit.add(Restrictions.eq("status", MatchStatus.PENDING));
+                    break;
+                case ONGOING:
+                    crit.add(Restrictions.eq("status", MatchStatus.ONGOING));
+                    break;
+                case FINISHED:
+                    crit.add(Restrictions.or(
+                            Restrictions.eq("status", MatchStatus.WHITE_VICTORY), 
+                            Restrictions.eq("status", MatchStatus.BLACK_VICTORY)));
+                    break;
+                case WON_BY_GIVEN_USER:
+                    crit.add(Restrictions.or(
+                        Restrictions.and(
+                            Restrictions.eq("whiteUser.id", user.getId()), 
+                            Restrictions.eq("status", MatchStatus.WHITE_VICTORY)),
+                        Restrictions.and(
+                            Restrictions.eq("blackUser.id", user.getId()),
+                            Restrictions.eq("status", MatchStatus.BLACK_VICTORY))));
+                    break;
+                case LOST_BY_GIVEN_USER:
+                    crit.add(Restrictions.or(
+                        Restrictions.and(
+                            Restrictions.eq("whiteUser.id", user.getId()), 
+                            Restrictions.eq("status", MatchStatus.BLACK_VICTORY)),
+                        Restrictions.and(
+                            Restrictions.eq("blackUser.id", user.getId()),
+                            Restrictions.eq("status", MatchStatus.WHITE_VICTORY))));
+                    break;
+                default: // covers ALL
+                    break;
+            }
+            List<MatchRecord> mrList = crit.list(); // haha, mister list
+            return mrList;
+        } catch(HibernateException e){
+            throw new RepositoryException("HibernateException: " + e.getMessage());
+        }
 	}
     
     /**
