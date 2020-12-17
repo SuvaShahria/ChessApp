@@ -35,13 +35,14 @@ export class UserService {
       )
   }
 
-  public findMatchHistory(): Observable<Match[]> {
+  public findMatchHistory(user: User): Observable<Match[]> {
     return this.http
-    .get<Match[]>(`${USER_URL}getMatchHistoryOfPlayer`)
+    .post<Match[]>(`${USER_URL}getMatchHistoryOfPlayer`,JSON.stringify(user),this.httpOptions)
     .pipe(
       catchError(this.handleError<Match[]>('getMatch', []))
       );
     }
+
 
   public findAllUsers(): Observable<User[]> {
     return this.http

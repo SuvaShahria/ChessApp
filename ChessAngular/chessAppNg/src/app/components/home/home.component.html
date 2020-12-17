@@ -8,10 +8,17 @@
 
 </div>
 <div class="panel-heading">
-    <span class="label label-default label-center" id="history" *ngIf="user" >Previous Matches</span>
+    <span class="label label-default label-center" id="history" >Previous Matches</span>
+        
 </div>
 <div class="panel-body">
-
+    <ul class="match-history">
+        <li *ngFor="let match of matches" [class.selected]="match === selectedMatch">
+            <span class="box"></span> Game Code: {{match.code}} <br/>
+            <span>White: {{match.whiteUser.username}}</span> Black: {{match.blackUser.username}} <br/>
+            <span><strong>{{match.status}}</strong></span><br/>  
+        </li>
+    </ul>
 </div>
 
 <div class="panel-heading">

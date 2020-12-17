@@ -31,22 +31,23 @@ export class HomeComponent implements OnInit {
   constructor(private userService: UserService) { 
     this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));  
     this.user = this.userSubject.asObservable();
-    console.log(this.userValue);
+
   }
 
   ngOnInit(): void {
-    //this.getMatchHistory();
+    this.getMatchHistory(this.userValue);
     this.getAllUsers();
     this.getAllPendingGames();
-
   }
+
 
   public get userValue(): User {
     return this.userSubject.value;
   }
 
-  getMatchHistory() {
-    this.userService.findMatchHistory()
+  getMatchHistory(user:User) { 
+    console.log(user);
+    this.userService.findMatchHistory(user)
     .subscribe(matches => this.matches = matches);
   }
   
@@ -59,13 +60,9 @@ export class HomeComponent implements OnInit {
     this.userService.findAllPendingGames()
       .subscribe(games => this.games = games);
        
-      window.setTimeout(this.getAllPendingGamesContinued, 3000);
       }
 
-    getAllPendingGamesContinued(): void {
-      this.userService.findAllPendingGames()
-      .subscribe(games => this.games= games)
-    }
+  
 
 
   // getAllGamesWithPlayer(name: string): void {

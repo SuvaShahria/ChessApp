@@ -1,15 +1,19 @@
+import { User } from '@models/user.model';
 export class Match {
     id: number;
-    username: string;
-    barePassword: string;
-    email: string;
-    authdata?: string;
+    code: number;
+    whiteUser: User;
+    blackUser: User;
+    status: string;
+    moveHistory: string;
     
 
-    constructor(id: number, username: string, barePassword: string, email: string) {
+    constructor(id: number, code: number, whiteUser: User, blackUser: User, status: string, moveHistory: string) {
         this.id = id;
-        this.username = username;
-        this.barePassword = barePassword;
-        this.email = email;
+        this.code = code;
+        this.whiteUser = whiteUser;
+        this.blackUser = blackUser;
+        this.status = status;
+        this.moveHistory = moveHistory;
     }
 }
