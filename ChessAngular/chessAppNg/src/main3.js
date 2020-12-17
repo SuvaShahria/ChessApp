@@ -134,6 +134,7 @@ var myExtObject2 = (function() {
 
       function d2(){
         console.log("hi d2 oppg")
+        updateStatus()
         xhr.open("POST","http://localhost:8080/ChessApp/getMove")
       xhr.send(JSON.stringify(template))
       }
