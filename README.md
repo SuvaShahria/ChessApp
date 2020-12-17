@@ -30,7 +30,7 @@ Chess App is a full-stack web application that allows users to login and play ch
 ## Technology Stack
 
 ### Front-End
-* We used **Angular**, **HTML**, **CSS**, **JavaScript**, and **TypeScript** to create the frontend of the application.
+* We used **Angular**, **Bootstrap**, **HTML**, **CSS**, **JavaScript**, and **TypeScript** to create the frontend of the application.
 * We implemented **chess.js API** and **chessboard.js API** for the chess logic and chessboard graphics. 
 
 ### Back-End
