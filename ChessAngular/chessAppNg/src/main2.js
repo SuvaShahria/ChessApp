@@ -291,10 +291,11 @@ var myExtObject = (function() {
     func2: function() {
       return t;
     },
-    delete: function(){
+    delete: function(x){
       var b = document.getElementById("board");
       b.remove()
-      var b1 = document.getElementById("st");
+      if(x==1){
+        var b1 = document.getElementById("st");
       b1.remove()
       var b2 = document.getElementById("status");
       b2.remove()
@@ -302,6 +303,7 @@ var myExtObject = (function() {
       b3.remove()
       var b4 = document.getElementById("mvDiv");
       b4.remove()
+      }
     },
     add: function(x){
       c = document.createElement('div');
