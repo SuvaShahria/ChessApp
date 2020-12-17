@@ -6,7 +6,6 @@
 * Max Goncharov
 * Andrew Curry
 
-<br>
 ## Executive Summary
 Chess App is a full-stack web application that allows users to login and play chess against each other online. Users can challenge other users to a game. Replay old games that they've played. Users can customize the theme of the board and the pieces.
 
