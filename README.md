@@ -38,20 +38,10 @@ Chess App is a full-stack web application that allows users to login and play ch
 
 ## Sample Views
 <img src="./img/login.png" alt="sample view" width="800"/>
-
-
-![](./img/login.png =250x)
-<br />
-![](./img/main.png =250x)
-<br />
-![](./img/play.png =250x)
-<br />
-![](./img/playvs.png =250x)
-<br />
-![](./img/register.png =250x)
-<br />
-![](./img/replay.png =250x)
-<br />
-![](./img/theme2.png =250x)
-<br />
-![](./img/themes.png =250x)
+<img src="./img/main.png" alt="sample view" width="800"/>
+<img src="./img/play.png" alt="sample view" width="800"/>
+<img src="./img/playvs.png" alt="sample view" width="800"/>
+<img src="./img/register.png" alt="sample view" width="800"/>
+<img src="./img/replay.png" alt="sample view" width="800"/>
+<img src="./img/theme2.png" alt="sample view" width="800"/>
+<img src="./img/themes.png" alt="sample view" width="800"/>
