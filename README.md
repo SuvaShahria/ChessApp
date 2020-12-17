@@ -6,9 +6,6 @@
 * Max Goncharov
 * Andrew Curry
 
-<br />
-![](./imgs/video.gif)
-
 ## Executive Summary
 Chess App is a full-stack web application that allows users to login and play chess against each other online. Users can challenge other users to a game. Replay old games that they've played. Users can customize the theme of the board and the pieces.
 
@@ -43,14 +40,3 @@ Chess App is a full-stack web application that allows users to login and play ch
 * **GitHub** and **GitBash** for version control.
 * **Slack**, **Zoom**, and **Discord** for team communication and stand-up meetings.
 * We employed the **scrum** methodology and the **agile** development framework during the two-week sprint.
-
-
-###################
-###################
-
-# Project-2 Requirements
-Within groups of 4 or 5, you are required to develop an application using the following mandatory technologies.
-#### Presentation Date: Friday Dec. 18th, 2020
-You will present this application as if you were pitching it to a board or to investors.
-When you're presenting, you're welcome to provide a brief slideshow demonstrating the technologies involved in the app, it's features, and the Agile Development Process you undewent to develop it.
-
