@@ -37,18 +37,18 @@ Chess App is a full-stack web application that allows users to login and play ch
 * We employed the **scrum** methodology and the **agile** development framework during the two-week sprint.
 
 ## Sample Views
-![](./img/login.png)
+![](./img/login.png=250x)
 <br />
-![](./img/main.png)
+![](./img/main.png=250x)
 <br />
-![](./img/play.png)
+![](./img/play.png=250x)
 <br />
-![](./img/playvs.png)
+![](./img/playvs.png=250x)
 <br />
-![](./img/register.png)
+![](./img/register.png=250x)
 <br />
-![](./img/replay.png)
+![](./img/replay.png=250x)
 <br />
-![](./img/theme2.png)
+![](./img/theme2.png=250x)
 <br />
-![](./img/themes.png)
+![](./img/themes.png=250x)
