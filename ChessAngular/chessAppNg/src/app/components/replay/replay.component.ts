@@ -18,7 +18,7 @@ export class ReplayComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(){
-    myExtObject.delete();
+    myExtObject.delete(2);
   }
   createGame(s: String) {
     console.log("hi")

@@ -13,7 +13,7 @@ export class PlayComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(){
-    myExtObject.delete();
+    myExtObject.delete(1);
   }
   createGame(s: String) {
     console.log("hi")
@@ -29,7 +29,7 @@ export class PlayComponent implements OnInit, OnDestroy{
   }
 
   delete(){
-    myExtObject.delete();
+    myExtObject.delete(1);
     
   }
 
