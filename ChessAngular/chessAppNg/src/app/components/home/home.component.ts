@@ -1,10 +1,8 @@
 import { Match } from './../../models/match.model';
 import { Game } from './../../models/game.model';
-import { AuthService } from './../../services/auth.service';
 import { User } from '@app/models/user.model';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
@@ -21,6 +19,7 @@ export class HomeComponent implements OnInit {
   games: Game[];
   players: User[];
   
+
   private userSubject: BehaviorSubject<User>;
   public match: Observable<Match>;
   public user: Observable<User>;
@@ -35,9 +34,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getMatchHistory(this.userValue);
+      this.getMatchHistory(this.userValue);
     this.getAllUsers();
+    window.setInterval(() => {
     this.getAllPendingGames();
+  }, 3000);
   }
 
 
@@ -46,7 +47,6 @@ export class HomeComponent implements OnInit {
   }
 
   getMatchHistory(user:User) { 
-    console.log(user);
     this.userService.findMatchHistory(user)
     .subscribe(matches => this.matches = matches);
   }
@@ -56,12 +56,18 @@ export class HomeComponent implements OnInit {
       .subscribe(users => this.users = users);
   }
 
+
   getAllPendingGames(): void {
     this.userService.findAllPendingGames()
       .subscribe(games => this.games = games);
-       
+  
       }
-
+    
+ 
+      
+     
+      
+      
   
 
 
