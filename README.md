@@ -32,9 +32,9 @@ Chess App is a full-stack web application that allows users to login and play ch
 * The middle tier follows proper layered architecture and has reasonable (~70%) test coverage of the service layer. 
 
 ### Misc
+* We employed the **scrum** methodology and the **agile** development framework during the two-week sprint.
 * **GitHub** and **GitBash** for version control.
 * **Slack**, **Zoom**, and **Discord** for team communication and stand-up meetings.
-* We employed the **scrum** methodology and the **agile** development framework during the two-week sprint.
 
 ## Sample Views
 <img src="./img/login.png" alt="sample view" width="800"/>
