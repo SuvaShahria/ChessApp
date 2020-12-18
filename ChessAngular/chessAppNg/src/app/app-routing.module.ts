@@ -20,7 +20,7 @@ const routes: Routes = [
   ,{path: 'tips', component: TipsComponent}
   ,{path: 'play', component: PlayComponent}
   ,{path: 'home', component: HomeComponent, canActivate: [AuthGuard]}
-  ,{path: 'playvs', component: PlayvsComponent}
+  ,{path: 'playvs', component: PlayvsComponent, canActivate: [AuthGuard]}
   ,{path: 'replay', component: ReplayComponent}
   ,{path: '**', redirectTo: ''}
   
