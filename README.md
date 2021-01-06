@@ -1,10 +1,10 @@
 # Project-2: Chess App 
 ## Team Members:
 
-* Suva Shahria
-* Matthew LaFleur
-* Max Goncharov
-* Andrew Curry
+* Suva Shahria - Team Lead, Chess Logic, Chess Visualization, Controller, Communication between front-end and backend.
+* Matthew LaFleur- Login/Registration with the use of AuthGuard.
+* Max Goncharov - Documentation and CSS on home page.
+* Andrew Curry - Spring MVC, Handled majority of the backend and Testing.
 
 ## Executive Summary
 Chess App is a full-stack web application that allows users to login and play chess against each other online. Users can challenge other users to a game. Replay old games that they've played. Users can customize the theme of the board and the pieces.
