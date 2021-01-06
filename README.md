@@ -1,8 +1,8 @@
 # Project-2: Chess App 
 ## Team Members:
 
-* Suva Shahria - Team Lead, Chess Logic, Chess Visualization, Communication between front-end and backend for chess logic.
-* Matthew LaFleur- Login/Registration with the use of AuthGuard.
+* Suva Shahria - Team Lead, Chess Logic, Chess Visualization + Chess CSS, Communication between front-end and backend for chess logic.
+* Matthew LaFleur- Login/Registration with the use of AuthGuard, CSS for all pages.
 * Max Goncharov - Documentation and CSS on home page.
 * Andrew Curry - Spring MVC, Handled majority of the backend and Testing.
 
